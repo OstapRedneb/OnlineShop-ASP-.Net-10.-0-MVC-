@@ -18,7 +18,7 @@ namespace OnlineShop
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{firstNumber?}/{secondNumber?}")
+                pattern: "{controller=Home}/{action=Index}/{firstNumber?}/{secondNumber?}/{operationChar?}")
                 .WithStaticAssets();
 
             app.Run();
