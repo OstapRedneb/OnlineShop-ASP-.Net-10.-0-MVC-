@@ -1,14 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
+using OnlineShop.Services;
 using System.Diagnostics;
 
 namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public string Index()
         {
-            return View();
+            ProductService.Clear();
+            ProductService.AddRange(
+                [ 
+                    new Product("CyberEyes", 99_999.99m),
+                    new Product("SynthSlider", 20_199.99m),
+                    new Product("HyperTimer", 10_000m)
+                ]);
+            
+            List<Product> products = ProductService.GetAll();
+
+            string output = string.Join
+            (
+                "\n\n", 
+                products.Select(product => $"{product.Id}\n{product.Name}\n{product.Cost}")
+            );
+
+            return output;
         }
 
         public IActionResult Privacy()
