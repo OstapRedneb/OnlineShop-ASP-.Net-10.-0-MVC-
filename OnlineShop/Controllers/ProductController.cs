@@ -8,8 +8,7 @@ namespace OnlineShop.Controllers
     {
         public string Index(Guid id)
         {
-            List<Product> products = ProductService.GetAll();
-            Product? product = products.FirstOrDefault(product => product.Id == id);
+            Product? product = ProductService.GetById(id);
 
             string output = product is null ? "Нет такого продукта" : $"{product.Id}\n{product.Name}\n{product.Cost}";
 

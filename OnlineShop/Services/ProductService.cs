@@ -14,6 +14,10 @@ public static class ProductService
 
         return JsonConvert.DeserializeObject<List<Product>>(blob) ?? new List<Product>();
     }
+    public static Product? GetById(Guid id) 
+    {
+        return GetAll().FirstOrDefault(product => product.Id == id);
+    }
     public static bool Add(Product product)
     {
         bool answer = false;
