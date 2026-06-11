@@ -1,0 +1,934 @@
+﻿/* RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0c0f;
+    font-family: 'Space Grotesk', 'Share Tech Mono', monospace;
+    color: #ccd6e0;
+    line-height: 1.5;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Фоновая сетка (киберпанк) */
+.cyber-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(#00ffcc10 1px, transparent 1px), linear-gradient(90deg, #00ffcc10 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Эффект сканирования */
+.scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 10px #0ff;
+    animation: scanMove 6s linear infinite;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes scanMove {
+    0% {
+        top: -5px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* HEADER (Кибершапка) */
+.cyber-header {
+    position: sticky;
+    top: 0;
+    background: #05070ae6;
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid #0ff;
+    box-shadow: 0 0 15px #0ff4d, 0 2px 8px #000;
+    z-index: 100;
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+}
+
+/* Логотип */
+.cyber-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
+}
+
+.neon-text {
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff8;
+    letter-spacing: 2px;
+}
+
+.glitch {
+    position: relative;
+    color: #f0f;
+    text-shadow: -2px 0 cyan, 2px 0 magenta;
+    animation: glitchSkew 3s infinite;
+}
+
+    .glitch::before {
+        content: attr(data-text);
+        position: absolute;
+        left: -2px;
+        text-shadow: 2px 0 magenta;
+        top: 0;
+        color: #0ff;
+        background: #05070a;
+        overflow: hidden;
+        clip: rect(0, 900px, 0, 0);
+        animation: glitchAnim 2s infinite linear alternate-reverse;
+    }
+
+@keyframes glitchSkew {
+    0% {
+        transform: skew(0deg);
+    }
+
+    5% {
+        transform: skew(2deg);
+    }
+
+    10% {
+        transform: skew(-2deg);
+    }
+
+    15% {
+        transform: skew(0deg);
+    }
+
+    100% {
+        transform: skew(0deg);
+    }
+}
+
+@keyframes glitchAnim {
+    0% {
+        clip: rect(31px, 9999px, 94px, 0);
+    }
+
+    20% {
+        clip: rect(85px, 9999px, 21px, 0);
+    }
+
+    40% {
+        clip: rect(12px, 9999px, 71px, 0);
+    }
+
+    60% {
+        clip: rect(59px, 9999px, 43px, 0);
+    }
+
+    80% {
+        clip: rect(95px, 9999px, 13px, 0);
+    }
+
+    100% {
+        clip: rect(0px, 9999px, 0px, 0);
+    }
+}
+
+/* Навигация */
+.cyber-nav .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: #b0f0ff;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .nav-link i {
+        font-size: 1rem;
+        color: #f0f;
+    }
+
+    .nav-link:hover {
+        color: #fff;
+        text-shadow: 0 0 5px #0ff, 0 0 8px #f0f;
+        border-left: 2px solid #0ff;
+        border-right: 2px solid #f0f;
+        background: #0ff10a;
+        transform: translateY(-2px);
+    }
+
+/* Корзина бейдж */
+.cart-badge {
+    background: #ff0055;
+    color: #000;
+    font-size: 0.7rem;
+    border-radius: 30px;
+    padding: 0.1rem 0.5rem;
+    margin-left: 5px;
+    font-weight: bold;
+    display: none;
+}
+
+/* Мобильный toggler (кибербургер) */
+.cyber-toggler {
+    display: none;
+    background: transparent;
+    border: 1px solid #0ff;
+    padding: 10px;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.toggler-line {
+    width: 25px;
+    height: 2px;
+    background: #0ff;
+    transition: 0.2s;
+}
+
+/* FOOTER (киберфутер) */
+.cyber-footer {
+    margin-top: 4rem;
+    background: #030507e6;
+    backdrop-filter: blur(4px);
+    border-top: 1px solid #0ff;
+    padding: 2rem 0 1rem;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-title {
+    color: #0ff;
+    font-size: 1.1rem;
+    border-left: 3px solid #f0f;
+    padding-left: 10px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 0.6rem;
+}
+
+.footer-section a {
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+    .footer-section a:hover {
+        color: #0ff;
+        text-shadow: 0 0 3px #0ff;
+        margin-left: 5px;
+    }
+
+.stats-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.stat-label {
+    color: #f0f;
+}
+
+.stat-value {
+    color: #0ff;
+    font-weight: bold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.2rem;
+}
+
+    .social-icons a {
+        color: #aaa;
+        font-size: 1.7rem;
+    }
+
+        .social-icons a:hover {
+            color: #0ff;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px #0ff;
+        }
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #0ff3;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.blink {
+    animation: blinkAnime 1.2s step-end infinite;
+}
+
+@keyframes blinkAnime {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .cyber-toggler {
+        display: flex;
+    }
+
+    .cyber-nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 70%;
+        height: 100vh;
+        background: #0a0c0fe6;
+        backdrop-filter: blur(20px);
+        border-right: 2px solid #0ff;
+        transition: 0.3s;
+        padding: 2rem;
+        z-index: 200;
+    }
+
+        .cyber-nav.open {
+            left: 0;
+        }
+
+        .cyber-nav .nav-menu {
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+    .nav-link {
+        font-size: 1.4rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .stats-line {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Прочие киберэффекты для main (дополнительно) */
+.cyber-main {
+    min-height: 60vh;
+}
+
+
+/* ===== CATALOG STYLES (для Index.cshtml) ===== */
+.cyber-catalog {
+    padding: 1rem 0;
+}
+
+.glitch-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2rem;
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #f0f;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    animation: glitchText 2s infinite;
+}
+
+@keyframes glitchText {
+    0%, 100% {
+        text-shadow: -2px 0 cyan, 2px 0 magenta;
+    }
+
+    33% {
+        text-shadow: 2px 0 cyan, -2px 0 magenta;
+    }
+
+    66% {
+        text-shadow: -2px 0 magenta, 2px 0 cyan;
+    }
+}
+
+.terminal-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-badge {
+    font-family: monospace;
+    background: #0a0f1e;
+    padding: 0.2rem 0.8rem;
+    border-left: 3px solid #0ff;
+    font-size: 0.8rem;
+    color: #8bf;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.cyber-card {
+    background: #0c0f14e6;
+    backdrop-filter: blur(4px);
+    border: 1px solid #0ff4;
+    border-radius: 12px;
+    padding: 1.2rem;
+    position: relative;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+    .cyber-card:hover {
+        transform: translateY(-5px);
+        border-color: #0ff;
+        box-shadow: 0 0 15px #0ff6, 0 0 5px #f0f6;
+    }
+
+.card-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg, #0ff08, #0ff08 2px, transparent 2px, transparent 8px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.cyber-card:hover .card-glitch {
+    opacity: 0.15;
+    animation: glitchMove 0.3s infinite;
+}
+
+@keyframes glitchMove {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 1px);
+    }
+
+    40% {
+        transform: translate(2px, -1px);
+    }
+
+    60% {
+        transform: translate(-1px, 2px);
+    }
+
+    80% {
+        transform: translate(1px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+.card-image {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    margin-bottom: 1rem;
+}
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.3s;
+    }
+
+.cyber-card:hover .card-image img {
+    transform: scale(1.02);
+    filter: brightness(1.1) contrast(1.2);
+}
+
+.image-scan {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #0ff3, transparent);
+    transition: 0.6s;
+}
+
+.cyber-card:hover .image-scan {
+    left: 100%;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    font-weight: 600;
+}
+
+.product-link {
+    color: #cfddee;
+    text-decoration: none;
+}
+
+    .product-link:hover {
+        color: #0ff;
+        text-shadow: 0 0 3px #0ff;
+    }
+
+.price-block {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    margin: 0.8rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.price-currency {
+    color: #f0f;
+    font-size: 1.2rem;
+}
+
+.price-value {
+    color: #0ff;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.price-suffix {
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.cyber-btn {
+    background: linear-gradient(135deg, #0a0c14, #010101);
+    border: 1px solid #0ff;
+    color: #0ff;
+    padding: 0.5rem 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+    .cyber-btn:hover {
+        background: #0ff2;
+        box-shadow: 0 0 10px #0ff;
+        color: #fff;
+        border-color: #f0f;
+        transform: scale(0.98);
+    }
+
+@media (max-width: 640px) {
+    .products-grid {
+        gap: 1rem;
+    }
+
+    .glitch-title {
+        font-size: 1.5rem;
+    }
+}
+/* ===== PRODUCT DETAILS STYLES ===== */
+.cyber-details {
+    min-height: 70vh;
+    padding: 2rem 0;
+}
+
+.details-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.details-card {
+    background: #0c0f14e6;
+    backdrop-filter: blur(8px);
+    border: 1px solid #0ff;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+    .details-card:hover {
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), 0 0 10px rgba(255, 0, 255, 0.3);
+    }
+
+.details-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #0ff08, #0ff08 3px, transparent 3px, transparent 12px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.details-card:hover .details-glitch {
+    opacity: 0.1;
+    animation: glitchBg 0.4s infinite;
+}
+
+@keyframes glitchBg {
+    0% {
+        transform: translate(0);
+    }
+
+    25% {
+        transform: translate(-4px, 2px);
+    }
+
+    50% {
+        transform: translate(4px, -2px);
+    }
+
+    75% {
+        transform: translate(-2px, -1px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Блок картинки */
+.details-image {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    border: 1px solid #0ff8;
+    box-shadow: 0 0 15px #0ff4;
+}
+
+    .details-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.4s;
+    }
+
+.details-card:hover .details-image img {
+    transform: scale(1.02);
+    filter: brightness(1.05) contrast(1.1);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0ff1, #f0f1);
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.details-card:hover .image-overlay {
+    opacity: 0.2;
+}
+
+.scan-effect {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #0ff3, transparent);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+/* Блок информации */
+.details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-header {
+    border-bottom: 1px dashed #0ff5;
+    padding-bottom: 0.8rem;
+}
+
+.product-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.2rem;
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff;
+    letter-spacing: 1px;
+    margin: 0 0 0.5rem 0;
+}
+
+.neon-bracket {
+    color: #f0f;
+    text-shadow: 0 0 3px #f0f;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    margin-top: 0.5rem;
+}
+
+.price-label {
+    color: #f0f;
+    font-size: 1rem;
+    background: #0a0f1e;
+    padding: 0.1rem 0.5rem;
+    border-left: 2px solid #0ff;
+    margin-right: 0.8rem;
+}
+
+.price-value {
+    color: #0ff;
+    font-weight: bold;
+    text-shadow: 0 0 8px #0ff;
+}
+
+.price-currency {
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.section-title {
+    font-family: 'Share Tech Mono', monospace;
+    color: #f0f;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    border-left: 3px solid #0ff;
+    padding-left: 10px;
+}
+
+.product-description p {
+    line-height: 1.6;
+    color: #ccddee;
+    font-size: 1rem;
+    background: #05080c60;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #0ff2;
+}
+
+.details-actions {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.cyber-btn {
+    padding: 0.8rem 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    border: 1px solid #0ff;
+    background: #0a0c14;
+    color: #0ff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+    .cyber-btn i {
+        font-size: 1.1rem;
+    }
+
+    .cyber-btn.primary {
+        background: linear-gradient(135deg, #0a0f1e, #010101);
+        border-color: #0ff;
+        color: #0ff;
+    }
+
+        .cyber-btn.primary:hover {
+            background: #0ff2;
+            box-shadow: 0 0 12px #0ff;
+            color: #fff;
+            border-color: #f0f;
+            transform: translateY(-2px);
+        }
+
+    .cyber-btn.secondary {
+        border-color: #f0f;
+        color: #f0f;
+    }
+
+        .cyber-btn.secondary:hover {
+            background: #f0f1;
+            box-shadow: 0 0 12px #f0f;
+            color: #fff;
+            border-color: #0ff;
+            transform: translateY(-2px);
+        }
+
+.terminal-line {
+    margin-top: 1rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #0ff;
+    background: #00000060;
+    padding: 0.5rem;
+    border-left: 3px solid #0ff;
+}
+
+.prompt {
+    color: #f0f;
+    margin-right: 8px;
+}
+
+.blink-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .product-name {
+        font-size: 1.6rem;
+    }
+
+    .product-price {
+        font-size: 1.4rem;
+    }
+
+    .details-actions {
+        flex-direction: column;
+    }
+
+    .cyber-btn {
+        justify-content: center;
+    }
+}

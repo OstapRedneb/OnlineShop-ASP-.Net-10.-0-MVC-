@@ -3,48 +3,120 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineShop</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - CyberShop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/cyberpunk.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/OnlineShop.styles.css" asp-append-version="true" />
+    @* Если нужны иконки *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <div class="cyber-grid"></div> <!-- Фоновые линии сетки -->
+    <div class="scan-line"></div>  <!-- Анимация сканирования -->
+
+    <header class="cyber-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="cyber-logo">
+                        <span class="neon-text">[CYBER_SHOP]</span>
+                        <span class="glitch" data-text=">_">>_</span>
+                    </a>
+                </div>
+
+                <button class="cyber-toggler" id="navToggler" aria-label="Toggle navigation">
+                    <span class="toggler-line"></span>
+                    <span class="toggler-line"></span>
+                    <span class="toggler-line"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <nav class="cyber-nav" id="mainNav">
+                    <ul class="nav-menu">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i> [HOME]
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
+                                <i class="fas fa-shopping-cart"></i> [CART]
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">
+                                <i class="fas fa-user-secret"></i> [LOGIN]
+                            </a>
                         </li>
                     </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header-border"></div>
+    </header>
+
+    <main class="cyber-main">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="cyber-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-title">>_ NEURAL_LINKS</div>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">[PRIVACY_PROTOCOL]</a></li>
+                        <li><a href="#">[TERMINAL_API]</a></li>
+                        <li><a href="#">[SUPPORT_CHANNEL]</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <div class="footer-title">>_ CYBER_STATS</div>
+                    <div class="stats-line">
+                        <span class="stat-label">UPTIME:</span>
+                        <span class="stat-value" id="uptime">99.97%</span>
+                    </div>
+                    <div class="stats-line">
+                        <span class="stat-label">ENCRYPT:</span>
+                        <span class="stat-value">AES-256</span>
+                    </div>
+                    <div class="stats-line">
+                        <span class="stat-label">NODES:</span>
+                        <span class="stat-value">@DateTime.Now.Year - v.2.0.6</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <div class="footer-title">>_ SOCIAL_GRID</div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - OnlineShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="footer-copyright">
+                <span class="copy-symbol">©</span> 2026 - CYBER_SHOP // <span class="blink">_</span> ALL SYSTEMS [OK]
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Мобильное меню
+        const toggler = document.getElementById('navToggler');
+        const nav = document.getElementById('mainNav');
+        if (toggler) {
+        toggler.addEventListener('click', () => {
+        nav.classList.toggle('open');
+        toggler.classList.toggle('active');
+        });
+        }
+        updateCartBadge();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

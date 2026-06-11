@@ -1,0 +1,58 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = $"{Model.Name} | CYBER_DETAILS";
+}
+
+<div class="cyber-details">
+    <div class="details-container">
+        <div class="details-card">
+            <div class="details-glitch"></div>
+            
+            <div class="details-grid">
+                <!-- Блок с картинкой -->
+                <div class="details-image">
+                    <img src="~/img/glitch.gif" alt="@Model.Name" />
+                    <div class="image-overlay"></div>
+                    <div class="scan-effect"></div>
+                </div>
+
+                <!-- Блок с информацией -->
+                <div class="details-info">
+                    <div class="info-header">
+                        <h1 class="product-name">
+                            <span class="neon-bracket">[</span> @Model.Name <span class="neon-bracket">]</span>
+                        </h1>
+                        <div class="product-price">
+                            <span class="price-label">PRICE://</span>
+                            <span class="price-value">¥@Model.Cost <span class="price-currency">CR</span></span>
+                        </div>
+                    </div>
+
+                    <div class="product-description">
+                        <div class="section-title">>_ SPECIFICATION</div>
+                        <p>@Model.Description</p>
+                    </div>
+
+                    <div class="details-actions">
+                        <!-- КНОПКА НАЗАД: замени asp-атрибуты на свои -->
+                        <a asp-controller="Home" asp-action="Index" class="cyber-btn secondary">
+                            <i class="fas fa-arrow-left"></i> [BACK_TO_CATALOG]
+                        </a>
+
+                        <!-- КНОПКА В КОРЗИНУ: замени asp-атрибуты на свои -->
+                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="cyber-btn primary">
+                            <i class="fas fa-cart-plus"></i> [ADD_TO_CART]
+                        </a>
+                    </div>
+
+                    <!-- Дополнительная терминальная строка -->
+                    <div class="terminal-line">
+                        <span class="prompt">>_</span> ITEM_READY :: AWAITING_ACTION
+                        <span class="blink-cursor">_</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

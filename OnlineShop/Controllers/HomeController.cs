@@ -7,25 +7,23 @@ namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        public IActionResult Index()
+        {
+            List<Product> products = ProductService.GetAll();
+
+            return View(products);
+        }
+        public IActionResult Initial() 
         {
             ProductService.Clear();
             ProductService.AddRange(
-                [ 
+                [
                     new Product("CyberEyes", 99_999.99m),
                     new Product("SynthSlider", 20_199.99m),
                     new Product("HyperTimer", 10_000m)
                 ]);
-            
-            List<Product> products = ProductService.GetAll();
 
-            string output = string.Join
-            (
-                "\n\n", 
-                products.Select(product => $"{product.Id}\n{product.Name}\n{product.Cost}")
-            );
-
-            return output;
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

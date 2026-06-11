@@ -6,13 +6,14 @@ namespace OnlineShop.Controllers
 {
     public class ProductController : Controller
     {
-        public string Index(Guid id)
+        public IActionResult Index(Guid id)
         {
             Product? product = ProductService.GetById(id);
 
-            string output = product is null ? "Нет такого продукта" : $"{product.Id}\n{product.Name}\n{product.Cost}";
+            if (product is null)
+                return RedirectToAction("Index", "Home");
 
-            return output;
+            return View(product);
         }
     }
 }
