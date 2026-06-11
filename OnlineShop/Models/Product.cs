@@ -2,7 +2,7 @@ using System;
 
 namespace OnlineShop.Models;
 
-public record Product(Guid Id, string Name, decimal Cost, string? Description)
+public record Product(Guid Id, string Name, decimal Price, string? Description)
 {
     public Product() : this("TEST", decimal.MaxValue)
     { }
