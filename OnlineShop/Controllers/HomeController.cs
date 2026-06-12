@@ -15,6 +15,7 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Initial() 
         {
+            CartService.Clear();
             ProductService.Clear();
             ProductService.AddRange(
                 [

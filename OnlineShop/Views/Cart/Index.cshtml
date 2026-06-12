@@ -1,0 +1,83 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "CYBER_CART";
+    bool isCartEmpty = Model == null || !Model.Any();
+}
+
+<div class="cyber-cart">
+    <div class="cart-header">
+        <h1 class="glitch-title" data-text=">_ SHOPPING_CART">>_ SHOPPING_CART</h1>
+        <div class="cart-stats">
+            @if (!isCartEmpty)
+            {
+                <span class="stat-badge">[ITEMS: @Model.Sum(i => i.Quantity)]</span>
+                <span class="stat-badge">[UNITS: @Model.Count]</span>
+            }
+        </div>
+    </div>
+
+    @if (isCartEmpty)
+    {
+        <div class="empty-cart">
+            <div class="empty-icon">
+                <i class="fas fa-database"></i>
+                <span class="glitch-text">[EMPTY]</span>
+            </div>
+            <p class="empty-message">>_ NO_DATA_FOUND IN CARTRIDGE</p>
+            <a asp-controller="Home" asp-action="Index" class="cyber-btn primary">
+                <i class="fas fa-arrow-left"></i> [CONTINUE_SHOPPING]
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-items">
+            @foreach (var item in Model)
+            {
+                <div class="cart-item-card">
+                    <div class="item-image">
+                        <img src="~/img/glitch.gif" alt="@item.Product.Name" />
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.Product.Id" class="product-link">
+                                @item.Product.Name
+                            </a>
+                        </h3>
+                        <div class="item-price">¥@item.Price <span class="currency">CR</span></div>
+                    </div>
+                    <div class="item-quantity">
+                        <!-- Кнопка "-" (уменьшить количество) -->
+                        <a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.Product.Id" asp-route-change="decr" class="qty-btn">
+                            <i class="fas fa-minus"></i>
+                        </a>
+                        <span class="qty-value">@item.Quantity</span>
+                        <!-- Кнопка "+" (увеличить количество) -->
+                        <a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.Product.Id" asp-route-change="incr" class="qty-btn">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                    <div class="item-total">
+                        ¥@(item.Price * item.Quantity) CR
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-line">
+                <span class="summary-label">>_ TOTAL_AMOUNT</span>
+                <span class="summary-value">¥@Model.Price <span class="currency">CR</span></span>
+            </div>
+            <div class="summary-actions">
+                <a asp-controller="Cart" asp-action="Clear" class="cyber-btn secondary">
+                    <i class="fas fa-trash-alt"></i> [CLEAR_CART]
+                </a>
+                <a asp-controller="Order" asp-action="Checkout" class="cyber-btn primary">
+                    <i class="fas fa-credit-card"></i> [CHECKOUT]
+                </a>
+            </div>
+        </div>
+    }
+</div>

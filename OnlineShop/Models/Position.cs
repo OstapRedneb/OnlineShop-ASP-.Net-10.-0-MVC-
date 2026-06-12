@@ -3,7 +3,7 @@
     public record Position
     {
         public Guid Id { get; init; }
-        public required Product Product { get; init; }
+        public Product Product { get; init; }
         public ushort Quantity
         {
             get => field;
@@ -18,6 +18,8 @@
         public decimal Price => Product.Price * Quantity;
 
 
+        public Position() 
+        { }
         public Position(Product product) : this(product, 1) 
         { }
         public Position(Product product, ushort quantity)
