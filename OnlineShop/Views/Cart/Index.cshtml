@@ -45,7 +45,7 @@
                                 @item.Product.Name
                             </a>
                         </h3>
-                        <div class="item-price">¥@item.Price <span class="currency">CR</span></div>
+                        <div class="item-price">¥@item.Product.Price <span class="currency">CR</span></div>
                     </div>
                     <div class="item-quantity">
                         <!-- Кнопка "-" (уменьшить количество) -->
@@ -59,7 +59,7 @@
                         </a>
                     </div>
                     <div class="item-total">
-                        ¥@(item.Price * item.Quantity) CR
+                        ¥@(item.Price) CR
                     </div>
                 </div>
             }
@@ -74,7 +74,7 @@
                 <a asp-controller="Cart" asp-action="Clear" class="cyber-btn secondary">
                     <i class="fas fa-trash-alt"></i> [CLEAR_CART]
                 </a>
-                <a asp-controller="Order" asp-action="Checkout" class="cyber-btn primary">
+                <a asp-controller="Order" asp-action="Index" class="cyber-btn primary">
                     <i class="fas fa-credit-card"></i> [CHECKOUT]
                 </a>
             </div>

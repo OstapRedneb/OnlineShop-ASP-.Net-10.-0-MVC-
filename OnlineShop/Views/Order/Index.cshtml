@@ -1,0 +1,90 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "CYBER_CHECKOUT";
+}
+
+<div class="cyber-order">
+    <div class="order-header">
+        <h1 class="glitch-title" data-text=">_ CHECKOUT_TERMINAL">>_ CHECKOUT_TERMINAL</h1>
+        <div class="order-status">
+            <span class="status-badge">[ENCRYPTED_CHANNEL]</span>
+            <span class="status-badge">[SECURE_PAYMENT]</span>
+        </div>
+    </div>
+
+    <div class="order-grid">
+        <!-- Блок информации о покупателе -->
+        <div class="order-customer">
+            <div class="section-title">
+                <i class="fas fa-user-secret"></i> >_ NEURAL_PROFILE
+            </div>
+            <div class="customer-form">
+                <div class="form-field">
+                    <label for="name">[IDENTIFICATION]</label>
+                    <input type="text" id="name" name="name" placeholder="OPERATOR_NAME" class="cyber-input" />
+                </div>
+                <div class="form-field">
+                    <label for="address">[DELIVERY_COORDINATES]</label>
+                    <input type="text" id="address" name="address" placeholder="ZONE//STREET//BLOCK" class="cyber-input" />
+                </div>
+                <div class="form-field">
+                    <label for="phone">[CONTACT_FREQUENCY]</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+N [XXX] XXX-XX-XX" class="cyber-input" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок информации о заказе (таблица) -->
+        <div class="order-items">
+            <div class="section-title">
+                <i class="fas fa-shopping-cart"></i> >_ CARGO_MANIFEST
+            </div>
+            <div class="items-table-wrapper">
+                <table class="cyber-table">
+                    <thead>
+                        <tr>
+                            <th>ITEM_ID</th>
+                            <th>DESIGNATION</th>
+                            <th>UNIT_PRICE (CR)</th>
+                            <th>QUANTITY</th>
+                            <th>TOTAL (CR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var position in Model)
+                        {
+                            <tr>
+                                <td data-label="ITEM_ID">#@position.Product.Id</td>
+                                <td data-label="DESIGNATION">@position.Product.Name</td>
+                                <td data-label="UNIT_PRICE">¥@position.Product.Price.ToString("N2")</td>
+                                <td data-label="QUANTITY">@position.Quantity</td>
+                                <td data-label="TOTAL">¥@((position.Price).ToString("N2"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="4" class="total-label">>_ FINAL_AMOUNT</td>
+                            <td class="total-value">¥@Model.Price.ToString("N2") CR</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-actions">
+        <a asp-controller="Order" asp-action="Pay" class="cyber-btn primary">
+            <i class="fas fa-credit-card"></i> [PAY_ORDER]
+        </a>
+        <a asp-controller="Home" asp-action="Index" class="cyber-btn secondary">
+            <i class="fas fa-store"></i> [CONTINUE_SHOPPING]
+        </a>
+    </div>
+
+    <div class="terminal-note">
+        <span class="prompt">>_</span> SYSTEM_READY :: AWAITING_CONFIRMATION
+        <span class="blink-cursor">_</span>
+    </div>
+</div>
