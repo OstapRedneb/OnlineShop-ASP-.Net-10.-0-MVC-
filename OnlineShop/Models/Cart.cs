@@ -69,6 +69,24 @@ namespace OnlineShop.Models
             this._positions.Add(new Position(product));
             return true;
         }
+        public bool Remove(Position position) 
+        {
+            if (position is null || !this.Contains(position)) 
+                return false;
+
+            _positions.Remove(position);
+            return true;
+        }
+        public bool Remove(Product product) 
+        {
+            if (product is null || this.All(position => position.Product.Id != product.Id))
+                return false;
+
+            Position position = this.FirstOrDefault(position => position.Product.Id == product.Id);
+
+            _positions.Remove(position);
+            return true;
+        }
         public void Clear() 
         {
             _positions.Clear();

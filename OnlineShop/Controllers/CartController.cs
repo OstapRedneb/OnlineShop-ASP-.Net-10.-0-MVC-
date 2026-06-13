@@ -36,7 +36,7 @@ namespace OnlineShop.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult Clear() 
+        public IActionResult Update(Guid positionId, string change)
         {
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
@@ -45,7 +45,35 @@ namespace OnlineShop.Controllers
                 cart = new Cart() { Id = Info.Info.CommonCartId };
                 cartService.Add(cart);
             }
-            
+
+            Position? position = cart.FirstOrDefault(position => position.Id == positionId);
+
+            if (position != null)
+            {
+                if (change == "incr")
+                    position.Quantity++;
+
+                else if (position.Quantity <= 1)
+                    cart.Remove(position);
+
+                else 
+                    position.Quantity--;
+
+                cartService.Update(cart);
+            }
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Clear()
+        {
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+
+            if (cart is null)
+            {
+                cart = new Cart() { Id = Info.Info.CommonCartId };
+                cartService.Add(cart);
+            }
+
             cart.Clear();
             cartService.Update(cart);
 

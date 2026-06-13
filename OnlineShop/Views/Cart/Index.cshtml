@@ -49,12 +49,12 @@
                     </div>
                     <div class="item-quantity">
                         <!-- Кнопка "-" (уменьшить количество) -->
-                        <a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.Product.Id" asp-route-change="decr" class="qty-btn">
+                        <a asp-controller="Cart" asp-action="Update" asp-route-positionId="@item.Id" asp-route-change="decr" class="qty-btn">
                             <i class="fas fa-minus"></i>
                         </a>
                         <span class="qty-value">@item.Quantity</span>
                         <!-- Кнопка "+" (увеличить количество) -->
-                        <a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.Product.Id" asp-route-change="incr" class="qty-btn">
+                        <a asp-controller="Cart" asp-action="Update" asp-route-positionId="@item.Id" asp-route-change="incr" class="qty-btn">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
