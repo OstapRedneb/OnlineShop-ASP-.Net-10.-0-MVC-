@@ -1,3 +1,6 @@
+using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.JsonServices;
+
 namespace OnlineShop
 {
     public class Program
@@ -8,6 +11,9 @@ namespace OnlineShop
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<IProductService, ProductService>();
+            builder.Services.AddTransient<ICartService, CartService>();
 
             var app = builder.Build();
 

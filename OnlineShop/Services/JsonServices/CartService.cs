@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using OnlineShop.Models;
+using OnlineShop.Services.Interfaces;
 
-namespace OnlineShop.Services
+namespace OnlineShop.Services.JsonServices
 {
-    public static class CartService
+    public class CartService : ICartService
     {
         private const string _path = "carts.json";
 
 
-        public static List<Cart> GetAll()
+        public List<Cart> GetAll()
         {
             string blob = GetCartsBlob();
 
@@ -18,13 +19,13 @@ namespace OnlineShop.Services
                     ?.Select(cartData => (Cart)cartData)
                     ?.ToList() ?? new List<Cart>();
         }
-        public static Cart? GetById(Guid id) 
+        public Cart? GetById(Guid id) 
         {
             List<Cart> carts = GetAll();
 
             return carts.FirstOrDefault(cart => cart.Id == id);
         }
-        public static bool Add(Cart cart) 
+        public bool Add(Cart cart) 
         {
             List<Cart> carts = GetAll();
 
@@ -36,14 +37,14 @@ namespace OnlineShop.Services
 
             return true;
         }
-        public static void AddRange(params List<Cart> carts) 
+        public void AddRange(params List<Cart> carts) 
         {
             List<Cart> cartsFromMemory = GetAll();
 
             List<Cart> newCarts = cartsFromMemory.Union(carts, new CartIdEqualityComparer()).ToList();
             WriteIntoMemory(newCarts);
         }
-        public static bool Update(Cart cart) 
+        public bool Update(Cart cart) 
         {
             List<Cart> carts = GetAll();
 
@@ -68,12 +69,12 @@ namespace OnlineShop.Services
             WriteIntoMemory(carts);
             return true;
         }
-        public static void Clear()
+        public void Clear()
         {
             if (File.Exists(_path))
                 File.Delete(_path);
         }
-        private static void WriteIntoMemory(List<Cart> carts)
+        private void WriteIntoMemory(List<Cart> carts)
         {
             string blob = JsonConvert.SerializeObject(carts.OfType<Cart>().Select(cart => (CartData)cart).ToList());
 
@@ -82,7 +83,7 @@ namespace OnlineShop.Services
                 writer.Write(blob);
             }
         }
-        private static string GetCartsBlob()
+        private string GetCartsBlob()
         {
             if (File.Exists(_path))
                 using (StreamReader reader = new StreamReader(_path, false))

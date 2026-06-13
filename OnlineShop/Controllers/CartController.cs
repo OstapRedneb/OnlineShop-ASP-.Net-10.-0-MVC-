@@ -1,52 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
-using OnlineShop.Services;
+using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.JsonServices;
 
 namespace OnlineShop.Controllers
 {
-    public class CartController : Controller
+    public class CartController(IProductService productService, ICartService cartService) : Controller
     {
         public IActionResult Index()
         {
-            Cart? cart = CartService.GetById(Info.Info.CommonCartId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
             {
                 cart = new Cart() { Id = Info.Info.CommonCartId };
-                CartService.Add(cart);
+                cartService.Add(cart);
             }
 
             return View(cart);
         }
         public IActionResult Add(Guid productId)
         {
-            Cart? cart = CartService.GetById(Info.Info.CommonCartId);
-            Product? product = ProductService.GetById(productId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            Product? product = productService.GetById(productId);
 
             if (cart is null)
             {
                 cart = new Cart() { Id = Info.Info.CommonCartId };
-                CartService.Add(cart);
+                cartService.Add(cart);
             }
 
             cart.Add(product);
 
-            CartService.Update(cart);
+            cartService.Update(cart);
 
             return RedirectToAction("Index");
         }
         public IActionResult Clear() 
         {
-            Cart? cart = CartService.GetById(Info.Info.CommonCartId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
             {
                 cart = new Cart() { Id = Info.Info.CommonCartId };
-                CartService.Add(cart);
+                cartService.Add(cart);
             }
             
             cart.Clear();
-            CartService.Update(cart);
+            cartService.Update(cart);
 
             return RedirectToAction("Index");
         }

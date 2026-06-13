@@ -1,23 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
-using OnlineShop.Services;
+using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.JsonServices;
 using System.Diagnostics;
 
 namespace OnlineShop.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IProductService productService, ICartService cartService) : Controller
     {
         public IActionResult Index()
         {
-            List<Product> products = ProductService.GetAll();
+            List<Product> products = productService.GetAll();
 
             return View(products);
         }
         public IActionResult Initial() 
         {
-            CartService.Clear();
-            ProductService.Clear();
-            ProductService.AddRange(
+            cartService.Clear();
+            productService.Clear();
+            productService.AddRange(
                 [
                     new Product("CyberEyes", 99_999.99m),
                     new Product("SynthSlider", 20_199.99m),
