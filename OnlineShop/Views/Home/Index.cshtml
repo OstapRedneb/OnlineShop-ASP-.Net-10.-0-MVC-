@@ -20,6 +20,12 @@
                  Я оставляю пока просто блок, переход по заголовку. -->
             <div class="cyber-card" data-product-id="@product.Id">
                 <div class="card-glitch"></div>
+
+                <!-- СЕРДЕЧКО (избранное) -->
+                <a asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id" class="favorite-heart">
+                    <i class="far fa-heart"></i>
+                </a>
+
                 <div class="card-content">
                     <div class="card-image">
                         <img src="~/img/glitch.gif" alt="@product.Name" loading="lazy" />
@@ -27,7 +33,6 @@
                     </div>
                     <div class="card-info">
                         <h3 class="product-title">
-                            <!-- ССЫЛКА НА ДЕТАЛИ: заполни свой asp-хелпер -->
                             <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="product-link">
                                 @product.Name
                             </a>
@@ -37,7 +42,6 @@
                             <span class="price-value">@product.Price</span>
                             <span class="price-suffix">CR</span>
                         </div>
-                        <!-- КНОПКА ADD TO CART: заполни свой asp-хелпер (контроллер, экшен, параметры) -->
                         <a asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id" class="cyber-btn">
                             <i class="fas fa-cart-plus"></i> [ADD_TO_CART]
                         </a>

@@ -8,7 +8,12 @@
     <div class="details-container">
         <div class="details-card">
             <div class="details-glitch"></div>
-            
+
+            <!-- СЕРДЕЧКО (избранное) -->
+            <a asp-controller="Favorite" asp-action="Add" asp-route-productId="@Model.Id" class="favorite-heart">
+                <i class="far fa-heart"></i>
+            </a>
+
             <div class="details-grid">
                 <!-- Блок с картинкой -->
                 <div class="details-image">
@@ -35,18 +40,14 @@
                     </div>
 
                     <div class="details-actions">
-                        <!-- КНОПКА НАЗАД: замени asp-атрибуты на свои -->
-                        <a asp-controller="Home" asp-action="Index" class="cyber-btn secondary">
-                            <i class="fas fa-arrow-left"></i> [BACK_TO_CATALOG]
+                        <a href="@Context.Request.Headers["Referer"]" class="cyber-btn secondary">
+                            <i class="fas fa-arrow-left"></i> [BACK]
                         </a>
-
-                        <!-- КНОПКА В КОРЗИНУ: замени asp-атрибуты на свои -->
                         <a asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" class="cyber-btn primary">
                             <i class="fas fa-cart-plus"></i> [ADD_TO_CART]
                         </a>
                     </div>
 
-                    <!-- Дополнительная терминальная строка -->
                     <div class="terminal-line">
                         <span class="prompt">>_</span> ITEM_READY :: AWAITING_ACTION
                         <span class="blink-cursor">_</span>

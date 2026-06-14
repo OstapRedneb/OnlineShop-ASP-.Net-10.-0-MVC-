@@ -1473,3 +1473,249 @@ body {
         font-size: 0.9rem;
     }
 }
+/* ===== FAVORITES STYLES ===== */
+.cyber-favorite {
+    padding: 1rem 0;
+    min-height: 70vh;
+}
+
+.favorite-header {
+    margin-bottom: 2rem;
+}
+
+.favorite-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.empty-favorite {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #0c0f14e6;
+    border: 1px solid #f0f;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.empty-icon i {
+    font-size: 5rem;
+    color: #f0f;
+    text-shadow: 0 0 10px #f0f;
+}
+
+.glitch-text {
+    font-family: 'Share Tech Mono', monospace;
+    color: #0ff;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.empty-message {
+    font-family: monospace;
+    color: #aaa;
+    margin: 1rem 0 2rem;
+    font-size: 1.1rem;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.favorite-card {
+    background: #0c0f14e6;
+    backdrop-filter: blur(4px);
+    border: 1px solid #f0f4;
+    border-radius: 16px;
+    padding: 1rem;
+    position: relative;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+    .favorite-card:hover {
+        transform: translateY(-5px);
+        border-color: #f0f;
+        box-shadow: 0 0 15px #f0f6, 0 0 5px #0ff6;
+    }
+
+.card-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #f0f08, #f0f08 2px, transparent 2px, transparent 10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.favorite-card:hover .card-glitch {
+    opacity: 0.12;
+    animation: glitchMove 0.3s infinite;
+}
+
+.card-image {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    margin-bottom: 1rem;
+}
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.3s;
+    }
+
+.favorite-card:hover .card-image img {
+    transform: scale(1.02);
+    filter: brightness(1.05) contrast(1.1);
+}
+
+.image-scan {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #f0f3, transparent);
+    transition: 0.6s;
+}
+
+.favorite-card:hover .image-scan {
+    left: 100%;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.product-link {
+    color: #cfddee;
+    text-decoration: none;
+}
+
+    .product-link:hover {
+        color: #f0f;
+        text-shadow: 0 0 3px #f0f;
+    }
+
+.card-price {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.3rem;
+    color: #0ff;
+    text-shadow: 0 0 3px #0ff;
+}
+
+    .card-price .currency {
+        font-size: 0.8rem;
+        color: #f0f;
+    }
+
+.card-description {
+    color: #aaa;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0.2rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.cyber-btn.small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    gap: 5px;
+}
+
+.cyber-btn.danger {
+    border-color: #f0f;
+    color: #f0f;
+}
+
+    .cyber-btn.danger:hover {
+        background: #f0f2;
+        box-shadow: 0 0 10px #f0f;
+        border-color: #0ff;
+    }
+
+.favorite-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .favorite-actions {
+        justify-content: center;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .cyber-btn.small {
+        justify-content: center;
+    }
+}
+/* Сердечко избранного на карточке (общий стиль для Home и Product) */
+.favorite-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #f0f;
+    color: #f0f;
+    font-size: 1.3rem;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+    .favorite-heart:hover {
+        transform: scale(1.1);
+        background: #f0f2;
+        box-shadow: 0 0 12px #f0f;
+        color: #fff;
+    }
+
+    .favorite-heart i {
+        pointer-events: none;
+    }

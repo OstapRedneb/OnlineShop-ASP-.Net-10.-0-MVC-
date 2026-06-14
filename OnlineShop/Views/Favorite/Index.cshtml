@@ -1,0 +1,74 @@
+﻿@model Favorite
+
+@{
+    ViewData["Title"] = "NEURAL_FAVORITES";
+    bool isFavoriteEmpty = Model == null || !Model.Any();
+}
+
+<div class="cyber-favorite">
+    <div class="favorite-header">
+        <h1 class="glitch-title" data-text=">_ NEURAL_FAVORITES">>_ NEURAL_FAVORITES</h1>
+        <div class="favorite-stats">
+            @if (!isFavoriteEmpty)
+            {
+                <span class="stat-badge">[SYNAPSE_COUNT: @Model?.Count()]</span>
+                <span class="stat-badge">[NEURAL_LINK: ACTIVE]</span>
+            }
+        </div>
+    </div>
+
+    @if (isFavoriteEmpty)
+    {
+        <div class="empty-favorite">
+            <div class="empty-icon">
+                <i class="fas fa-heart-broken"></i>
+                <span class="glitch-text">[NO_FAVORITES]</span>
+            </div>
+            <p class="empty-message">>_ NO_ITEMS_FOUND IN NEURAL_CORTEX</p>
+            <a asp-controller="Home" asp-action="Index" class="cyber-btn primary">
+                <i class="fas fa-store"></i> [START_SHOPPING]
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="favorites-grid">
+            @foreach (var item in Model)
+            {
+                <div class="favorite-card">
+                    <div class="card-glitch"></div>
+                    <div class="card-image">
+                        <img src="~/img/glitch.gif" alt="@item.Name" />
+                        <div class="image-scan"></div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.Id" class="product-link">
+                                @item.Name
+                            </a>
+                        </h3>
+                        <div class="card-price">¥@item.Price <span class="currency">CR</span></div>
+                        <p class="card-description">@(string.Concat(item?.Description?.Take(15) ?? new char[0]) + "...")</p>
+                        <div class="card-actions">
+                            <a asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Id" class="cyber-btn small">
+                                <i class="fas fa-cart-plus"></i> ADD
+                            </a>
+                            <a asp-controller="Favorite" asp-action="Remove" asp-route-productId="@item.Id" class="cyber-btn small danger">
+                                <i class="fas fa-trash-alt"></i> REMOVE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="favorite-actions">
+            <a asp-controller="Favorite" asp-action="Clear" class="cyber-btn secondary">
+                <i class="fas fa-broom"></i> [CLEAR_ALL_FAVORITES]
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="cyber-btn primary">
+                <i class="fas fa-arrow-left"></i> [CONTINUE_SHOPPING]
+            </a>
+        </div>
+    }
+</div>
