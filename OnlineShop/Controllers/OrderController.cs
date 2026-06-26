@@ -15,7 +15,9 @@ namespace OnlineShop.Controllers
 
             return View(cart);
         }
-        public IActionResult Pay() 
+
+        [HttpPost]
+        public IActionResult Pay(Order order) 
         {
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
@@ -25,6 +27,10 @@ namespace OnlineShop.Controllers
             //Clear
             cart.Clear();
             cartService.Update(cart);
+
+            System.Console.WriteLine(order);
+
+            //доделай сохранение заказов
 
             return RedirectToAction("Successfull");
         }
