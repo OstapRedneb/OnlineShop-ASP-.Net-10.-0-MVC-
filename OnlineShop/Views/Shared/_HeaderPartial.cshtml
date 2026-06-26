@@ -1,0 +1,43 @@
+﻿
+<div class="container">
+    <div class="header-content">
+        <div class="logo">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="cyber-logo">
+                <span class="neon-text">[CYBER_SHOP]</span>
+                <span class="glitch" data-text=">_">>_</span>
+            </a>
+        </div>
+
+        <button class="cyber-toggler" id="navToggler" aria-label="Toggle navigation">
+            <span class="toggler-line"></span>
+            <span class="toggler-line"></span>
+            <span class="toggler-line"></span>
+        </button>
+
+        <nav class="cyber-nav" id="mainNav">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-home"></i> [HOME]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
+                        <i class="fas fa-shopping-cart"></i> [CART] @await Component.InvokeAsync("CartCounter");
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Favorite" asp-action="Index">
+                        <i class="fas fa-heart"></i> [FAVORITES]
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">
+                        <i class="fas fa-user-secret"></i> [LOGIN]
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="header-border"></div>

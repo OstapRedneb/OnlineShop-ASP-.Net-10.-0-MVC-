@@ -1719,3 +1719,54 @@ body {
     .favorite-heart i {
         pointer-events: none;
     }
+
+
+
+
+.cart-badge-cyber {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    margin-left: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #fff;
+    background: #ff0055;
+    border: 1px solid #0ff;
+    border-radius: 4px;
+    box-shadow: 0 0 6px #ff0055, 0 0 12px #0ff;
+    text-shadow: 0 0 3px #000;
+    position: relative;
+    animation: glitchBadge 2s infinite;
+}
+
+@keyframes glitchBadge {
+    0% {
+        transform: skew(0deg);
+    }
+
+    2% {
+        transform: skew(2deg);
+        background: #ff0055;
+    }
+
+    4% {
+        transform: skew(-2deg);
+        background: #0ff;
+        color: #000;
+    }
+
+    6% {
+        transform: skew(0deg);
+        background: #ff0055;
+        color: #fff;
+    }
+
+    100% {
+        transform: skew(0deg);
+    }
+}
