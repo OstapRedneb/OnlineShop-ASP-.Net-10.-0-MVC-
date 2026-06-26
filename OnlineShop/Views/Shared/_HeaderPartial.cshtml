@@ -23,12 +23,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
-                        <i class="fas fa-shopping-cart"></i> [CART] @await Component.InvokeAsync("CartCounter");
+                        <i class="fas fa-shopping-cart"></i> [CART] @await Component.InvokeAsync("CartCounter")
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Favorite" asp-action="Index">
-                        <i class="fas fa-heart"></i> [FAVORITES]
+                        <i class="fas fa-heart"></i> [FAVORITES] @await Component.InvokeAsync("FavoriteCounter")
                     </a>
                 </li>
                 <li class="nav-item">
