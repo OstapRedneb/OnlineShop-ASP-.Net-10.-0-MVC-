@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace OnlineShop.Controllers
 {
-    public class HomeController(IProductService productService, ICartService cartService, IFavoriteService favoriteService) : Controller
+    public class HomeController(IProductService productService, ICartService cartService, IFavoriteService favoriteService, IOrderListService orderListService) : Controller
     {
         public IActionResult Index()
         {
@@ -18,6 +18,7 @@ namespace OnlineShop.Controllers
         {
             cartService.Clear();
             favoriteService.Clear();
+            orderListService.Clear();
             productService.Clear();
             productService.AddRange(
                 [

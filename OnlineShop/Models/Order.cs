@@ -11,4 +11,7 @@ public record Order
     public DateTime Date { get; set; }
     public string? Coment { get; set; }
 
+    public Order()
+    { }
+
 }
