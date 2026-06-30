@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Авторизация пользователя";
+}
+
+<div class="cyber-auth">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-glitch"></div>
+
+            <div class="auth-header">
+                <h1 class="auth-title glitch-title" data-text=">_ LOGIN_TERMINAL">>_ LOGIN_TERMINAL</h1>
+                <div class="auth-subtitle">[ENTER_CREDENTIALS]</div>
+            </div>
+
+            <form method="post" class="auth-form">
+                <div class="form-field">
+                    <label class="form-label">Логин</label>
+                    <input class="cyber-input" placeholder="Ваш логин" required name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Пароль</label>
+                    <input class="cyber-input" type="password" placeholder="Ваш пароль" required name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                </div>
+                <div class="form-field checkbox-field">
+                    <label class="cyber-checkbox">
+                        <input type="checkbox" value="true" name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                        <span class="checkmark"></span>
+                        Запомнить меня
+                    </label>
+                </div>
+
+                <button type="submit" class="cyber-btn primary" asp-controller="Account" asp-action="Login">
+                    <i class="fas fa-key"></i> Войти
+                </button>
+
+                <div class="auth-footer">
+                    <a class="register-link" asp-controller="Account" asp-action="Register">
+                        Регистрация нового пользователя
+                    </a>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> SECURE_CHANNEL :: ENCRYPTION_ACTIVE
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>
