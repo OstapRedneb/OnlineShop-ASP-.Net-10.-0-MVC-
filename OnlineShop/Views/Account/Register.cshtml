@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="cyber-auth">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-glitch"></div>
+            <div class="auth-header">
+                <h1 class="auth-title glitch-title" data-text=">_ REGISTER_TERMINAL">>_ REGISTER_TERMINAL</h1>
+                <div class="auth-subtitle">[CREATE_ACCOUNT]</div>
+            </div>
+            <form method="post" class="auth-form">
+                <!-- Поля: Login, Password, ConfirmPassword, Email и т.д. -->
+                <div class="form-field">
+                    <label>Логин</label>
+                    <input class="cyber-input" placeholder="Ваш логин" required name="Login" />
+                </div>
+                <div class="form-field">
+                    <label>Пароль</label>
+                    <input class="cyber-input" type="password" placeholder="Ваш пароль" required name="Password" />
+                </div>
+                <div class="form-field">
+                    <label>Повторите пароль</label>
+                    <input class="cyber-input" type="password" placeholder="Повторите ваш пароль" required name="CopyPassword"/>
+                </div>
+                <button type="submit" class="cyber-btn primary" asp-controller="Account" asp-action="Register">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+                <div class="auth-footer">
+                    <a class="register-link" asp-controller="Account" asp-action="Login">Уже есть аккаунт? Войти</a>
+                </div>
+            </form>
+            <div class="terminal-line">
+                <span class="prompt">>_</span> SECURE_CHANNEL :: ENCRYPTION_ACTIVE
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>
