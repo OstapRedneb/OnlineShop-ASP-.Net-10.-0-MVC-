@@ -1,0 +1,44 @@
+﻿@* _AdminSidebar.cshtml - Левая панель администратора *@
+
+<aside class="admin-sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <i class="fas fa-terminal"></i>
+            <span>[ADMIN_PANEL]</span>
+        </div>
+        <div class="sidebar-glitch"></div>
+    </div>
+    <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a asp-controller="Admin" asp-action="Order" class="sidebar-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a asp-controller="Admin" asp-action="User" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a asp-controller="Admin" asp-action="Role" class="sidebar-link">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a asp-controller="Admin" asp-action="Product" class="sidebar-link">
+                    <i class="fas fa-microchip"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="terminal-line">
+            <span class="prompt">>_</span> SYSTEM_READY
+        </div>
+    </div>
+</aside>

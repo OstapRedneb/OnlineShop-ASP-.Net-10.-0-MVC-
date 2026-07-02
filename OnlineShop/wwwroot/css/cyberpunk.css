@@ -1980,3 +1980,251 @@ body {
     .auth-title {
         font-size: 1.5rem;
     }
+}
+
+/* ===== ADMIN SIDEBAR STYLES ===== */
+.admin-sidebar {
+    background: #0c0f14e6;
+    backdrop-filter: blur(8px);
+    border-right: 2px solid #0ff;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+    transition: 0.3s;
+}
+
+.sidebar-header {
+    position: relative;
+    padding: 0 1.5rem 1rem;
+    border-bottom: 1px solid #0ff4;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.sidebar-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.3rem;
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sidebar-logo i {
+    color: #f0f;
+    font-size: 1.2rem;
+}
+
+.sidebar-glitch {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f0f, #0ff, transparent);
+    animation: sidebarGlitch 3s infinite;
+}
+
+@keyframes sidebarGlitch {
+    0% { opacity: 0.3; transform: translateX(-100%); }
+    50% { opacity: 1; transform: translateX(100%); }
+    100% { opacity: 0.3; transform: translateX(-100%); }
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 0.5rem 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    margin: 0.2rem 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 1.5rem;
+    color: #b0f0ff;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    background: transparent;
+    border-right: none;
+}
+
+.sidebar-link i {
+    width: 24px;
+    text-align: center;
+    color: #f0f;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.sidebar-link span {
+    flex: 1;
+}
+
+.sidebar-link:hover {
+    background: #0ff15;
+    border-left-color: #0ff;
+    color: #fff;
+    text-shadow: 0 0 8px #0ff;
+}
+
+.sidebar-link:hover i {
+    color: #0ff;
+    transform: scale(1.1);
+}
+
+.sidebar-link.active {
+    background: #0ff15;
+    border-left-color: #f0f;
+    color: #fff;
+    box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+.sidebar-link.active i {
+    color: #0ff;
+}
+
+/* Стиль для активного пункта (можно задать через класс в коде) */
+.sidebar-item.active .sidebar-link {
+    background: #0ff15;
+    border-left-color: #f0f;
+    color: #fff;
+    box-shadow: inset 0 0 15px rgba(255, 0, 255, 0.1);
+}
+
+.sidebar-item.active .sidebar-link i {
+    color: #0ff;
+}
+
+.sidebar-footer {
+    padding: 1rem 1.5rem 0.5rem;
+    border-top: 1px solid #0ff3;
+}
+
+.sidebar-footer .terminal-line {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: #0ff;
+    background: #00000030;
+    padding: 0.3rem 0.5rem;
+    border-left: 2px solid #f0f;
+    text-align: center;
+}
+
+.sidebar-footer .prompt {
+    color: #f0f;
+}
+
+/* Адаптив: при маленьких экранах панель может быть скрыта или компактнее */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        max-width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #0ff;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+        min-height: auto;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    .sidebar-nav {
+        width: 100%;
+    }
+    .sidebar-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .sidebar-item {
+        margin: 0;
+    }
+    .sidebar-link {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        border-radius: 4px;
+    }
+    .sidebar-link:hover {
+        border-left: none;
+        border-bottom-color: #0ff;
+        background: #0ff15;
+    }
+    .sidebar-link i {
+        font-size: 0.9rem;
+    }
+    .sidebar-footer {
+        display: none;
+    }
+}
+.admin-layout {
+    display: flex;
+    gap: 0;
+    min-height: 80vh;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    background: #0a0c0f;
+    border-left: 1px solid #0ff3;
+}
+
+@media (max-width: 768px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+    .admin-content {
+        border-left: none;
+        padding: 1rem;
+    }
+}
+/* ===== ADMIN LINK IN HEADER ===== */
+.nav-link.admin-link {
+    color: #ffd700;
+    border-color: transparent;
+}
+
+.nav-link.admin-link i {
+    color: #ffd700;
+    text-shadow: 0 0 5px #ffd700;
+}
+
+.nav-link.admin-link:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ff8c00;
+    border-left: 2px solid #ffd700;
+    border-right: 2px solid #ff8c00;
+    background: rgba(255, 215, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.nav-link.admin-link:hover i {
+    color: #ffd700;
+    text-shadow: 0 0 15px #ffd700;
+}
