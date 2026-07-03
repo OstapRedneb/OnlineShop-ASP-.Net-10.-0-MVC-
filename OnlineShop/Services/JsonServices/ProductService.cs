@@ -13,11 +13,17 @@ public class ProductService : IProductService
     {
         string blob = GetProductsBlob();
 
+        return JsonConvert.DeserializeObject<List<Product>>(blob)?.Where(product => !product.IsDeleted)?.ToList() ?? new List<Product>();
+    }
+    public List<Product> GetAllWithDeleted()
+    {
+        string blob = GetProductsBlob();
+
         return JsonConvert.DeserializeObject<List<Product>>(blob) ?? new List<Product>();
     }
     public Product? GetById(Guid id) 
     {
-        return GetAll().FirstOrDefault(product => product.Id == id);
+        return GetAllWithDeleted().FirstOrDefault(product => product.Id == id);
     }
     public bool Add(Product product)
     {
@@ -45,6 +51,31 @@ public class ProductService : IProductService
             .ToList();
 
         WriteIntoMemory(productsToAdd);
+    }
+    public bool Update(Product product) 
+    {
+        if (product is null)
+            return false;
+
+        List<Product> products = GetAll();
+
+        bool wasFound = false;
+        for (int i = 0; i < products.Count; i++) 
+        {
+            if (products[i].Id == product.Id) 
+            {
+                products[i] = product;
+                wasFound = true;
+                break;
+            }
+        }
+
+        if (!wasFound)
+            Add(product);
+        else
+            WriteIntoMemory(products);
+
+        return true;
     }
     public void Clear()
     {

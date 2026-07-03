@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Добавление товара";
+}
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ CREATE_PRODUCT">>_ CREATE_PRODUCT</h1>
+        </div>
+
+        <div class="edit-product-card">
+            <form method="post" class="edit-product-form">
+
+                <input type="hidden" name="Id" value="@Guid.NewGuid()" />
+
+                <div class="form-field">
+                    <label for="name">Наименование товара</label>
+                    <input type="text" id="name" name="Name" class="cyber-input" placeholder="Введите название" required />
+                </div>
+
+                <div class="form-field">
+                    <label for="price">Цена, руб.</label>
+                    <input type="number" id="price" name="Price" class="cyber-input" step="0.01" min="0" placeholder="0.00" required />
+                </div>
+
+                <div class="form-field">
+                    <label for="description">Описание (необязательно)</label>
+                    <textarea id="description" name="Description" class="cyber-textarea" rows="4" placeholder="Введите описание товара..."></textarea>
+                </div>
+
+                <div class="edit-actions">
+                    <a asp-controller="Admin" asp-action="Product" class="cyber-btn secondary">
+                        <i class="fas fa-arrow-left"></i> [BACK]
+                    </a>
+                    <button type="submit" class="cyber-btn primary" asp-controller="Admin" asp-action="ProductSave">
+                        <i class="fas fa-plus-circle"></i> [CREATE_PRODUCT]
+                    </button>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> CREATE_MODE :: ADD_NEW_PRODUCT_TO_DATABASE
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>

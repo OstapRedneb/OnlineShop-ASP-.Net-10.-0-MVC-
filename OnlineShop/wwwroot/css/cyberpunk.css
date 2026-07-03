@@ -2228,3 +2228,277 @@ body {
     color: #ffd700;
     text-shadow: 0 0 15px #ffd700;
 }
+/* ===== ADMIN CONTENT HEADER ===== */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.admin-title {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* ===== ADMIN TABLE OVERRIDES ===== */
+.admin-table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0c0f14e6;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #0ff4;
+    font-size: 0.9rem;
+}
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.8rem 0.8rem;
+        text-align: left;
+        border-bottom: 1px solid #0ff3;
+    }
+
+    .admin-table th {
+        background: #05080c;
+        color: #f0f;
+        font-family: 'Share Tech Mono', monospace;
+        font-weight: normal;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #0ff;
+    }
+
+    .admin-table td {
+        color: #ccddee;
+    }
+
+    .admin-table tbody tr:hover {
+        background: #0ff10a;
+    }
+
+    .admin-table .product-link {
+        color: #0ff;
+        text-decoration: none;
+    }
+
+        .admin-table .product-link:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #0ff;
+        }
+
+    .admin-table .cyber-btn.small {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.75rem;
+        gap: 4px;
+        width: auto;
+        min-width: 100px;
+    }
+
+    .admin-table .edit-btn {
+        border-color: #0ff;
+        color: #0ff;
+    }
+
+        .admin-table .edit-btn:hover {
+            background: #0ff2;
+            box-shadow: 0 0 8px #0ff;
+        }
+
+    .admin-table .delete-btn {
+        border-color: #f0f;
+        color: #f0f;
+    }
+
+        .admin-table .delete-btn:hover {
+            background: #f0f2;
+            box-shadow: 0 0 8px #f0f;
+        }
+
+    .admin-table .empty-row {
+        text-align: center;
+        color: #aaa;
+        padding: 2rem;
+        font-family: monospace;
+    }
+
+    .admin-table tfoot td {
+        border-bottom: none;
+        padding-top: 1rem;
+    }
+
+    .admin-table .total-row {
+        text-align: right;
+    }
+
+    .admin-table .total-label {
+        font-family: monospace;
+        color: #f0f;
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    .admin-table .total-value {
+        font-family: 'Share Tech Mono', monospace;
+        color: #0ff;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-shadow: 0 0 3px #0ff;
+    }
+
+/* Адаптив для мобильных: преобразуем таблицу в карточки */
+@media (max-width: 768px) {
+    .admin-table,
+    .admin-table thead,
+    .admin-table tbody,
+    .admin-table th,
+    .admin-table td,
+    .admin-table tr {
+        display: block;
+    }
+
+        .admin-table thead {
+            display: none;
+        }
+
+        .admin-table tbody tr {
+            border: 1px solid #0ff4;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #0c0f14e6;
+        }
+
+        .admin-table td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #0ff3;
+        }
+
+            .admin-table td::before {
+                content: attr(data-label);
+                font-family: 'Share Tech Mono', monospace;
+                color: #f0f;
+                font-weight: bold;
+                margin-right: 1rem;
+            }
+
+            .admin-table td:last-child {
+                border-bottom: none;
+            }
+
+            .admin-table td[data-label=" "]::before {
+                content: "Действия";
+            }
+
+            .admin-table td .cyber-btn.small {
+                min-width: 70px;
+                font-size: 0.7rem;
+            }
+
+        .admin-table .total-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.5rem 0;
+            border-top: 1px solid #0ff5;
+            margin-top: 0.5rem;
+        }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+/* ===== EDIT PRODUCT FORM ===== */
+.edit-product-card {
+    background: #0c0f14e6;
+    backdrop-filter: blur(8px);
+    border: 1px solid #0ff4;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.edit-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+    .edit-product-form .form-field label {
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: #0ff;
+        letter-spacing: 1px;
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+
+    .edit-product-form .cyber-input,
+    .edit-product-form .cyber-textarea {
+        width: 100%;
+        background: #05080c;
+        border: 1px solid #0ff5;
+        padding: 0.7rem 0.9rem;
+        color: #ccddee;
+        font-family: monospace;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        transition: 0.2s;
+    }
+
+        .edit-product-form .cyber-input:focus,
+        .edit-product-form .cyber-textarea:focus {
+            outline: none;
+            border-color: #f0f;
+            box-shadow: 0 0 10px #f0f6;
+            background: #0a0f1e;
+        }
+
+    .edit-product-form .cyber-textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+.edit-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+    .edit-actions .cyber-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 0.8rem;
+        min-width: 120px;
+    }
+
+.edit-product-card .terminal-line {
+    margin-top: 1.5rem;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+    .edit-product-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .edit-actions {
+        flex-direction: column;
+    }
+
+        .edit-actions .cyber-btn {
+            flex: none;
+            width: 100%;
+        }
+}

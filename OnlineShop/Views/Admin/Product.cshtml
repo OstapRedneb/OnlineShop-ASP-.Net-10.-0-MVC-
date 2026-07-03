@@ -1,12 +1,75 @@
-﻿@{
-    ViewData["Title"] = "Управление заказами";
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Управление товарами";
+    int counter = 1;
+    int totalCount = Model?.Count() ?? 0;
 }
 
 <div class="admin-layout">
     @await Html.PartialAsync("_AdminSidebar")
+    
     <div class="admin-content">
-        <!-- Здесь будет содержимое правой части (ваши формы/таблицы) -->
-        <h2>Products</h2>
-        <!-- ... -->
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ PRODUCTS">>_ PRODUCTS</h1>
+            <a asp-controller="Admin" asp-action="ProductCreate" class="cyber-btn primary">
+                <i class="fas fa-plus-circle"></i> [ADD_NEW_PRODUCT]
+            </a>
+        </div>
+
+        <div class="admin-table-wrapper">
+            <table class="cyber-table admin-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Наименование товара</th>
+                        <th>Цена, руб.</th>
+                        <th colspan="2">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var product in Model)
+                        {
+                            <tr>
+                                <td data-label="#">@counter</td>
+                                <td data-label="Наименование товара">
+                                    <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="product-link">
+                                        @product.Name
+                                    </a>
+                                </td>
+                                <td data-label="Цена, руб.">@product.Price.ToString("N2") ₽</td>
+                                <td data-label="Действия">
+                                    <a asp-controller="Admin" asp-action="ProductEdit" asp-route-id="@product.Id" class="cyber-btn small edit-btn">
+                                        <i class="fas fa-edit"></i> Редактировать
+                                    </a>
+                                </td>
+                                <td data-label=" ">
+                                    <a asp-controller="Admin" asp-action="ProductDelete" asp-route-id="@product.Id" class="cyber-btn small danger delete-btn">
+                                        <i class="fas fa-trash-alt"></i> Удалить
+                                    </a>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="empty-row">>_ NO_PRODUCTS_FOUND_IN_DATABASE</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="total-row">
+                            <span class="total-label">Общее количество товаров:</span>
+                            <span class="total-value">@totalCount</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
