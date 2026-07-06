@@ -13,11 +13,19 @@
         </div>
     </div>
 
+    <!-- БЛОК ПОИСКА -->
+    <div class="search-container">
+        <form method="get" asp-action="Index" asp-controller="Home" class="search-form">
+            <input type="text" name="searchString" placeholder="SEARCH_PRODUCTS..." class="cyber-input search-input" />
+            <button type="submit" class="cyber-btn search-btn">
+                <i class="fas fa-search"></i> [SEARCH]
+            </button>
+        </form>
+    </div>
+
     <div class="products-grid">
         @foreach (var product in Model)
         {
-            <!-- Вся карточка будет кликабельна? Если да, оберни в <a> с нужным asp-хелпером. 
-                 Я оставляю пока просто блок, переход по заголовку. -->
             <div class="cyber-card" data-product-id="@product.Id">
                 <div class="card-glitch"></div>
 
