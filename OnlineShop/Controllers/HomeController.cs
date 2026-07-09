@@ -49,6 +49,9 @@ namespace OnlineShop.Controllers
 
         private int CountSearch(string name, string searchString, int splitDiapason = 3) 
         {
+            name = name.ToUpper();
+            searchString = searchString.ToUpper();
+            
             if (string.IsNullOrWhiteSpace(searchString) || splitDiapason > name.Length || name.Length < searchString.Length)
                 return 0;
 
