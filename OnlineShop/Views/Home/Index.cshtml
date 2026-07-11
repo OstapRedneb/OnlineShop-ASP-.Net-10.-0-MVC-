@@ -29,6 +29,11 @@
             <div class="cyber-card" data-product-id="@product.Id">
                 <div class="card-glitch"></div>
 
+                <!-- ИКОНКА СРАВНЕНИЯ -->
+                <a asp-controller="Comparator" asp-action="Add" asp-route-productId="@product.Id" class="compare-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </a>
+
                 <!-- СЕРДЕЧКО (избранное) -->
                 <a asp-controller="Favorite" asp-action="Add" asp-route-productId="@product.Id" class="favorite-heart">
                     <i class="far fa-heart"></i>

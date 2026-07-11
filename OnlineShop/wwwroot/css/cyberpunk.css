@@ -2580,3 +2580,239 @@ body {
         justify-content: center;
     }
 }
+/* ===== COMPARE STYLES ===== */
+.cyber-compare {
+    padding: 1rem 0;
+    min-height: 70vh;
+}
+
+.compare-header {
+    margin-bottom: 2rem;
+}
+
+.compare-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.empty-compare {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #0c0f14e6;
+    border: 1px solid #f0f;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.empty-compare .empty-icon i {
+    font-size: 5rem;
+    color: #f0f;
+    text-shadow: 0 0 10px #f0f;
+}
+
+.empty-compare .glitch-text {
+    font-family: 'Share Tech Mono', monospace;
+    color: #0ff;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.empty-compare .empty-message {
+    font-family: monospace;
+    color: #aaa;
+    margin: 1rem 0 2rem;
+    font-size: 1.1rem;
+}
+
+.compare-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0c0f14e6;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #0ff4;
+    font-size: 0.9rem;
+    min-width: 600px;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: 0.8rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #0ff3;
+    vertical-align: middle;
+}
+
+.compare-table thead th {
+    background: #05080c;
+    color: #f0f;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #0ff;
+    text-align: center;
+}
+
+.compare-table .feature-column {
+    width: 120px;
+    min-width: 100px;
+    color: #0ff;
+    font-family: 'Share Tech Mono', monospace;
+    text-align: center;
+    background: #0a0f1e;
+    border-right: 1px solid #0ff3;
+}
+
+.compare-table .product-column {
+    text-align: center;
+    min-width: 150px;
+}
+
+.product-thumb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.product-thumb .product-link {
+    color: #0ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.product-thumb .product-link:hover {
+    color: #fff;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.remove-compare {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid #f0f;
+    color: #f0f;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: 0.2s;
+    position: relative;
+    z-index: 2;
+}
+
+.remove-compare i {
+    pointer-events: none;
+    font-size: 1.1rem;
+}
+
+.remove-compare:hover {
+    transform: scale(1.1);
+    background: #f0f2;
+    box-shadow: 0 0 12px #f0f;
+    color: #fff;
+}
+
+.compare-table .feature-label {
+    color: #f0f;
+    font-family: monospace;
+    text-align: right;
+    padding-right: 1.5rem;
+    border-right: 1px solid #0ff3;
+}
+
+.compare-table .product-data {
+    text-align: center;
+    color: #ccddee;
+}
+
+.compare-table .price-data {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: #0ff;
+    text-shadow: 0 0 3px #0ff;
+}
+
+.compare-table .price-data .currency {
+    font-size: 0.7rem;
+    color: #f0f;
+}
+
+.compare-table .description-data {
+    font-size: 0.85rem;
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+.compare-table tbody tr:hover {
+    background: #0ff10a;
+}
+
+.compare-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .compare-table {
+        font-size: 0.8rem;
+        min-width: 400px;
+    }
+    .compare-table .feature-column {
+        width: 80px;
+        min-width: 60px;
+    }
+    .compare-table .product-column {
+        min-width: 100px;
+    }
+    .compare-table th,
+    .compare-table td {
+        padding: 0.5rem;
+    }
+    .compare-actions {
+        justify-content: center;
+    }
+}
+/* ===== COMPARE ICON ON CARDS ===== */
+.compare-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #0ff;
+    color: #0ff;
+    font-size: 1.3rem;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.compare-icon:hover {
+    transform: scale(1.1);
+    background: #0ff2;
+    box-shadow: 0 0 12px #0ff;
+    color: #fff;
+}
+
+.compare-icon i {
+    pointer-events: none;
+}

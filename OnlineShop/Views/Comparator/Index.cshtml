@@ -1,0 +1,80 @@
+﻿@model Comparator
+
+@{
+    ViewData["Title"] = "COMPARE_PRODUCTS";
+    int count = Model?.Count() ?? 0;
+}
+
+<div class="cyber-compare">
+    <div class="compare-header">
+        <h1 class="glitch-title" data-text=">_ COMPARE_ENGINE">>_ COMPARE_ENGINE</h1>
+        <div class="compare-stats">
+            <span class="stat-badge">[PRODUCTS: @count]</span>
+            <span class="stat-badge">[ANALYSIS: ACTIVE]</span>
+        </div>
+    </div>
+
+    @if (count < 2)
+    {
+        <div class="empty-compare">
+            <div class="empty-icon">
+                <i class="fas fa-balance-scale"></i>
+                <span class="glitch-text">[INSUFFICIENT_DATA]</span>
+            </div>
+            <p class="empty-message">>_ SELECT_AT_LEAST_2_PRODUCTS_FOR_COMPARISON</p>
+            <a asp-controller="Home" asp-action="Index" class="cyber-btn primary">
+                <i class="fas fa-store"></i> [BACK_TO_CATALOG]
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="compare-table-wrapper">
+            <table class="cyber-table compare-table">
+                <thead>
+                    <tr>
+                        <th class="feature-column">Характеристика</th>
+                        @foreach (var product in Model)
+                        {
+                            <th class="product-column">
+                                <div class="product-thumb">
+                                    <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="product-link">
+                                        @product.Name
+                                    </a>
+                                    <a asp-controller="Comparator" asp-action="Remove" asp-route-productId="@product.Id" class="remove-compare" title="Удалить из сравнения">
+                                        <i class="fas fa-times-circle"></i>
+                                    </a>
+                                </div>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-label">Цена</td>
+                        @foreach (var product in Model)
+                        {
+                            <td class="product-data price-data">¥@product.Price <span class="currency">CR</span></td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="feature-label">Описание</td>
+                        @foreach (var product in Model)
+                        {
+                            <td class="product-data description-data">@product.Description</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="compare-actions">
+            <a asp-controller="Comparator" asp-action="Clear" class="cyber-btn secondary">
+                <i class="fas fa-broom"></i> [CLEAR_ALL]
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="cyber-btn primary">
+                <i class="fas fa-arrow-left"></i> [CONTINUE_SHOPPING]
+            </a>
+        </div>
+    }
+</div>

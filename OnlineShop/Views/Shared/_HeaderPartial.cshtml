@@ -1,5 +1,4 @@
-﻿
-<div class="container">
+﻿<div class="container">
     <div class="header-content">
         <div class="logo">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="cyber-logo">
@@ -29,6 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Favorite" asp-action="Index">
                         <i class="fas fa-heart"></i> [FAVORITES] @await Component.InvokeAsync("FavoriteCounter")
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Comparator" asp-action="Index">
+                        <i class="fas fa-balance-scale"></i> [COMPARE] @await Component.InvokeAsync("ComparatorCounter")
                     </a>
                 </li>
                 <li class="nav-item">

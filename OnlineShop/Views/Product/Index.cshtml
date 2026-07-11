@@ -9,6 +9,11 @@
         <div class="details-card">
             <div class="details-glitch"></div>
 
+            <!-- ИКОНКА СРАВНЕНИЯ -->
+            <a asp-controller="Comparator" asp-action="Add" asp-route-productId="@Model.Id" class="compare-icon">
+                <i class="fas fa-balance-scale"></i>
+            </a>
+
             <!-- СЕРДЕЧКО (избранное) -->
             <a asp-controller="Favorite" asp-action="Add" asp-route-productId="@Model.Id" class="favorite-heart">
                 <i class="far fa-heart"></i>
@@ -43,7 +48,8 @@
                         <a href="@Context.Request.Headers["Referer"]" class="cyber-btn secondary">
                             <i class="fas fa-arrow-left"></i> [BACK]
                         </a>
-                        <a asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" class="cyber-btn primary">
+                        <a asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id"
+                           class="cyber-btn primary">
                             <i class="fas fa-cart-plus"></i> [ADD_TO_CART]
                         </a>
                     </div>

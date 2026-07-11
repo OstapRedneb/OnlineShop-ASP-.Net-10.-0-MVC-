@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views/Comparator/" />
     <Folder Include="Views/Shared/Components/FavoriteCounter/" />
   </ItemGroup>
 
