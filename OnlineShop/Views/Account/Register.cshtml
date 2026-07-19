@@ -1,4 +1,6 @@
-﻿@{
+﻿@model RegisterData
+
+@{
     ViewData["Title"] = "Регистрация";
 }
 
@@ -12,17 +14,21 @@
             </div>
             <form method="post" class="auth-form">
                 <!-- Поля: Login, Password, ConfirmPassword, Email и т.д. -->
+                <div asp-validation-summary="ModelOnly"></div>
                 <div class="form-field">
-                    <label>Логин</label>
-                    <input class="cyber-input" placeholder="Ваш логин" required name="Login" />
+                    <label asp-for="Name"></label>
+                    <input class="cyber-input" asp-for="Name"/>
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
                 </div>
                 <div class="form-field">
-                    <label>Пароль</label>
-                    <input class="cyber-input" type="password" placeholder="Ваш пароль" required name="Password" />
+                    <label asp-for="Password"></label>
+                    <input class="cyber-input" asp-for="Password"/>
+                    <span asp-validation-for="Password" class="field-validation-error"></span>
                 </div>
                 <div class="form-field">
-                    <label>Повторите пароль</label>
-                    <input class="cyber-input" type="password" placeholder="Повторите ваш пароль" required name="CopyPassword"/>
+                    <label asp-for="CopyPassword"></label>
+                    <input class="cyber-input" asp-for="CopyPassword"/>
+                    <span asp-validation-for="CopyPassword" class="field-validation-error"></span>
                 </div>
                 <button type="submit" class="cyber-btn primary" asp-controller="Account" asp-action="Register">
                     <i class="fas fa-user-plus"></i> Зарегистрироваться

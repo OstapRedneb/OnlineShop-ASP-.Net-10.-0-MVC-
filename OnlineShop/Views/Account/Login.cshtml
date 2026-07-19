@@ -1,4 +1,6 @@
-﻿@{
+﻿@model LoginData
+
+@{
     ViewData["Title"] = "Авторизация пользователя";
 }
 
@@ -13,20 +15,27 @@
             </div>
 
             <form method="post" class="auth-form">
+                <div asp-validation-summary="ModelOnly"></div>
+
                 <div class="form-field">
-                    <label class="form-label">Логин</label>
-                    <input class="cyber-input" placeholder="Ваш логин" required name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                    <label class="form-label" asp-for="Name"></label>
+                    <input class="cyber-input" asp-for="Name" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
                 </div>
+
                 <div class="form-field">
-                    <label class="form-label">Пароль</label>
-                    <input class="cyber-input" type="password" placeholder="Ваш пароль" required name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                    <label class="form-label" asp-for="Password"></label>
+                    <input class="cyber-input" asp-for="Password" />
+                    <span asp-validation-for="Password" class="field-validation-error"></span>
                 </div>
+
                 <div class="form-field checkbox-field">
                     <label class="cyber-checkbox">
-                        <input type="checkbox" value="true" name="ИМЯ_СВОЙСТВА_КЛАССА_МОДЕЛИ" />
+                        <input asp-for="ShouldRemember" />
                         <span class="checkmark"></span>
-                        Запомнить меня
+                        Should_Remember?
                     </label>
+                    <span asp-validation-for="ShouldRemember" class="field-validation-error"></span>
                 </div>
 
                 <button type="submit" class="cyber-btn primary" asp-controller="Account" asp-action="Login">

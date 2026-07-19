@@ -22,6 +22,7 @@
 
     <main class="cyber-main">
         <div class="container">
+            @await Html.PartialAsync("_ValidationScriptsPartial")
             @RenderBody()
         </div>
     </main>

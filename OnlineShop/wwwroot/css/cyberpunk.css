@@ -2816,3 +2816,89 @@ body {
 .compare-icon i {
     pointer-events: none;
 }
+/* ===== VALIDATION STYLES (CYBERPUNK) ===== */
+/* Сообщения валидации для отдельных полей */
+.field-validation-error {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #ff0055;
+    text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+    margin-top: 0.3rem;
+    letter-spacing: 1px;
+    animation: glitchError 2s infinite;
+}
+
+/* Красная неоновая рамка для невалидных полей */
+input.input-validation-error,
+textarea.input-validation-error {
+    border-color: #ff0055 !important;
+    box-shadow: 0 0 10px #ff0055, inset 0 0 10px #ff0055 !important;
+    background: #1a0505 !important;
+}
+
+/* Блок общей ошибки (валидация модели) */
+.validation-summary-errors {
+    background: #0c0f14e6;
+    border: 1px solid #ff0055;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+}
+
+    .validation-summary-errors ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .validation-summary-errors li {
+        font-family: 'Share Tech Mono', monospace;
+        color: #ff0055;
+        text-shadow: 0 0 5px #ff0055;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+        .validation-summary-errors li::before {
+            content: "⚠ ";
+            color: #ff0055;
+        }
+
+/* Анимация глитча для сообщений об ошибке */
+@keyframes glitchError {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+    }
+
+    20% {
+        opacity: 0.8;
+        text-shadow: -2px 0 #ff0055, 2px 0 #ff00ff;
+    }
+
+    40% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0055, 0 0 10px #ff00ff;
+    }
+
+    60% {
+        opacity: 0.9;
+        text-shadow: 2px 0 #ff0055, -2px 0 #ff00ff;
+    }
+
+    80% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+    }
+}
+input.valid {
+    border-color: #0ff !important;
+    box-shadow: 0 0 10px #0ff !important;
+}
