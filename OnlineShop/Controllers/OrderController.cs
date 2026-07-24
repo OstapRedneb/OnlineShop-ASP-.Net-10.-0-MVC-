@@ -13,13 +13,18 @@ namespace OnlineShop.Controllers
             if (cart is null)
                 return RedirectToAction("Index", "Cart");
 
-            return View(cart);
+            return View(new CartOrder(cart, new Order()));
         }
 
         [HttpPost]
-        public IActionResult Pay(Order order) 
+        public IActionResult Index(CartOrder cartOrder) 
         {
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            Order order = cartOrder.Order;
+
+            if (!ModelState.IsValid)
+                return View(cartOrder);
+
             OrderList? orderList = orderListService.GetById(Info.Info.CommonOrderListId);
 
             if (cart is null)
