@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
+using System.Runtime.InteropServices;
 
 namespace OnlineShop.Controllers
 {
@@ -23,7 +24,7 @@ namespace OnlineShop.Controllers
             Order order = cartOrder.Order;
 
             if (!ModelState.IsValid)
-                return View(cartOrder);
+                return View(cartOrder with { Cart = cart });
 
             OrderList? orderList = orderListService.GetById(Info.Info.CommonOrderListId);
 
