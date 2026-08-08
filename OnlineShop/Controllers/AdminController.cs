@@ -27,12 +27,32 @@ namespace OnlineShop.Controllers
         }
         public IActionResult ProductCreate() 
         {
-            return View();
+            return View(new Product());
+        }
+        [HttpPost]
+        public IActionResult ProductCreate(Product product) 
+        {
+            if (!ModelState.IsValid)
+                return View(product);
+
+            productService.Update(product);
+
+            return RedirectToAction("Product");
         }
         public IActionResult ProductEdit(Guid id) 
         {
             Product? product = productService.GetById(id);
             return View(product);
+        }
+        [HttpPost]
+        public IActionResult ProductEdit(Product product) 
+        {
+            if (!ModelState.IsValid)
+                return View(product);
+
+            productService.Update(product);
+
+            return RedirectToAction("Product");
         }
         public IActionResult ProductDelete(Guid id)
         {
@@ -41,13 +61,6 @@ namespace OnlineShop.Controllers
             if (product != null)
                 product.IsDeleted = true;
 
-            productService.Update(product);
-
-            return RedirectToAction("Product");
-        }
-        [HttpPost]
-        public IActionResult ProductSave(Product product)
-        {
             productService.Update(product);
 
             return RedirectToAction("Product");

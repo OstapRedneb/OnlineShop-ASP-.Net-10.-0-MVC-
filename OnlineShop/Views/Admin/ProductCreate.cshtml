@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Product
+
+@{
     ViewData["Title"] = "Добавление товара";
 }
 
@@ -13,15 +15,18 @@
         <div class="edit-product-card">
             <form method="post" class="edit-product-form">
 
+                <div asp-validation-summary="ModelOnly"></div>
+
                 <input type="hidden" name="Id" value="@Guid.NewGuid()" />
 
                 <div class="form-field">
-                    <label for="name">Наименование товара</label>
-                    <input type="text" id="name" name="Name" class="cyber-input" placeholder="Введите название" required />
+                    <label asp-for="Name">Model.Name</label>
+                    <input asp-for="Name" class="cyber-input"/>
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
-                    <label for="price">Цена, руб.</label>
+                    <label for="price">Model.Price</label>
                     <input type="number" id="price" name="Price" class="cyber-input" step="0.01" min="0" placeholder="0.00" required />
                 </div>
 
@@ -34,7 +39,7 @@
                     <a asp-controller="Admin" asp-action="Product" class="cyber-btn secondary">
                         <i class="fas fa-arrow-left"></i> [BACK]
                     </a>
-                    <button type="submit" class="cyber-btn primary" asp-controller="Admin" asp-action="ProductSave">
+                    <button type="submit" class="cyber-btn primary" asp-controller="Admin" asp-action="ProductCreate">
                         <i class="fas fa-plus-circle"></i> [CREATE_PRODUCT]
                     </button>
                 </div>
