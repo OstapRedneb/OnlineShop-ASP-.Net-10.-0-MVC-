@@ -16,10 +16,10 @@ public record Product
     [Display(Name = "PRICE")]
     [Required(ErrorMessage = "Field \"PRICE\" is empty")]
     [Range(1, 9_999_999, ErrorMessage = "Price should be more than {1} and less than {2}")]
+    [DataType(DataType.Currency)]
     public decimal Price { get; init; }
 
     [Display(Name = "DESCRIPTION", Prompt = "PRODUCT_DESCRIPTION")]
-    [Required(ErrorMessage = "Field \"DESCRIPTION\" is empty")]
     [StringLength(10_000)]
     [DataType(DataType.Text)]
     public string? Description { get; init; }
@@ -27,7 +27,7 @@ public record Product
     public bool IsDeleted { get; set; } = false;
 
 
-    public Product() : this("TEST", decimal.MaxValue)
+    public Product() : this("TEST", 0)
     { }
     public Product(string name, decimal cost) : this(name, cost, null)
     { }

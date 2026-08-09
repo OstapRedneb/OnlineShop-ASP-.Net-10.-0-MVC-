@@ -17,22 +17,24 @@
 
                 <div asp-validation-summary="ModelOnly"></div>
 
-                <input type="hidden" name="Id" value="@Guid.NewGuid()" />
+                <input asp-for="Id" type="hidden" value="@Guid.NewGuid()" />
 
                 <div class="form-field">
-                    <label asp-for="Name">Model.Name</label>
+                    <label asp-for="Name"></label>
                     <input asp-for="Name" class="cyber-input"/>
                     <span asp-validation-for="Name" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
-                    <label for="price">Model.Price</label>
-                    <input type="number" id="price" name="Price" class="cyber-input" step="0.01" min="0" placeholder="0.00" required />
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="cyber-input"/>
+                    <span asp-validation-for="Price" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
-                    <label for="description">Описание (необязательно)</label>
-                    <textarea id="description" name="Description" class="cyber-textarea" rows="4" placeholder="Введите описание товара..."></textarea>
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="cyber-textarea"></textarea>
+                    <span asp-validation-for="Price" class="field-validation-error"></span>
                 </div>
 
                 <div class="edit-actions">
