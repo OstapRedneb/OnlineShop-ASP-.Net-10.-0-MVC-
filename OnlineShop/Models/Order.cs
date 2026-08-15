@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,8 @@ namespace OnlineShop.Models;
 public record Order
 {
     public Guid Id { get; init; } = Guid.NewGuid();
+
+    public OrderStatus Status { get; set; }
 
     [Display(Name = "NAME", Prompt = "YOUR_NAME")]
     [Required(ErrorMessage = "Field \"NAME\" is empty")]
@@ -25,11 +28,13 @@ public record Order
     [DataType(DataType.PhoneNumber, ErrorMessage = "You can white only your phone")]
     public string Phone { get; init; }
 
+    public DateTime CreatedAt { get; init; }
+
     [Display(Name = "DATE_OF_ORDER")]
     [Required(ErrorMessage = "Field \"DATE_OF_ORDER\" is empty")]
     [DataType(DataType.Date, ErrorMessage = "You can white only date")]
     [DateRange()]
-    public DateTime Date { get; set; }
+    public DateTime DeliveryDate { get; set; }
 
     [Display(Name = "COMMENT", Prompt = "YOUR_COMMENT")]
     [DataType(DataType.Text)]
@@ -38,6 +43,8 @@ public record Order
 
     public List<Position> Positions { get; init; }
     public decimal Price => Positions.Sum(position => position.Price);
+    public int Count => Positions.Count;
+    public int TotalCouunt => Positions.Sum(position => position.Quantity);
 
     public Guid UserId { get; set; }
 
@@ -45,6 +52,8 @@ public record Order
     { }
     public Order(List<Position> positions)
     {
+        CreatedAt = DateTime.Now;
+        Status = OrderStatus.Created;
         Positions = positions;
     }
 }

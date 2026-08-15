@@ -5,11 +5,34 @@ using OnlineShop.Services.JsonServices;
 
 namespace OnlineShop.Controllers
 {
-    public class AdminController(IProductService productService) : Controller
+    public class AdminController(IProductService productService, IOrderListService orderListService) : Controller
     {
         public IActionResult Orders()
         {
-            return View();
+            return View
+                (
+                    orderListService
+                        .GetAll()
+                        .SelectMany(orderList => orderList.ToList())
+                        .ToList()
+                );
+        }
+        public IActionResult OrderDetails(Guid orderId) 
+        {
+            return View(orderListService.GetAll().SelectMany(orderList => orderList.ToList()).FirstOrDefault(order => order.Id == orderId));
+        }
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(Guid id, OrderStatus status) 
+        {
+            OrderList orderList = orderListService
+                                    .GetAll()
+                                    .First(orderList => orderList.Any(orderInMemory => orderInMemory.Id == id));
+
+            orderList.First(orderInMemory => orderInMemory.Id == id).Status = status;
+
+            orderListService.Update(orderList);
+
+            return RedirectToAction("Orders", "Admin");
         }
         public IActionResult User()
         {

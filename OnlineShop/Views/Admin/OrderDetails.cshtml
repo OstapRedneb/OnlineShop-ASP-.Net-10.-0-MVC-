@@ -1,9 +1,9 @@
-﻿@* @model Order
+﻿@model Order
 
 @{
     ViewData["Title"] = "ORDER_DETAILS";
-    var totalItems = Model?.OrderItems?.Count ?? 0;
-    var totalQuantity = Model?.OrderItems?.Sum(i => i.Quantity) ?? 0;
+    var totalItems = Model?.Count ?? 0;
+    var totalQuantity = Model?.TotalCouunt ?? 0;
 }
 
 <div class="admin-layout">
@@ -35,7 +35,7 @@
                             </tr>
                             <tr>
                                 <td class="label">TOTAL_PRICE</td>
-                                <td class="value highlight">¥@Model.TotalPrice.ToString("N2") CR</td>
+                                <td class="value highlight">¥@Model.Price.ToString("N2") CR</td>
                             </tr>
                             <tr>
                                 <td class="label">ITEMS_COUNT</td>
@@ -68,11 +68,11 @@
                         <table class="details-table">
                             <tr>
                                 <td class="label">USER_ID</td>
-                                <td class="value">@Model.User?.Id</td>
+                                <td class="value">@Model.UserId</td>
                             </tr>
                             <tr>
                                 <td class="label">USERNAME</td>
-                                <td class="value">@Model.User?.UserName</td>
+                                <td class="value">@await Component.InvokeAsync("OrderUserName", @Model)</td>
                             </tr>
                         </table>
                     </div>
@@ -85,23 +85,23 @@
                         <table class="details-table">
                             <tr>
                                 <td class="label">CUSTOMER_ID</td>
-                                <td class="value">@Model.CustomerId</td>
+                                <td class="value">@Model.UserId</td>
                             </tr>
                             <tr>
                                 <td class="label">NAME</td>
-                                <td class="value">@Model.CustomerName</td>
+                                <td class="value">@Model.Name</td>
                             </tr>
                             <tr>
                                 <td class="label">PHONE</td>
-                                <td class="value">@Model.CustomerPhone</td>
+                                <td class="value">@Model.Phone</td>
                             </tr>
                             <tr>
                                 <td class="label">ADDRESS</td>
-                                <td class="value">@Model.CustomerAddress</td>
+                                <td class="value">@Model.Address</td>
                             </tr>
                             <tr>
                                 <td class="label">DELIVERY_DATE</td>
-                                <td class="value">@Model.DeliveryDate?.ToString("dd.MM.yyyy")</td>
+                                <td class="value">@Model.DeliveryDate.ToString("dd.MM.yyyy")</td>
                             </tr>
                             <tr>
                                 <td class="label">COMMENT</td>
@@ -127,14 +127,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.OrderItems != null && Model.OrderItems.Any())
+                                    @if (Model.Count != null && Model.Positions.Any())
                                     {
                                         int itemCounter = 1;
-                                        foreach (var item in Model.OrderItems)
+                                        foreach (var item in Model.Positions)
                                         {
                                             <tr>
                                                 <td>@itemCounter</td>
-                                                <td>@item.ProductName</td>
+                                                <td>@item.Product.Name</td>
                                                 <td>¥@item.Price.ToString("N2")</td>
                                                 <td>@item.Quantity</td>
                                                 <td>¥@((item.Price * item.Quantity).ToString("N2"))</td>
@@ -183,4 +183,4 @@
             </div>
         }
     </div>
-</div> *@
+</div>
