@@ -5,26 +5,31 @@ using System.Runtime.InteropServices;
 
 namespace OnlineShop.Controllers
 {
-    public class OrderController(ICartService cartService, IOrderListService orderListService) : Controller
+    public class OrderController(ICartService cartService, IOrderListService orderListService, IUserService userService) : Controller
     {
         public IActionResult Index()
         {
+            if (userService.GetById(Info.Info.CommonUserId) is null)
+                return RedirectToAction("Register", "Account");
+
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
                 return RedirectToAction("Index", "Cart");
 
-            return View(new CartOrder(cart, new Order()));
+            return View(new Order(cart.ToList()));
         }
 
         [HttpPost]
-        public IActionResult Index(CartOrder cartOrder) 
+        public IActionResult Index(Order order) 
         {
+            if (userService.GetById(Info.Info.CommonUserId) is null)
+                return RedirectToAction("Register", "Account");
+
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
-            Order order = cartOrder.Order;
 
             if (!ModelState.IsValid)
-                return View(cartOrder with { Cart = cart });
+                return View(order with { Positions = cart.ToList() });
 
             OrderList? orderList = orderListService.GetById(Info.Info.CommonOrderListId);
 
@@ -37,6 +42,9 @@ namespace OnlineShop.Controllers
                 orderListService.Add(newOrderList);
                 orderList = newOrderList;
             }
+
+            order = order with { Positions= cart.ToList() };
+            order.UserId = Info.Info.CommonUserId;
 
             //Clear
             cart.Clear();

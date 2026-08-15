@@ -1,10 +1,6 @@
-﻿@model CartOrder
+﻿@model Order
 @{
     ViewData["Title"] = "CYBER_CHECKOUT";
-}
-@{
-    Cart Cart = Model.Cart;
-    Order Order = Model.Order;
 }
 
 <form method="post">
@@ -26,29 +22,29 @@
                 <div class="customer-form">
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="form-field">
-                        <label asp-for="Order.Name">[IDENTIFICATION]</label>
-                        <input asp-for="Order.Name" class="cyber-input" />
-                        <span asp-validation-for="Order.Name" class="field-validation-error"></span>
+                        <label asp-for="Name">[IDENTIFICATION]</label>
+                        <input asp-for="Name" class="cyber-input" />
+                        <span asp-validation-for="Name" class="field-validation-error"></span>
                     </div>
                     <div class="form-field">
-                        <label asp-for="Order.Address">[DELIVERY_COORDINATES]</label>
-                        <input asp-for="Order.Address" class="cyber-input" />
-                        <span asp-validation-for="Order.Address" class="field-validation-error"></span>
+                        <label asp-for="Address">[DELIVERY_COORDINATES]</label>
+                        <input asp-for="Address" class="cyber-input" />
+                        <span asp-validation-for="Address" class="field-validation-error"></span>
                     </div>
                     <div class="form-field">
-                        <label asp-for="Order.Phone">[CONTACT_FREQUENCY]</label>
-                        <input asp-for="Order.Phone" class="cyber-input" />
-                        <span asp-validation-for="Order.Phone" class="field-validation-error"></span>
+                        <label asp-for="Phone">[CONTACT_FREQUENCY]</label>
+                        <input asp-for="Phone" class="cyber-input" />
+                        <span asp-validation-for="Phone" class="field-validation-error"></span>
                     </div>
                     <div class="form-field">
-                        <label asp-for="Order.Date">[DATE_OF_ORDER]</label>
-                        <input asp-for="Order.Date" class="cyber-input" />
-                        <span asp-validation-for="Order.Date" class="field-validation-error"></span>
+                        <label asp-for="Date">[DATE_OF_ORDER]</label>
+                        <input asp-for="Date" class="cyber-input" />
+                        <span asp-validation-for="Date" class="field-validation-error"></span>
                     </div>
                     <div class="form-field">
-                        <label asp-for="Order.Comment">[COMMENT]</label>
-                        <input asp-for="Order.Comment" class="cyber-input" />
-                        <span asp-validation-for="Order.Comment" class="field-validation-error"></span>
+                        <label asp-for="Comment">[COMMENT]</label>
+                        <input asp-for="Comment" class="cyber-input" />
+                        <span asp-validation-for="Comment" class="field-validation-error"></span>
                     </div>
                 </div>
             </div>
@@ -70,7 +66,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var position in Cart)
+                            @foreach (var position in Model.Positions)
                             {
                                 <tr>
                                     <td data-label="ITEM_ID">#@position.Product.Id</td>
@@ -84,7 +80,7 @@
                         <tfoot>
                             <tr class="total-row">
                                 <td colspan="4" class="total-label">>_ FINAL_AMOUNT</td>
-                                <td class="total-value">¥@Cart.Price.ToString("N2") CR</td>
+                                <td class="total-value">¥@Model.Price.ToString("N2") CR</td>
                             </tr>
                         </tfoot>
                     </table>

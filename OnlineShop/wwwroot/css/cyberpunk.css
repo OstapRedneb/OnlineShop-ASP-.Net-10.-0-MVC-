@@ -2902,3 +2902,296 @@ input.valid {
     border-color: #0ff !important;
     box-shadow: 0 0 10px #0ff !important;
 }
+/* ===== ADMIN ORDERS & DETAILS ===== */
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.status-pending {
+    background: #ff8c00;
+    color: #000;
+    border: 1px solid #ff8c00;
+    box-shadow: 0 0 8px #ff8c00;
+}
+
+.status-processing {
+    background: #00bfff;
+    color: #000;
+    border: 1px solid #00bfff;
+    box-shadow: 0 0 8px #00bfff;
+}
+
+.status-shipped {
+    background: #8a2be2;
+    color: #fff;
+    border: 1px solid #8a2be2;
+    box-shadow: 0 0 8px #8a2be2;
+}
+
+.status-delivered {
+    background: #0f0;
+    color: #000;
+    border: 1px solid #0f0;
+    box-shadow: 0 0 8px #0f0;
+}
+
+.status-cancelled {
+    background: #ff0044;
+    color: #fff;
+    border: 1px solid #ff0044;
+    box-shadow: 0 0 8px #ff0044;
+}
+
+.details-btn {
+    min-width: 80px !important;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #0c0f14e6;
+    border: 1px solid #0ff;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+    .empty-state .empty-icon i {
+        font-size: 4rem;
+        color: #0ff;
+        text-shadow: 0 0 10px #0ff;
+    }
+
+    .empty-state .empty-message {
+        font-family: monospace;
+        color: #aaa;
+        margin: 1rem 0 2rem;
+        font-size: 1.1rem;
+    }
+
+/* ===== ORDER DETAILS ===== */
+.details-card {
+    background: #0c0f14e6;
+    border: 1px solid #0ff4;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.details-section {
+    margin-bottom: 2rem;
+}
+
+    .details-section .section-title {
+        margin-bottom: 1rem;
+    }
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+    .details-table tr {
+        border-bottom: 1px solid #0ff3;
+    }
+
+    .details-table td {
+        padding: 0.6rem 0.5rem;
+    }
+
+    .details-table .label {
+        color: #f0f;
+        font-weight: bold;
+        width: 180px;
+        letter-spacing: 1px;
+    }
+
+    .details-table .value {
+        color: #ccddee;
+    }
+
+        .details-table .value.highlight {
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff;
+            font-size: 1.1rem;
+        }
+
+.cyber-select {
+    background: #05080c;
+    border: 1px solid #0ff5;
+    padding: 0.4rem 1rem;
+    color: #ccddee;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: 0.2s;
+    min-width: 150px;
+}
+
+    .cyber-select:focus {
+        outline: none;
+        border-color: #f0f;
+        box-shadow: 0 0 8px #f0f6;
+        background: #0a0f1e;
+    }
+
+    .cyber-select option {
+        background: #0a0f1e;
+        color: #ccddee;
+    }
+
+.details-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* Адаптив для деталей */
+@media (max-width: 768px) {
+    .details-table .label {
+        width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .details-actions {
+        justify-content: center;
+    }
+
+    .cyber-select {
+        width: 100%;
+    }
+}
+/* ===== DROPDOWN MENU (CYBERPUNK) ===== */
+.nav-item.dropdown {
+    position: relative;
+}
+
+    .nav-item.dropdown .dropdown-toggle {
+        cursor: pointer;
+    }
+
+        .nav-item.dropdown .dropdown-toggle .fa-chevron-down {
+            font-size: 0.7rem;
+            margin-left: 4px;
+            transition: transform 0.2s;
+        }
+
+    .nav-item.dropdown:hover .dropdown-toggle .fa-chevron-down {
+        transform: rotate(180deg);
+    }
+
+/* Выпадающее меню */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0c0f14e6;
+    backdrop-filter: blur(12px);
+    border: 1px solid #0ff;
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    min-width: 180px;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    z-index: 300;
+}
+
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.dropdown-menu li {
+    display: block;
+    margin: 0;
+}
+
+    .dropdown-menu li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.6rem 1.5rem;
+        color: #b0f0ff;
+        text-decoration: none;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.9rem;
+        transition: 0.2s;
+        border-left: 3px solid transparent;
+    }
+
+        .dropdown-menu li a:hover {
+            background: #0ff15;
+            border-left-color: #0ff;
+            color: #fff;
+            text-shadow: 0 0 5px #0ff;
+        }
+
+        .dropdown-menu li a i {
+            color: #f0f;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-menu li a.admin-link {
+            color: #ffd700;
+        }
+
+            .dropdown-menu li a.admin-link i {
+                color: #ffd700;
+            }
+
+            .dropdown-menu li a.admin-link:hover {
+                border-left-color: #ffd700;
+                background: rgba(255, 215, 0, 0.15);
+                text-shadow: 0 0 8px #ffd700;
+            }
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        background: transparent;
+        backdrop-filter: none;
+        border: none;
+        box-shadow: none;
+        padding-left: 1.5rem;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        display: none;
+        margin-top: 0.5rem;
+        border-left: 2px solid #0ff3;
+        border-radius: 0;
+    }
+
+    .nav-item.dropdown:hover .dropdown-menu,
+    .nav-item.dropdown:focus-within .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu li a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        border-left: none;
+    }
+
+    .nav-item.dropdown .dropdown-toggle .fa-chevron-down {
+        display: none; /* на мобилках можно убрать стрелку или оставить как есть */
+    }
+}

@@ -9,6 +9,7 @@ namespace OnlineShop.Models
         public Guid Id { get; set; }
         public int Count => _products.Count;
 
+        public Guid UserId { get; set; }
 
         //ctor
         public Favorite() : this(Guid.NewGuid())

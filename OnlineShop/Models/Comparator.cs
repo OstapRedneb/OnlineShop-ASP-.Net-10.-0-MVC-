@@ -9,6 +9,8 @@ namespace OnlineShop.Models
         public Guid Id { get; set; }
         public int Count => _products.Count;
 
+        public Guid UserId;
+
 
         //ctor
         public Comparator() : this(Guid.NewGuid())

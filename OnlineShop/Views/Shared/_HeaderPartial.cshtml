@@ -35,20 +35,31 @@
                         <i class="fas fa-balance-scale"></i> [COMPARE] @await Component.InvokeAsync("ComparatorCounter")
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">
-                        <i class="fas fa-sign-in-alt"></i> [SIGN IN]
+
+                <!-- НОВЫЙ ВЫПАДАЮЩИЙ ПУНКТ -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="user-name">@await Component.InvokeAsync("UserName")</span>
+                        <i class="fas fa-chevron-down"></i>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">
-                        <i class="fas fa-user-plus"></i> [SIGN UP]
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link admin-link" asp-area="" asp-controller="Admin" asp-action="Order">
-                        <i class="fas fa-shield-alt"></i> [ADMIN]
-                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a asp-controller="Account" asp-action="Login">
+                                <i class="fas fa-sign-in-alt"></i> [SIGN IN]
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Account" asp-action="Register">
+                                <i class="fas fa-user-plus"></i> [SIGN UP]
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="Orders" class="admin-link">
+                                <i class="fas fa-shield-alt"></i> [ADMIN]
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

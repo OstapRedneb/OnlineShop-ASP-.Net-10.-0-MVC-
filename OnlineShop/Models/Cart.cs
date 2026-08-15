@@ -12,6 +12,8 @@ namespace OnlineShop.Models
 
         public int Count => _positions.Count;
 
+        public Guid UserId;
+
 
         //ctor
         public Cart() : this(new List<Position>()) 

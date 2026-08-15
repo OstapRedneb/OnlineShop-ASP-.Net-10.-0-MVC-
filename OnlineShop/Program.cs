@@ -17,6 +17,7 @@ namespace OnlineShop
             builder.Services.AddTransient<IFavoriteService,  FavoriteService>();
             builder.Services.AddTransient<IOrderListService, OrderListService>();
             builder.Services.AddTransient<IComparatorService, ComparatorService>();
+            builder.Services.AddTransient<IUserService, UserService>();
 
             var app = builder.Build();
 

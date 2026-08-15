@@ -18,5 +18,10 @@ namespace OnlineShop.Models
 
         [Display(Name = "Should_Remember?", Prompt = "Should_Remember?")]
         public bool ShouldRemember {  get; set; }
+
+        public void Deconstruct(out string name, out string password, out bool shouldRemember)
+        {
+            (name, password, shouldRemember) = (Name, Password, ShouldRemember);
+        }
     }
 }

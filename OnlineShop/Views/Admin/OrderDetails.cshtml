@@ -1,0 +1,186 @@
+﻿@* @model Order
+
+@{
+    ViewData["Title"] = "ORDER_DETAILS";
+    var totalItems = Model?.OrderItems?.Count ?? 0;
+    var totalQuantity = Model?.OrderItems?.Sum(i => i.Quantity) ?? 0;
+}
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ ORDER_DETAILS">>_ ORDER_DETAILS</h1>
+            <a asp-controller="Admin" asp-action="Orders" class="cyber-btn secondary small">
+                <i class="fas fa-arrow-left"></i> [BACK]
+            </a>
+        </div>
+
+        @if (Model != null)
+        {
+            <form method="post" class="details-form">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="details-card">
+                    <!-- Блок информации о заказе -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-receipt"></i> >_ ORDER_INFO
+                        </div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">ORDER_ID</td>
+                                <td class="value">#@Model.Id</td>
+                            </tr>
+                            <tr>
+                                <td class="label">TOTAL_PRICE</td>
+                                <td class="value highlight">¥@Model.TotalPrice.ToString("N2") CR</td>
+                            </tr>
+                            <tr>
+                                <td class="label">ITEMS_COUNT</td>
+                                <td class="value">@totalItems</td>
+                            </tr>
+                            <tr>
+                                <td class="label">TOTAL_QUANTITY</td>
+                                <td class="value">@totalQuantity</td>
+                            </tr>
+                            <tr>
+                                <td class="label">STATUS</td>
+                                <td class="value">
+                                    <select asp-for="Status" class="cyber-select" 
+                                            asp-items="@Html.GetEnumSelectList<OrderStatus>()">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">CREATED_AT</td>
+                                <td class="value">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Блок информации о пользователе -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-user"></i> >_ USER_INFO
+                        </div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">USER_ID</td>
+                                <td class="value">@Model.User?.Id</td>
+                            </tr>
+                            <tr>
+                                <td class="label">USERNAME</td>
+                                <td class="value">@Model.User?.UserName</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Блок информации о покупателе (из формы заказа) -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-id-card"></i> >_ CUSTOMER_INFO
+                        </div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">CUSTOMER_ID</td>
+                                <td class="value">@Model.CustomerId</td>
+                            </tr>
+                            <tr>
+                                <td class="label">NAME</td>
+                                <td class="value">@Model.CustomerName</td>
+                            </tr>
+                            <tr>
+                                <td class="label">PHONE</td>
+                                <td class="value">@Model.CustomerPhone</td>
+                            </tr>
+                            <tr>
+                                <td class="label">ADDRESS</td>
+                                <td class="value">@Model.CustomerAddress</td>
+                            </tr>
+                            <tr>
+                                <td class="label">DELIVERY_DATE</td>
+                                <td class="value">@Model.DeliveryDate?.ToString("dd.MM.yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td class="label">COMMENT</td>
+                                <td class="value">@Model.Comment</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Состав заказа -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-cubes"></i> >_ ORDER_ITEMS
+                        </div>
+                        <div class="admin-table-wrapper">
+                            <table class="cyber-table admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>PRODUCT</th>
+                                        <th>PRICE (CR)</th>
+                                        <th>QUANTITY</th>
+                                        <th>TOTAL (CR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.OrderItems != null && Model.OrderItems.Any())
+                                    {
+                                        int itemCounter = 1;
+                                        foreach (var item in Model.OrderItems)
+                                        {
+                                            <tr>
+                                                <td>@itemCounter</td>
+                                                <td>@item.ProductName</td>
+                                                <td>¥@item.Price.ToString("N2")</td>
+                                                <td>@item.Quantity</td>
+                                                <td>¥@((item.Price * item.Quantity).ToString("N2"))</td>
+                                            </tr>
+                                            itemCounter++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="empty-row">>_ NO_ITEMS</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-actions">
+                    <button type="submit" class="cyber-btn primary" asp-controller="Admin" asp-action="UpdateOrderStatus">
+                        <i class="fas fa-sync-alt"></i> [UPDATE_STATUS]
+                    </button>
+                    <a asp-controller="Admin" asp-action="Orders" class="cyber-btn secondary">
+                        <i class="fas fa-arrow-left"></i> [BACK_TO_ORDERS]
+                    </a>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> ORDER_DETAILS_LOADED :: EDIT_STATUS_IF_NEEDED
+                <span class="blink-cursor">_</span>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span class="glitch-text">[ORDER_NOT_FOUND]</span>
+                </div>
+                <p class="empty-message">>_ ORDER_DOES_NOT_EXIST</p>
+                <a asp-controller="Admin" asp-action="Orders" class="cyber-btn primary">
+                    <i class="fas fa-arrow-left"></i> [BACK_TO_ORDERS]
+                </a>
+            </div>
+        }
+    </div>
+</div> *@

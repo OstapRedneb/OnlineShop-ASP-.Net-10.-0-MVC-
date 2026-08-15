@@ -8,7 +8,11 @@ namespace OnlineShop.Models
         public Guid Id { get; init; } = Guid.NewGuid();
         public int Count => _orders.Count;
 
+        public Guid UserId;
 
+
+        public OrderList() : this(new List<Order>()) 
+        { }
         public OrderList(List<Order> orders) : this(Guid.NewGuid(), orders)
         {}
         public OrderList(Guid id, List<Order> orders)

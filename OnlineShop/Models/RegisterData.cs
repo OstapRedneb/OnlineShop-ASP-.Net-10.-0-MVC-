@@ -21,5 +21,10 @@ namespace OnlineShop.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Copy_Password should be copy of field \"Password\"")]
         public string CopyPassword { get; set; }
+
+        public void Deconstruct(out string name,  out string password,  out string copyPassword) 
+        {
+            (name, password, copyPassword) = (Name, Password, CopyPassword);
+        }
     }
 }

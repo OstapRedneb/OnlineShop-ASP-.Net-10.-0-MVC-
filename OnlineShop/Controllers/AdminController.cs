@@ -7,7 +7,7 @@ namespace OnlineShop.Controllers
 {
     public class AdminController(IProductService productService) : Controller
     {
-        public IActionResult Order()
+        public IActionResult Orders()
         {
             return View();
         }

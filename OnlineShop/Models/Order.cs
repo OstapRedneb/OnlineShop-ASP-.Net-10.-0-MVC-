@@ -36,6 +36,15 @@ public record Order
     [StringLength(255)]
     public string? Comment { get; set; }
 
-    public Order()
+    public List<Position> Positions { get; init; }
+    public decimal Price => Positions.Sum(position => position.Price);
+
+    public Guid UserId { get; set; }
+
+    public Order() : this(new List<Position>())
     { }
+    public Order(List<Position> positions)
+    {
+        Positions = positions;
+    }
 }
