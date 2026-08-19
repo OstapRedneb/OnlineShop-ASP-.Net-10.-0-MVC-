@@ -3195,3 +3195,60 @@ input.valid {
         display: none; /* на мобилках можно убрать стрелку или оставить как есть */
     }
 }
+/* ===== PERMISSIONS GRID ===== */
+.permissions-section {
+    margin-top: 1rem;
+}
+
+.permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem 1.5rem;
+    background: #05080c;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #0ff3;
+}
+
+    .permissions-grid .checkbox-field {
+        margin: 0;
+    }
+
+    .permissions-grid .cyber-checkbox {
+        font-size: 0.85rem;
+        color: #ccddee;
+    }
+
+        .permissions-grid .cyber-checkbox .checkmark {
+            width: 16px;
+            height: 16px;
+        }
+
+/* Стили для кнопки DELETE в таблице ролей */
+.admin-table .delete-btn {
+    border-color: #f0f;
+    color: #f0f;
+}
+
+    .admin-table .delete-btn:hover {
+        background: #f0f2;
+        box-shadow: 0 0 8px #f0f;
+    }
+
+.admin-table td form {
+    display: inline;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .permissions-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.3rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .permissions-grid {
+        grid-template-columns: 1fr;
+    }
+}

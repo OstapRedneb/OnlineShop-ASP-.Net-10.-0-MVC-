@@ -1,0 +1,108 @@
+﻿@model Role
+
+@{
+    ViewData["Title"] = "CREATE_ROLE";
+}
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ CREATE_ROLE">>_ CREATE_ROLE</h1>
+            <a asp-controller="Admin" asp-action="Roles" class="cyber-btn secondary small">
+                <i class="fas fa-arrow-left"></i> [BACK]
+            </a>
+        </div>
+
+        <div class="edit-product-card">
+            <form method="post" class="edit-product-form" asp-controller="Admin" asp-action="RoleCreate">
+                <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+                <div class="form-field">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="cyber-input" placeholder="ENTER_ROLE_NAME" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
+                </div>
+
+                <div class="permissions-section">
+                    <div class="section-title">
+                        <i class="fas fa-lock"></i> >_ PERMISSIONS
+                    </div>
+                    <div class="permissions-grid">
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanAddProducts" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanAddProducts)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanEditProducts" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanEditProducts)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanDeleteProducts" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanDeleteProducts)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanManageUsers" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanManageUsers)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanChangeUserRoles" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanChangeUserRoles)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanViewOrders" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanViewOrders)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanChangeOrderStatus" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanChangeOrderStatus)
+                            </label>
+                        </div>
+                        <div class="form-field checkbox-field">
+                            <label class="cyber-checkbox">
+                                <input asp-for="CanManageRoles" />
+                                <span class="checkmark"></span>
+                                @Html.DisplayNameFor(m => m.CanManageRoles)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-actions">
+                    <a asp-controller="Admin" asp-action="Roles" class="cyber-btn secondary">
+                        <i class="fas fa-arrow-left"></i> [BACK]
+                    </a>
+                    <button type="submit" class="cyber-btn primary">
+                        <i class="fas fa-plus-circle"></i> [CREATE_ROLE]
+                    </button>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> CREATE_MODE :: DEFINE_ROLE_PERMISSIONS
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@
         public string Login { get; init; }
         public string Password { get; init; }
 
+        public Guid RoleId { get; set; }
         public Guid CartId { get; set; }
         public Guid FavoriteId { get; set; }
         public Guid OrderListId { get; set; }

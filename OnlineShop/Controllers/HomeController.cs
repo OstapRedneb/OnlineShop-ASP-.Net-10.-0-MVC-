@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace OnlineShop.Controllers
 {
-    public class HomeController(IProductService productService, ICartService cartService, IFavoriteService favoriteService, IComparatorService comparatorService, IOrderListService orderListService, IUserService userService) : Controller
+    public class HomeController(IProductService productService, ICartService cartService, IFavoriteService favoriteService, IComparatorService comparatorService, IOrderListService orderListService, IUserService userService, IRoleService roleService) : Controller
     {
         [HttpGet]
         public IActionResult Index(string searchString = "")
@@ -22,6 +22,7 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Initial() 
         {
+            roleService.Clear();
             cartService.Clear();
             favoriteService.Clear();
             comparatorService.Clear();
@@ -34,6 +35,26 @@ namespace OnlineShop.Controllers
                     new Product("SynthSlider", 20_199.99m),
                     new Product("HyperTimer", 10_000m)
                 ]);
+
+            Role userRole = new Role();
+            Role adminRole = new Role()
+            {
+                Name = "Admin",
+                CanAddProducts = true,
+                CanChangeOrderStatus = true,
+                CanChangeUserRoles = true,
+                CanDeleteProducts = true,
+                CanEditProducts = true,
+                CanManageRoles = true,
+                CanManageUsers = true,
+                CanViewOrders = true,
+            };
+
+            roleService.AddRange(userRole, adminRole);
+
+            Info.Info.CommonRoleId = userRole.Id;
+
+            CreateAdmin();
 
             return RedirectToAction("Index");
         }
@@ -70,6 +91,27 @@ namespace OnlineShop.Controllers
                     counter++;
             }
             return counter;
+        }
+
+        private void CreateAdmin() 
+        {
+            User admin = new User("admin", "123456");
+            Cart cart = new Cart() { UserId = admin.Id };
+            Favorite favorite = new Favorite() { UserId = admin.Id };
+            OrderList orderList = new OrderList() { UserId = admin.Id };
+            Comparator comparator = new Comparator() { UserId = admin.Id };
+
+            admin.RoleId = roleService.GetByName("Admin").Id;
+            admin.OrderListId = orderList.Id;
+            admin.CartId = cart.Id;
+            admin.ComparatorId = comparator.Id;
+            admin.FavoriteId = favorite.Id;
+
+            userService.Add(admin);
+            cartService.Add(cart);
+            favoriteService.Add(favorite);
+            orderListService.Add(orderList);
+            comparatorService.Add(comparator);
         }
     }
 }

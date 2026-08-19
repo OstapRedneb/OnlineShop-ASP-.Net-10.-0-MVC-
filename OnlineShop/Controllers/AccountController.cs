@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace OnlineShop.Controllers
 {
-    public class AccountController(IUserService userService, ICartService cartService, IFavoriteService favoriteService, IComparatorService comparatorService, IOrderListService orderListService) : Controller
+    public class AccountController(IRoleService roleService, IUserService userService, ICartService cartService, IFavoriteService favoriteService, IComparatorService comparatorService, IOrderListService orderListService) : Controller
     {
         [HttpGet]
         public IActionResult Login()
@@ -37,32 +37,34 @@ namespace OnlineShop.Controllers
             return View(new RegisterData());
         }
         [HttpPost]
-        public IActionResult Register(RegisterData register) 
+        public IActionResult Register(RegisterData register)
         {
             (string name, string password, _) = register;
 
             if (userService.GetAll().Any(user => user.Login == name))
                 ModelState.AddModelError("Name", "USER_WITH_THIS_LOGIN_IS_ACTUALY_EXIST");
 
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return View(register);
 
             RegisterUser(name, password);
 
             return RedirectToAction("Index", "Home");
         }
-        private void RegisterUser(string name, string password) 
+        private void RegisterUser(string name, string password)
         {
             Cart cart = new Cart();
             Favorite favorite = new Favorite();
             OrderList orderList = new OrderList();
             Comparator comparator = new Comparator();
+            Role role = roleService.GetByName("User") ?? new Role();
 
-            User user = new User(name, password) 
+            User user = new User(name, password)
             {
-                CartId = cart.Id, 
-                FavoriteId = favorite.Id, 
-                OrderListId = orderList.Id, 
+                RoleId = role.Id,
+                CartId = cart.Id,
+                FavoriteId = favorite.Id,
+                OrderListId = orderList.Id,
                 ComparatorId = comparator.Id
             };
 
@@ -76,6 +78,7 @@ namespace OnlineShop.Controllers
             Info.Info.CommonComparatorId = comparator.Id;
             Info.Info.CommonCartId = cart.Id;
             Info.Info.CommonOrderListId = orderList.Id;
+            Info.Info.CommonRoleId = role.Id;
 
             cartService.Update(cart);
             favoriteService.Update(favorite);
@@ -87,16 +90,25 @@ namespace OnlineShop.Controllers
         {
             User user = userService.GetAll().First(user => user.Login == name);
 
-            Cart cart = cartService.GetById(user.CartId) ?? new Cart() {UserId = user.Id};
-            Favorite favorite = favoriteService.GetById(user.FavoriteId) ?? new Favorite() {UserId = user.Id};
-            OrderList orderList = orderListService.GetById(user.OrderListId) ?? new OrderList() {UserId = user.Id};
-            Comparator comparator = comparatorService.GetById(user.ComparatorId) ?? new Comparator() { UserId = user.Id};
+            Cart cart = cartService.GetById(user.CartId) ?? new Cart() { UserId = user.Id };
+            Favorite favorite = favoriteService.GetById(user.FavoriteId) ?? new Favorite() { UserId = user.Id };
+            OrderList orderList = orderListService.GetById(user.OrderListId) ?? new OrderList() { UserId = user.Id };
+            Comparator comparator = comparatorService.GetById(user.ComparatorId) ?? new Comparator() { UserId = user.Id };
+
+            Role? role = roleService.GetById(user.RoleId);
+
+            if (role is null)
+            {
+                role = roleService.GetByName("User") ?? new Role();
+                user.RoleId = role.Id;
+            }
 
             Info.Info.CommonUserId = user.Id;
             Info.Info.CommonFavoriteId = favorite.Id;
             Info.Info.CommonComparatorId = comparator.Id;
             Info.Info.CommonCartId = cart.Id;
             Info.Info.CommonOrderListId = orderList.Id;
+            Info.Info.CommonRoleId = role.Id;
 
             cartService.Update(cart);
             favoriteService.Update(favorite);

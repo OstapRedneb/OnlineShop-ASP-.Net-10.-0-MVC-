@@ -1,4 +1,7 @@
-﻿namespace OnlineShop.Info
+﻿using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.JsonServices;
+
+namespace OnlineShop.Info
 {
     public static class Info
     {
@@ -7,5 +10,6 @@
         public static Guid CommonOrderListId { get; set; } = Guid.NewGuid();
         public static Guid CommonComparatorId { get; set; } = Guid.NewGuid();
         public static Guid CommonUserId { get; set; } = Guid.NewGuid();
+        public static Guid CommonRoleId { get; set; }
     }
 }

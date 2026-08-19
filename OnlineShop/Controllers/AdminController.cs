@@ -5,7 +5,7 @@ using OnlineShop.Services.JsonServices;
 
 namespace OnlineShop.Controllers
 {
-    public class AdminController(IProductService productService, IOrderListService orderListService) : Controller
+    public class AdminController(IProductService productService, IOrderListService orderListService, IRoleService roleService) : Controller
     {
         public IActionResult Orders()
         {
@@ -38,9 +38,41 @@ namespace OnlineShop.Controllers
         {
             return View();
         }
-        public IActionResult Role()
+        public IActionResult Roles()
         {
-            return View();
+            return View(roleService.GetAll());
+        }
+        public IActionResult RoleCreate() 
+        {
+            return View(new Role());
+        }
+        [HttpPost]
+        public IActionResult RoleCreate(Role role) 
+        {
+            if (
+                    role.Name == "User" || 
+                    role.Name == "Admin" || 
+                    roleService.GetAll().Any(roleFromMemory => roleFromMemory.Name == role.Name)
+               )
+                ModelState.AddModelError("Name", "This error name is actualy exists");
+
+            if (!ModelState.IsValid)
+                return View(role);
+
+            roleService.Add(role);
+
+            return RedirectToAction("Roles", "Admin");
+        }
+        [HttpPost]
+        public IActionResult RoleDelete(Guid roleId) 
+        {
+            Role role = roleService.GetById(roleId);
+
+            if (roleId == Info.Info.CommonRoleId || role.Name == "User" || role.Name == "Admin")
+                return RedirectToAction("Roles", "Admin");
+
+            roleService.Remove(role);
+            return RedirectToAction("Roles", "Admin");
         }
         public IActionResult Product()
         {
