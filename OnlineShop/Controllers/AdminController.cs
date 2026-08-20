@@ -9,6 +9,9 @@ namespace OnlineShop.Controllers
     {
         public IActionResult Orders()
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanViewOrders ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View
                 (
                     orderListService
@@ -19,11 +22,17 @@ namespace OnlineShop.Controllers
         }
         public IActionResult OrderDetails(Guid orderId) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanChangeOrderStatus ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View(orderListService.GetAll().SelectMany(orderList => orderList.ToList()).FirstOrDefault(order => order.Id == orderId));
         }
         [HttpPost]
         public IActionResult UpdateOrderStatus(Guid id, OrderStatus status) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanChangeOrderStatus ?? false)
+                return RedirectToAction("Index", "Home");
+
             OrderList orderList = orderListService
                                     .GetAll()
                                     .First(orderList => orderList.Any(orderInMemory => orderInMemory.Id == id));
@@ -36,19 +45,31 @@ namespace OnlineShop.Controllers
         }
         public IActionResult User()
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
         public IActionResult Roles()
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View(roleService.GetAll());
         }
         public IActionResult RoleCreate() 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View(new Role());
         }
         [HttpPost]
         public IActionResult RoleCreate(Role role) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
+                return RedirectToAction("Index", "Home");
+
             if (
                     role.Name == "User" || 
                     role.Name == "Admin" || 
@@ -66,6 +87,9 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public IActionResult RoleDelete(Guid roleId) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
+                return RedirectToAction("Index", "Home");
+
             Role role = roleService.GetById(roleId);
 
             if (roleId == Info.Info.CommonRoleId || role.Name == "User" || role.Name == "Admin")
@@ -76,17 +100,26 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Product()
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.IsAdmin ?? false)
+                return RedirectToAction("Index", "Home");
+
             List<Product> products = productService.GetAll();
 
             return View(products);
         }
         public IActionResult ProductCreate() 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
+                return RedirectToAction("Index", "Home");
+
             return View(new Product());
         }
         [HttpPost]
         public IActionResult ProductCreate(Product product) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
+                return RedirectToAction("Index", "Home");
+
             if (!ModelState.IsValid)
                 return View(product);
 
@@ -96,12 +129,18 @@ namespace OnlineShop.Controllers
         }
         public IActionResult ProductEdit(Guid id) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
+                return RedirectToAction("Index", "Home");
+
             Product? product = productService.GetById(id);
             return View(product);
         }
         [HttpPost]
         public IActionResult ProductEdit(Product product) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
+                return RedirectToAction("Index", "Home");
+
             if (!ModelState.IsValid)
                 return View(product);
 
@@ -111,6 +150,9 @@ namespace OnlineShop.Controllers
         }
         public IActionResult ProductDelete(Guid id)
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanDeleteProducts ?? false)
+                return RedirectToAction("Index", "Home");
+
             Product? product = productService.GetById(id);
 
             if (product != null)
