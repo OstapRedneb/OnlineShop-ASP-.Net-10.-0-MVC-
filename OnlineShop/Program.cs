@@ -1,5 +1,6 @@
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
+using Serilog;
 
 namespace OnlineShop
 {
@@ -12,6 +13,14 @@ namespace OnlineShop
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Host.UseSerilog
+                (
+                    (context, configuration) =>
+                        configuration.ReadFrom
+                        .Configuration(context.Configuration)
+                        .Enrich.WithProperty("ApplicationName", "Cyber Shop")
+                );
+
             builder.Services.AddTransient<IProductService, ProductService>();
             builder.Services.AddTransient<ICartService, CartService>();
             builder.Services.AddTransient<IFavoriteService,  FavoriteService>();
@@ -21,6 +30,8 @@ namespace OnlineShop
             builder.Services.AddTransient<IRoleService, RoleService>();
 
             var app = builder.Build();
+
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
             app.UseRouting();
