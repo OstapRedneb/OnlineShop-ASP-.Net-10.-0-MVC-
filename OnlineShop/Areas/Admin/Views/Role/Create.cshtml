@@ -10,13 +10,13 @@
     <div class="admin-content">
         <div class="admin-header">
             <h1 class="admin-title glitch-title" data-text=">_ CREATE_ROLE">>_ CREATE_ROLE</h1>
-            <a asp-controller="Admin" asp-action="Roles" class="cyber-btn secondary small">
+            <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="cyber-btn secondary small">
                 <i class="fas fa-arrow-left"></i> [BACK]
             </a>
         </div>
 
         <div class="edit-product-card">
-            <form method="post" class="edit-product-form" asp-controller="Admin" asp-action="RoleCreate">
+            <form method="post" class="edit-product-form" asp-area="Admin" asp-controller="Role" asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
 
                 <div class="form-field">
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="edit-actions">
-                    <a asp-controller="Admin" asp-action="Roles" class="cyber-btn secondary">
+                    <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="cyber-btn secondary">
                         <i class="fas fa-arrow-left"></i> [BACK]
                     </a>
                     <button type="submit" class="cyber-btn primary">

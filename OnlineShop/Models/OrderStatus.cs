@@ -2,7 +2,7 @@
 
 public enum OrderStatus
 {
-    [Display(Name = "CRRATED")]
+    [Display(Name = "CREATED")]
     Created,
     [Display(Name = "PROCESSING")]
     Processing,

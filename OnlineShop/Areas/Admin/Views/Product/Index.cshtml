@@ -12,7 +12,7 @@
     <div class="admin-content">
         <div class="admin-header">
             <h1 class="admin-title glitch-title" data-text=">_ PRODUCTS">>_ PRODUCTS</h1>
-            <a asp-controller="Admin" asp-action="ProductCreate" class="cyber-btn primary">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="cyber-btn primary">
                 <i class="fas fa-plus-circle"></i> [ADD_NEW_PRODUCT]
             </a>
         </div>
@@ -35,18 +35,18 @@
                             <tr>
                                 <td data-label="#">@counter</td>
                                 <td data-label="Наименование товара">
-                                    <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="product-link">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="product-link">
                                         @product.Name
                                     </a>
                                 </td>
                                 <td data-label="Цена, руб.">@product.Price.ToString("N2") ₽</td>
                                 <td data-label="Действия">
-                                    <a asp-controller="Admin" asp-action="ProductEdit" asp-route-id="@product.Id" class="cyber-btn small edit-btn">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="cyber-btn small edit-btn">
                                         <i class="fas fa-edit"></i> Редактировать
                                     </a>
                                 </td>
                                 <td data-label=" ">
-                                    <a asp-controller="Admin" asp-action="ProductDelete" asp-route-id="@product.Id" class="cyber-btn small danger delete-btn">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="cyber-btn small danger delete-btn">
                                         <i class="fas fa-trash-alt"></i> Удалить
                                     </a>
                                 </td>

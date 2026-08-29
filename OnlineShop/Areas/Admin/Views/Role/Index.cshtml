@@ -12,7 +12,7 @@
     <div class="admin-content">
         <div class="admin-header">
             <h1 class="admin-title glitch-title" data-text=">_ ROLES">>_ ROLES</h1>
-            <a asp-controller="Admin" asp-action="RoleCreate" class="cyber-btn primary">
+            <a asp-area="Admin" asp-controller="Role" asp-action="Create" class="cyber-btn primary">
                 <i class="fas fa-plus-circle"></i> [ADD_ROLE]
             </a>
         </div>
@@ -35,7 +35,7 @@
                                 <td data-label="#">@counter</td>
                                 <td data-label="ROLE_NAME">@role.Name</td>
                                 <td data-label=" ">
-                                    <form method="post" asp-controller="Admin" asp-action="RoleDelete" style="display:inline;">
+                                    <form method="post" asp-area="Admin" asp-controller="Role" asp-action="Delete" style="display:inline;">
                                         <input type="hidden" name="roleId" value="@role.Id" />
                                         <button type="submit" class="cyber-btn small danger delete-btn">
                                             <i class="fas fa-trash-alt"></i> DELETE
@@ -65,7 +65,7 @@
                     <span class="glitch-text">[NO_ROLES]</span>
                 </div>
                 <p class="empty-message">>_ NO_ROLES_FOUND_IN_SYSTEM</p>
-                <a asp-controller="Admin" asp-action="RoleCreate" class="cyber-btn primary">
+                <a asp-area="Admin" asp-controller="Role" asp-action="Create" class="cyber-btn primary">
                     <i class="fas fa-plus-circle"></i> [ADD_ROLE]
                 </a>
             </div>

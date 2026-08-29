@@ -12,7 +12,7 @@
     <div class="admin-content">
         <div class="admin-header">
             <h1 class="admin-title glitch-title" data-text=">_ ORDER_DETAILS">>_ ORDER_DETAILS</h1>
-            <a asp-controller="Admin" asp-action="Orders" class="cyber-btn secondary small">
+            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="cyber-btn secondary small">
                 <i class="fas fa-arrow-left"></i> [BACK]
             </a>
         </div>
@@ -155,10 +155,10 @@
                 </div>
 
                 <div class="details-actions">
-                    <button type="submit" class="cyber-btn primary" asp-controller="Admin" asp-action="UpdateOrderStatus">
+                    <button type="submit" class="cyber-btn primary" asp-area="Admin" asp-controller="Order" asp-action="UpdateStatus">
                         <i class="fas fa-sync-alt"></i> [UPDATE_STATUS]
                     </button>
-                    <a asp-controller="Admin" asp-action="Orders" class="cyber-btn secondary">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="cyber-btn secondary">
                         <i class="fas fa-arrow-left"></i> [BACK_TO_ORDERS]
                     </a>
                 </div>
@@ -177,7 +177,7 @@
                     <span class="glitch-text">[ORDER_NOT_FOUND]</span>
                 </div>
                 <p class="empty-message">>_ ORDER_DOES_NOT_EXIST</p>
-                <a asp-controller="Admin" asp-action="Orders" class="cyber-btn primary">
+                <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="cyber-btn primary">
                     <i class="fas fa-arrow-left"></i> [BACK_TO_ORDERS]
                 </a>
             </div>
