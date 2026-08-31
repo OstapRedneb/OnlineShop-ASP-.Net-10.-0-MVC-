@@ -95,7 +95,7 @@ namespace OnlineShop.Controllers
 
         private void CreateAdmin() 
         {
-            User admin = new User("admin", "123456");
+            User admin = new User("admin", "123456", "88005553535", "Dazdraperma", "Djugashvily", "admin@gmail.com");
             Cart cart = new Cart() { UserId = admin.Id };
             Favorite favorite = new Favorite() { UserId = admin.Id };
             OrderList orderList = new OrderList() { UserId = admin.Id };

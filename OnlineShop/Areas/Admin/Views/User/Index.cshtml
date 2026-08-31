@@ -1,12 +1,81 @@
-﻿@{
-    ViewData["Title"] = "Управление заказами";
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "USERS";
+    int counter = 1;
+    int totalUsers = Model?.Count() ?? 0;
 }
 
 <div class="admin-layout">
     @await Html.PartialAsync("_AdminSidebar")
+    
     <div class="admin-content">
-        <!-- Здесь будет содержимое правой части (ваши формы/таблицы) -->
-        <h2>Users</h2>
-        <!-- ... -->
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ USERS">>_ USERS</h1>
+            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="cyber-btn primary">
+                <i class="fas fa-user-plus"></i> [ADD_USER]
+            </a>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="admin-table-wrapper">
+                <table class="cyber-table admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>EMAIL (LOGIN)</th>
+                            <th>NAME</th>
+                            <th>SURNAME</th>
+                            <th>PHONE</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td data-label="#">@counter</td>
+                                <td data-label="EMAIL (LOGIN)">
+                                    <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="product-link">
+                                        @user.Login
+                                    </a>
+                                </td>
+                                <td data-label="NAME">@user.FirstName</td>
+                                <td data-label="SURNAME">@user.LastName</td>
+                                <td data-label="PHONE">@user.Phone</td>
+                                <td data-label=" ">
+                                    <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="cyber-btn small details-btn">
+                                        <i class="fas fa-eye"></i> DETAILS
+                                    </a>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="total-row">
+                                <span class="total-label">TOTAL USERS:</span>
+                                <span class="total-value">@totalUsers</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-users-slash"></i>
+                    <span class="glitch-text">[NO_USERS]</span>
+                </div>
+                <p class="empty-message">>_ NO_USERS_FOUND_IN_SYSTEM</p>
+                <a asp-area="Admin" asp-controller="User" asp-action="Create" class="cyber-btn primary">
+                    <i class="fas fa-user-plus"></i> [ADD_USER]
+                </a>
+            </div>
+        }
     </div>
 </div>

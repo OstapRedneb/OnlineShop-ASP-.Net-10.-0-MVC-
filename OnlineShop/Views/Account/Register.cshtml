@@ -30,6 +30,27 @@
                     <input class="cyber-input" asp-for="CopyPassword"/>
                     <span asp-validation-for="CopyPassword" class="field-validation-error"></span>
                 </div>
+
+                <div class="form-field">
+                    <label asp-for="FirstName"></label>
+                    <input class="cyber-input" asp-for="FirstName"/>
+                    <span asp-validation-for="FirstName" class="field-validation-error"></span>
+                </div>
+                <div class="form-field">
+                    <label asp-for="LastName"></label>
+                    <input class="cyber-input" asp-for="LastName"/>
+                    <span asp-validation-for="LastName" class="field-validation-error"></span>
+                </div>
+                <div class="form-field">
+                    <label asp-for="Email"></label>
+                    <input class="cyber-input" asp-for="Email"/>
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+                </div>
+                <div class="form-field">
+                    <label asp-for="Phone"></label>
+                    <input class="cyber-input" asp-for="Phone"/>
+                    <span asp-validation-for="Phone" class="field-validation-error"></span>
+                </div>
                 <button type="submit" class="cyber-btn primary" asp-controller="Account" asp-action="Register">
                     <i class="fas fa-user-plus"></i> Зарегистрироваться
                 </button>

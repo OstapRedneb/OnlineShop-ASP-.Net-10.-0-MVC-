@@ -22,9 +22,33 @@ namespace OnlineShop.Models
         [Compare("Password", ErrorMessage = "Copy_Password should be copy of field \"Password\"")]
         public string CopyPassword { get; set; }
 
-        public void Deconstruct(out string name,  out string password,  out string copyPassword) 
+        [Display(Name = "FIRSTNAME", Prompt = "YOUR_FIRSTNAME")]
+        [Required(ErrorMessage = "Field \"First_Name\" is empty")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "LASTNAME", Prompt = "YOUR_LASTNAME")]
+        [Required(ErrorMessage = "Field \"Last_Name\" is empty")]
+        public string LastName { get; set; }
+
+        [Display(Name = "EMAIL", Prompt = "YOUR_EMAIL")]
+        [Required(ErrorMessage = "Field \"Email\" is empty")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "IT'S NOT EMAIL")]
+        public string Email { get; set; }
+
+        [Display(Name = "PHONE", Prompt = "YOUR_PHONE")]
+        [Required(ErrorMessage = "Field \"First_Name\" is empty")]
+        public string Phone { get; set; }
+
+        public void Deconstruct(
+            out string name,  
+            out string password,  
+            out string copyPassword, 
+            out string firstName, 
+            out string lastName, 
+            out string email, 
+            out string phone) 
         {
-            (name, password, copyPassword) = (Name, Password, CopyPassword);
+            (name, password, copyPassword, firstName, lastName, email, phone) = (Name, Password, CopyPassword, FirstName, LastName, Email, Phone);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public IActionResult Register(RegisterData register)
         {
-            (string name, string password, _) = register;
+            (string name, string password, _, string firstName, string lastName, string email, string phone) = register;
 
             if (userService.GetAll().Any(user => user.Login == name))
                 ModelState.AddModelError("Name", "USER_WITH_THIS_LOGIN_IS_ACTUALY_EXIST");
@@ -47,11 +47,11 @@ namespace OnlineShop.Controllers
             if (!ModelState.IsValid)
                 return View(register);
 
-            RegisterUser(name, password);
+            RegisterUser(name, password, firstName, lastName, email, phone);
 
             return RedirectToAction("Index", "Home");
         }
-        private void RegisterUser(string name, string password)
+        private void RegisterUser(string name, string password, string firstName, string lastName, string email, string phone)
         {
             Cart cart = new Cart();
             Favorite favorite = new Favorite();
@@ -59,7 +59,7 @@ namespace OnlineShop.Controllers
             Comparator comparator = new Comparator();
             Role role = roleService.GetByName("User") ?? new Role();
 
-            User user = new User(name, password)
+            User user = new User(name, password, phone, firstName, lastName, email)
             {
                 RoleId = role.Id,
                 CartId = cart.Id,
