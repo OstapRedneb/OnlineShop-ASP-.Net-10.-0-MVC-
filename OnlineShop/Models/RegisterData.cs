@@ -36,7 +36,7 @@ namespace OnlineShop.Models
         public string Email { get; set; }
 
         [Display(Name = "PHONE", Prompt = "YOUR_PHONE")]
-        [Required(ErrorMessage = "Field \"First_Name\" is empty")]
+        [Required(ErrorMessage = "Field \"Phone\" is empty")]
         public string Phone { get; set; }
 
         public void Deconstruct(

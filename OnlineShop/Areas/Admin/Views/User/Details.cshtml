@@ -1,0 +1,111 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "USER_DETAILS";
+}
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ USER_DETAILS">>_ USER_DETAILS</h1>
+            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="cyber-btn secondary small">
+                <i class="fas fa-arrow-left"></i> [BACK]
+            </a>
+        </div>
+
+        @if (Model != null)
+        {
+            <div class="details-card user-details-card">
+                <!-- Кнопка действий (выпадающее меню) -->
+                <div class="user-actions-dropdown">
+                    <div class="dropdown-trigger">
+                        <button class="cyber-btn primary small" type="button">
+                            <i class="fas fa-cog"></i> [ACTIONS] <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu cyber-dropdown">
+                            <li>
+                                <a asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-id="@Model.Id">
+                                    <i class="fas fa-key"></i> CHANGE_PASSWORD
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">
+                                    <i class="fas fa-edit"></i> EDIT_PROFILE
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="Admin" asp-controller="User" asp-action="ChangeRole" asp-route-id="@Model.Id">
+                                    <i class="fas fa-user-tag"></i> CHANGE_ROLE
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="danger-link">
+                                    <i class="fas fa-trash-alt"></i> DELETE_USER
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Информация о пользователе -->
+                <div class="details-section">
+                    <div class="section-title">
+                        <i class="fas fa-user"></i> >_ USER_PROFILE
+                    </div>
+                    <table class="details-table">
+                        <tr>
+                            <td class="label">USER_ID</td>
+                            <td class="value">#@Model.Id</td>
+                        </tr>
+                        <tr>
+                            <td class="label">EMAIL (LOGIN)</td>
+                            <td class="value highlight">@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td class="label">FIRST_NAME</td>
+                            <td class="value">@Model.FirstName</td>
+                        </tr>
+                        <tr>
+                            <td class="label">LAST_NAME</td>
+                            <td class="value">@Model.LastName</td>
+                        </tr>
+                        <tr>
+                            <td class="label">PHONE</td>
+                            <td class="value">@Model.Phone</td>
+                        </tr>
+                        <tr>
+                            <td class="label">ROLE</td>
+                            <td class="value">
+                                <span class="status-badge status-role">@await Component.InvokeAsync("UserRole", Model.RoleId)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">REGISTERED_AT</td>
+                            <td class="value">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="terminal-line">
+                    <span class="prompt">>_</span> USER_PROFILE_LOADED :: ACTIONS_AVAILABLE
+                    <span class="blink-cursor">_</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span class="glitch-text">[USER_NOT_FOUND]</span>
+                </div>
+                <p class="empty-message">>_ USER_DOES_NOT_EXIST</p>
+                <a asp-area="Admin" asp-controller="User" asp-action="Index" class="cyber-btn primary">
+                    <i class="fas fa-arrow-left"></i> [BACK_TO_USERS]
+                </a>
+            </div>
+        }
+    </div>
+</div>

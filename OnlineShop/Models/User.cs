@@ -9,6 +9,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public Guid RoleId { get; set; }
         public Guid CartId { get; set; }
@@ -29,6 +30,7 @@
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            CreatedAt = DateTime.Now;
         }
     }
 }
