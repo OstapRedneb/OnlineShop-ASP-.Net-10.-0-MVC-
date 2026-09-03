@@ -44,6 +44,9 @@ namespace OnlineShop.Controllers
             if (userService.GetAll().Any(user => user.Login == name))
                 ModelState.AddModelError("Name", "USER_WITH_THIS_LOGIN_IS_ACTUALY_EXIST");
 
+            if (userService.GetAll().Any(user => user.Email == email))
+                ModelState.AddModelError("Email", "USER_WITH_THIS_EMAIL_IS_ACTUALY_EXIST");
+
             if (!ModelState.IsValid)
                 return View(register);
 

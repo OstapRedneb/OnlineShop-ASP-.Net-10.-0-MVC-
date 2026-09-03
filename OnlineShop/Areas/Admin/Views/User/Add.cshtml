@@ -1,0 +1,91 @@
+﻿@model UserCreate
+
+@{
+    ViewData["Title"] = "ADD_USER";
+    var roles = ViewBag.Roles as IEnumerable<Role>;
+    }
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ ADD_USER">>_ CREATE_USER</h1>
+            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="cyber-btn secondary small">
+                <i class="fas fa-arrow-left"></i> [BACK]
+            </a>
+        </div>
+
+        <div class="edit-product-card">
+            <form method="post" class="edit-product-form" asp-area="Admin" asp-controller="User" asp-action="Add">
+                <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+                <div class="form-field">
+                    <label asp-for="Login"></label>
+                    <input asp-for="Login" class="cyber-input" placeholder="YOUR_LOGIN" />
+                    <span asp-validation-for="Login" class="field-validation-error"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="cyber-input" placeholder="user@domain.com" />
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field half">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="cyber-input" placeholder="YOUR_NAME" />
+                        <span asp-validation-for="FirstName" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-field half">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="cyber-input" placeholder="YOUR_SURNAME" />
+                        <span asp-validation-for="LastName" class="field-validation-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="cyber-input" placeholder="+7 999 123-45-67" />
+                    <span asp-validation-for="Phone" class="field-validation-error"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field half">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="cyber-input"/>
+                        <span asp-validation-for="Password" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-field half">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" class="cyber-input"/>
+                        <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="RoleId"></label>
+                    <select asp-for="RoleId" class="cyber-select" asp-items="@(new SelectList(roles, "Id", "Name"))">
+                        <option value="">— SELECT_ROLE —</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="field-validation-error"></span>
+                </div>
+
+                <div class="edit-actions">
+                    <a asp-area="Admin" asp-controller="User" asp-action="Index" class="cyber-btn secondary">
+                        <i class="fas fa-arrow-left"></i> [BACK]
+                    </a>
+                    <button type="submit" class="cyber-btn primary">
+                        <i class="fas fa-user-plus"></i> [CREATE_USER]
+                    </button>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> CREATE_MODE :: REGISTER_NEW_USER
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>

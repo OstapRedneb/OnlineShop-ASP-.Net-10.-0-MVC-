@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
+using System.Xml.Linq;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UserController(IRoleService roleService, IUserService userService) : Controller
+    public class UserController(IRoleService roleService, IUserService userService, ICartService cartService, IFavoriteService favoriteService, IComparatorService comparatorService, IOrderListService orderListService) : Controller
     {
         public IActionResult Index()
         {
@@ -29,12 +31,59 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
         public IActionResult Add() 
         {
-            return View();
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Roles = roleService.GetAll();
+
+            return View(new UserCreate());
         }
         [HttpPost]
         public IActionResult Add(UserCreate userCreate) 
         {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
+                return RedirectToAction("Index", "Home");
 
+            if (userService.GetAll().Any(user => user.Login == userCreate.Login))
+                ModelState.AddModelError("Name", "USER_WITH_THIS_LOGIN_IS_ACTUALY_EXIST");
+
+            if (userService.GetAll().Any(user => user.Email == userCreate.Email))
+                ModelState.AddModelError("Email", "USER_WITH_THIS_EMAIL_IS_ACTUALY_EXIST");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = roleService.GetAll();
+                return View(userCreate);
+            }
+
+            User user = (User)userCreate;
+            
+            Register(user);
+
+            return RedirectToAction("Index", "User", "Admin");
+        }
+        public void Register(User user) 
+        {
+            Cart cart = new Cart();
+            Favorite favorite = new Favorite();
+            OrderList orderList = new OrderList();
+            Comparator comparator = new Comparator();
+
+            user.CartId = cart.Id;
+            user.ComparatorId = comparator.Id;
+            user.FavoriteId = favorite.Id;
+            user.OrderListId = orderList.Id;
+
+            cart.UserId = user.Id;
+            favorite.UserId = user.Id;
+            orderList.UserId = user.Id;
+            comparator.UserId = user.Id;
+
+            cartService.Update(cart);
+            favoriteService.Update(favorite);
+            comparatorService.Update(comparator);
+            orderListService.Update(orderList);
+            userService.Update(user);
         }
     }
 }
