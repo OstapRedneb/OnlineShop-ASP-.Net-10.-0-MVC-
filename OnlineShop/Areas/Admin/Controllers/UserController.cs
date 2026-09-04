@@ -62,7 +62,37 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "User", "Admin");
         }
-        public void Register(User user) 
+        public IActionResult ChangePassword(Guid id) 
+        {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
+                return RedirectToAction("Index", "Home");
+
+            return View(new ChangePassword {UserId = id});
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePassword changePassword) 
+        {
+            if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
+                return RedirectToAction("Index", "Home");
+
+            User? user = userService.GetById(changePassword.UserId);
+
+            if (user is null)
+                return RedirectToAction("Index", "Home");
+
+            if (changePassword.Password == user.Password)
+                ModelState.AddModelError("Password", "passwords should be diferent");
+
+            if (!ModelState.IsValid)
+                return View(changePassword);
+
+            user.Password = changePassword.Password;
+
+            userService.Update(user);
+
+            return RedirectToAction("Details", "User", new { id = user.Id });
+        }
+        private void Register(User user) 
         {
             Cart cart = new Cart();
             Favorite favorite = new Favorite();
