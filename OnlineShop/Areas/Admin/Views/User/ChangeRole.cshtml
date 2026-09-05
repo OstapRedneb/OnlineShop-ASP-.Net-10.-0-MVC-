@@ -1,0 +1,49 @@
+﻿@model ChangeRole
+
+@{
+    ViewData["Title"] = "CHANGE_ROLE";
+    var roles = ViewBag.Roles as IEnumerable<Role>; // список ролей из контроллера
+}
+
+<div class="admin-layout">
+    @await Html.PartialAsync("_AdminSidebar")
+
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1 class="admin-title glitch-title" data-text=">_ CHANGE_ROLE">>_ CHANGE_ROLE</h1>
+            <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@Model.UserId" class="cyber-btn secondary small">
+                <i class="fas fa-arrow-left"></i> [BACK]
+            </a>
+        </div>
+
+        <div class="edit-product-card">
+            <form method="post" class="edit-product-form" asp-area="Admin" asp-controller="User" asp-action="ChangeRole">
+                <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+                <input type="hidden" asp-for="UserId" />
+
+                <div class="form-field">
+                    <label asp-for="RoleId"></label>
+                    <select asp-for="RoleId" class="cyber-select" asp-items="@(new SelectList(roles, "Id", "Name"))">
+                        <option value="">— SELECT_ROLE —</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="field-validation-error"></span>
+                </div>
+
+                <div class="edit-actions">
+                    <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@Model.UserId" class="cyber-btn secondary">
+                        <i class="fas fa-arrow-left"></i> [BACK]
+                    </a>
+                    <button type="submit" class="cyber-btn primary">
+                        <i class="fas fa-save"></i> [UPDATE_ROLE]
+                    </button>
+                </div>
+            </form>
+
+            <div class="terminal-line">
+                <span class="prompt">>_</span> CHANGE_ROLE_MODE :: MODIFY_USER_PERMISSIONS
+                <span class="blink-cursor">_</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -92,6 +92,41 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             return RedirectToAction("Details", "User", new { id = user.Id });
         }
+        public IActionResult ChangeRole(Guid id) 
+        {
+            if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || !(roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false))
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Roles = roleService.GetAll();
+
+            return View(new ChangeRole { UserId = id });
+        }
+        [HttpPost]
+        public IActionResult ChangeRole(ChangeRole changeRole) 
+        {
+            if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || !(roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false))
+                return RedirectToAction("Index", "Home");
+
+            User? user = userService.GetById(changeRole.UserId);
+
+            if (user is null)
+                return RedirectToAction("Index", "Home");
+
+            if (user.RoleId == changeRole.RoleId)
+                ModelState.AddModelError("RoleId", "User exactly has this role");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = roleService.GetAll();
+                return View(changeRole);
+            }
+
+            user.RoleId = changeRole.RoleId;
+
+            userService.Update(user);
+
+            return RedirectToAction("Details", "User", new {id =  user.Id});
+        }
         private void Register(User user) 
         {
             Cart cart = new Cart();
