@@ -127,6 +127,35 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             return RedirectToAction("Details", "User", new {id =  user.Id});
         }
+        public IActionResult Edit(Guid id) 
+        {
+            if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false))
+                return RedirectToAction("Index", "Home");
+
+            User? user = userService.GetById(id);
+
+            if (user is null)
+                return RedirectToAction("Index", "Home");
+
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult Edit(User user) 
+        {
+            if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || user is null)
+                return RedirectToAction("Index", "Home");
+
+            if (userService.GetAll().Where(userInMemory => userInMemory.Login == user.Login).Count() > 1)
+                ModelState.AddModelError("Login", "This login is actualy exists");
+
+            if (!ModelState.IsValid)
+                return View(user);
+
+            userService.Update(user);
+
+            return View("Details", "User");
+        }
+
         private void Register(User user) 
         {
             Cart cart = new Cart();

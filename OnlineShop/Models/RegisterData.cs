@@ -23,10 +23,12 @@ namespace OnlineShop.Models
         public string CopyPassword { get; set; }
 
         [Display(Name = "FIRSTNAME", Prompt = "YOUR_FIRSTNAME")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Name should be longer than {2} and shourter than {1}")]
         [Required(ErrorMessage = "Field \"First_Name\" is empty")]
         public string FirstName { get; set; }
 
         [Display(Name = "LASTNAME", Prompt = "YOUR_LASTNAME")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "LastName should be longer than {2} and shourter than {1}")]
         [Required(ErrorMessage = "Field \"Last_Name\" is empty")]
         public string LastName { get; set; }
 
