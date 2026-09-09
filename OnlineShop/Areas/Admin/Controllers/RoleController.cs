@@ -43,14 +43,14 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Index", "Role", "Admin");
         }
         [HttpPost]
-        public IActionResult Delete(Guid roleId)
+        public IActionResult Delete(Guid id)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            Role role = roleService.GetById(roleId);
+            Role role = roleService.GetById(id);
 
-            if (roleId == Info.Info.CommonRoleId || role.Name == "User" || role.Name == "Admin")
+            if (id == Info.Info.CommonRoleId || role.Name == "User" || role.Name == "Admin")
                 return RedirectToAction("Index", "Role", "Admin");
 
             roleService.Remove(role);

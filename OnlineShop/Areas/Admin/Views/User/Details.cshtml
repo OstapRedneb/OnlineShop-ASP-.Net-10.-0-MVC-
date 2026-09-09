@@ -17,6 +17,37 @@
 
         @if (Model != null)
         {
+            //Modal window
+            <div id="deleteModal-@Model.Id" class="modal-overlay">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <span class="modal-title glitch-text">>_ CONFIRM_DELETE</span>
+                        <a href="#close" class="modal-close"><i class="fas fa-times"></i></a>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            ARE_YOU_SURE_YOU_WANT_TO_DELETE <span class="highlight">@Model.Login</span>?
+                            <br />
+                            <span class="subtext">THIS_ACTION_CANNOT_BE_UNDONE</span>
+                        </p>
+                        <form method="post" asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id">
+                            <div class="modal-actions">
+                                <a href="#close" class="cyber-btn secondary">[CANCEL]</a>
+                                <button type="submit" class="cyber-btn danger">
+                                    <i class="fas fa-trash-alt"></i> [DELETE]
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">>_</span> DELETE_OPERATION :: AWAITING_CONFIRMATION
+                        <span class="blink-cursor">_</span>
+                    </div>
+                </div>
+            </div>
+            
+            //User
             <div class="details-card user-details-card">
                 <!-- Кнопка действий (выпадающее меню) -->
                 <div class="user-actions-dropdown">
@@ -41,8 +72,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="danger-link">
-                                    <i class="fas fa-trash-alt"></i> DELETE_USER
+                                <a href="#deleteModal-@Model.Id" class="danger-link">
+                                    <i class="fas fa-trash-alt"></i> DELETE
                                 </a>
                             </li>
                         </ul>

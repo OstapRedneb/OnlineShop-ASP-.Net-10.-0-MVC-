@@ -45,6 +45,24 @@ public class UserService : IUserService
 
         WriteIntoMemory(usersToAdd);
     }
+    public bool Remove(User user)
+    {
+        User? userToRemove = GetById(user.Id);
+
+        if (user is null)
+            return false;
+
+        List<User> updatedUsers = new List<User>();
+
+        foreach (User userFromMemory in GetAll())
+        {
+            if (userFromMemory.Id != userToRemove.Id)
+                updatedUsers.Add(userFromMemory);
+        }
+
+        WriteIntoMemory(updatedUsers);
+        return true;
+    }
     public bool Update(User user)
     {
         if (user is null)

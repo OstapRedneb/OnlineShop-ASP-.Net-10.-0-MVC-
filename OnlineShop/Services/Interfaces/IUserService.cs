@@ -9,6 +9,7 @@ namespace OnlineShop.Services.Interfaces
         public User? GetById(Guid id);
         public bool Add(User user);
         public void AddRange(params List<User> users);
+        public bool Remove(User user);
         public bool Update(User user);
         public void Clear();
     }

@@ -58,6 +58,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult Delete(Guid id)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanDeleteProducts ?? false)

@@ -155,6 +155,19 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             return View("Details", "User");
         }
+        [HttpPost]
+        public IActionResult Delete(Guid id) 
+        {
+            if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false))
+                return RedirectToAction("Index", "Home", new { area = "" });
+
+            User? user = userService.GetById(id);
+
+            if (userService.Remove(user))
+                return RedirectToAction("Details", "User", new {id = user.Id});
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
 
         private void Register(User user) 
         {

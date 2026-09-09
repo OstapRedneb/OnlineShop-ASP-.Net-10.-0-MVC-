@@ -32,6 +32,37 @@
                     {
                         foreach (var product in Model)
                         {
+                            //Modal window
+                            <div id="deleteModal-@product.Id" class="modal-overlay">
+                                <div class="modal-card">
+                                    <div class="modal-header">
+                                        <span class="modal-title glitch-text">>_ CONFIRM_DELETE</span>
+                                        <a href="#close" class="modal-close"><i class="fas fa-times"></i></a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="modal-message">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            ARE_YOU_SURE_YOU_WANT_TO_DELETE <span class="highlight">@product.Name</span>?
+                                            <br />
+                                            <span class="subtext">THIS_ACTION_CANNOT_BE_UNDONE</span>
+                                        </p>
+                                        <form method="post" asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">
+                                            <div class="modal-actions">
+                                                <a href="#close" class="cyber-btn secondary">[CANCEL]</a>
+                                                <button type="submit" class="cyber-btn danger">
+                                                    <i class="fas fa-trash-alt"></i> [DELETE]
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="terminal-line">
+                                        <span class="prompt">>_</span> DELETE_OPERATION :: AWAITING_CONFIRMATION
+                                        <span class="blink-cursor">_</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            //Product
                             <tr>
                                 <td data-label="#">@counter</td>
                                 <td data-label="Наименование товара">
@@ -46,8 +77,8 @@
                                     </a>
                                 </td>
                                 <td data-label=" ">
-                                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="cyber-btn small danger delete-btn">
-                                        <i class="fas fa-trash-alt"></i> Удалить
+                                    <a href="#deleteModal-@product.Id" class="cyber-btn small danger delete-btn">
+                                        <i class="fas fa-trash-alt"></i> DELETE
                                     </a>
                                 </td>
                             </tr>
