@@ -11,14 +11,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(roleService.GetAll());
         }
         public IActionResult Create()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(new Role());
         }
@@ -26,7 +26,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Create(Role role)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (
                     role.Name == "User" ||
@@ -46,7 +46,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Delete(Guid roleId)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             Role role = roleService.GetById(roleId);
 

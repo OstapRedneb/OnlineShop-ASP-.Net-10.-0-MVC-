@@ -11,7 +11,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanViewOrders ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View
                 (
@@ -24,7 +24,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Details(Guid orderId)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanChangeOrderStatus ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(orderListService.GetAll().SelectMany(orderList => orderList.ToList()).FirstOrDefault(order => order.Id == orderId));
         }
@@ -32,7 +32,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult UpdateStatus(Guid id, OrderStatus status)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanChangeOrderStatus ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             OrderList orderList = orderListService
                                     .GetAll()

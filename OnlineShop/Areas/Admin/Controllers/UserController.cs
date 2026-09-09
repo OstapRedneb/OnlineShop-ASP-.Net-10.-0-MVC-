@@ -13,26 +13,26 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(userService.GetAll());
         }
         public IActionResult Details(Guid id) 
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             User? user = userService.GetById(id);
 
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(user);
         }
         public IActionResult Add() 
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             ViewBag.Roles = roleService.GetAll();
 
@@ -42,7 +42,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Add(UserCreate userCreate) 
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (userService.GetAll().Any(user => user.Login == userCreate.Login))
                 ModelState.AddModelError("Name", "USER_WITH_THIS_LOGIN_IS_ACTUALY_EXIST");
@@ -65,7 +65,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult ChangePassword(Guid id) 
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(new ChangePassword {UserId = id});
         }
@@ -73,12 +73,12 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult ChangePassword(ChangePassword changePassword) 
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             User? user = userService.GetById(changePassword.UserId);
 
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (changePassword.Password == user.Password)
                 ModelState.AddModelError("Password", "passwords should be diferent");
@@ -95,7 +95,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult ChangeRole(Guid id) 
         {
             if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || !(roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false))
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             ViewBag.Roles = roleService.GetAll();
 
@@ -105,12 +105,12 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult ChangeRole(ChangeRole changeRole) 
         {
             if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || !(roleService.GetById(Info.Info.CommonRoleId)?.CanManageRoles ?? false))
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             User? user = userService.GetById(changeRole.UserId);
 
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (user.RoleId == changeRole.RoleId)
                 ModelState.AddModelError("RoleId", "User exactly has this role");
@@ -130,12 +130,12 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Edit(Guid id) 
         {
             if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false))
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             User? user = userService.GetById(id);
 
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(user);
         }
@@ -143,7 +143,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Edit(User user) 
         {
             if (!(roleService.GetById(Info.Info.CommonRoleId)?.CanManageUsers ?? false) || user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (userService.GetAll().Where(userInMemory => userInMemory.Login == user.Login).Count() > 1)
                 ModelState.AddModelError("Login", "This login is actualy exists");

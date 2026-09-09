@@ -11,7 +11,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.IsAdmin ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             List<Product> products = productService.GetAll();
 
@@ -20,7 +20,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Create()
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             return View(new Product());
         }
@@ -28,7 +28,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Create(Product product)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (!ModelState.IsValid)
                 return View(product);
@@ -40,7 +40,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Edit(Guid id)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             Product? product = productService.GetById(id);
             return View(product);
@@ -49,7 +49,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Edit(Product product)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             if (!ModelState.IsValid)
                 return View(product);
@@ -61,7 +61,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Delete(Guid id)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanDeleteProducts ?? false)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area = ""});
 
             Product? product = productService.GetById(id);
 
