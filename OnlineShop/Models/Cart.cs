@@ -54,7 +54,7 @@ namespace OnlineShop.Models
             this._positions.Add(position);
             return true;
         }
-        public bool Add(Product product) 
+        public bool Add(ProductViewModel product) 
         {
             if (product is null)
                 return false;
@@ -79,7 +79,7 @@ namespace OnlineShop.Models
             _positions.Remove(position);
             return true;
         }
-        public bool Remove(Product product) 
+        public bool Remove(ProductViewModel product) 
         {
             if (product is null || this.All(position => position.Product.Id != product.Id))
                 return false;

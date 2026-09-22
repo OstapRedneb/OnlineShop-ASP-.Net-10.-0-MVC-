@@ -13,7 +13,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.IsAdmin ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            List<Product> products = productService.GetAll();
+            List<ProductViewModel> products = productService.GetAll();
 
             return View(products);
         }
@@ -22,10 +22,10 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            return View(new Product());
+            return View(new ProductViewModel());
         }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductViewModel product)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanAddProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
@@ -42,11 +42,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            Product? product = productService.GetById(id);
+            ProductViewModel? product = productService.GetById(id);
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductViewModel product)
         {
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
@@ -64,7 +64,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanDeleteProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            Product? product = productService.GetById(id);
+            ProductViewModel? product = productService.GetById(id);
 
             if (product != null)
                 product.IsDeleted = true;

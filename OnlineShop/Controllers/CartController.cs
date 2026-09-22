@@ -22,7 +22,7 @@ namespace OnlineShop.Controllers
         public IActionResult Add(Guid productId)
         {
             Cart? cart = cartService.GetById(Info.Info.CommonCartId);
-            Product? product = productService.GetById(productId);
+            ProductViewModel? product = productService.GetById(productId);
 
             if (cart is null)
             {

@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
         public IActionResult Add(Guid productId)
         {
             Favorite? favorite = favoriteService.GetById(Info.Info.CommonFavoriteId);
-            Product? product = productService.GetById(productId);
+            ProductViewModel? product = productService.GetById(productId);
 
             if (favorite is null)
             {
@@ -41,7 +41,7 @@ namespace OnlineShop.Controllers
         public IActionResult Remove(Guid productId) 
         {
             Favorite? favorite = favoriteService.GetById(Info.Info.CommonFavoriteId);
-            Product? product = productService.GetById(productId);
+            ProductViewModel? product = productService.GetById(productId);
 
             if (favorite is null)
             {

@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="OnlineShop.Db/OnlineShop.Db.csproj" />
   <Project Path="OnlineShop/OnlineShop.csproj" />
 </Solution>

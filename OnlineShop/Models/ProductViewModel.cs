@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Models;
 
-public record Product
+public record ProductViewModel
 {
     public Guid Id { get; init; }
 
@@ -27,13 +27,13 @@ public record Product
     public bool IsDeleted { get; set; } = false;
 
 
-    public Product() : this("TEST", 0)
+    public ProductViewModel() : this("TEST", 0)
     { }
-    public Product(string name, decimal cost) : this(name, cost, null)
+    public ProductViewModel(string name, decimal cost) : this(name, cost, null)
     { }
-    public Product(string name, decimal cost, string? description) : this(Guid.NewGuid(), name, cost, description)
+    public ProductViewModel(string name, decimal cost, string? description) : this(Guid.NewGuid(), name, cost, description)
     { }
-    public Product(Guid id, string name, decimal price, string? description)
+    public ProductViewModel(Guid id, string name, decimal price, string? description)
     {
         Id = id;
         Name = name;

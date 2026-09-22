@@ -9,7 +9,7 @@ namespace OnlineShop.Controllers
     {
         public IActionResult Index(Guid id)
         {
-            Product? product = productService.GetById(id);
+            ProductViewModel? product = productService.GetById(id);
 
             if (product is null)
                 return RedirectToAction("Index", "Home");

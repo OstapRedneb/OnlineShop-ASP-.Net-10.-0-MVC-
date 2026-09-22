@@ -21,7 +21,7 @@ namespace OnlineShop.Controllers
         public IActionResult Add(Guid productId)
         {
             Comparator? comparator = comparatorService.GetById(Info.Info.CommonComparatorId);
-            Product? product = productService.GetById(productId);
+            ProductViewModel? product = productService.GetById(productId);
 
             if (comparator is null)
             {
@@ -39,7 +39,7 @@ namespace OnlineShop.Controllers
         public IActionResult Remove(Guid productId) 
         {
             Comparator? comparator = comparatorService.GetById(Info.Info.CommonComparatorId);
-            Product? product = productService.GetById(productId);
+            ProductViewModel? product = productService.GetById(productId);
 
             if (comparator is null)
             {

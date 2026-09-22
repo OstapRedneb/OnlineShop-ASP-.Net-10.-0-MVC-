@@ -11,7 +11,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Index(string searchString = "")
         {
-            List<Product> products = productService.GetAll();
+            List<ProductViewModel> products = productService.GetAll();
 
             if (!string.IsNullOrWhiteSpace(searchString)) 
             {
@@ -31,9 +31,9 @@ namespace OnlineShop.Controllers
             productService.Clear();
             productService.AddRange(
                 [
-                    new Product("CyberEyes", 99_999.99m),
-                    new Product("SynthSlider", 20_199.99m),
-                    new Product("HyperTimer", 10_000m)
+                    new ProductViewModel("CyberEyes", 99_999.99m),
+                    new ProductViewModel("SynthSlider", 20_199.99m),
+                    new ProductViewModel("HyperTimer", 10_000m)
                 ]);
 
             Role userRole = new Role();

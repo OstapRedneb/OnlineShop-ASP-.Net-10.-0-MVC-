@@ -1,8 +1,8 @@
 ﻿namespace OnlineShop.Models
 {
-    public record FavoriteData(Guid Id, List<Product> Products)
+    public record FavoriteData(Guid Id, List<ProductViewModel> Products)
     {
-        public FavoriteData() : this(Guid.NewGuid(), new List<Product>())
+        public FavoriteData() : this(Guid.NewGuid(), new List<ProductViewModel>())
         {}
 
         public static explicit operator Favorite(FavoriteData data) 

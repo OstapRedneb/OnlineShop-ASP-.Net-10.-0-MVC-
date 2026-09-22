@@ -1,8 +1,8 @@
 namespace OnlineShop.Models
 {
-    public record ComparatorData(Guid Id, List<Product> Products)
+    public record ComparatorData(Guid Id, List<ProductViewModel> Products)
     {
-        public ComparatorData() : this(Guid.NewGuid(), new List<Product>())
+        public ComparatorData() : this(Guid.NewGuid(), new List<ProductViewModel>())
         {}
 
         public static explicit operator Comparator(ComparatorData data) 

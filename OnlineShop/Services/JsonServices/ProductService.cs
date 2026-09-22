@@ -9,27 +9,27 @@ public class ProductService : IProductService
 {
     private const string _path = "products.json";
 
-    public List<Product> GetAll()
+    public List<ProductViewModel> GetAll()
     {
         string blob = GetProductsBlob();
 
-        return JsonConvert.DeserializeObject<List<Product>>(blob)?.Where(product => !product.IsDeleted)?.ToList() ?? new List<Product>();
+        return JsonConvert.DeserializeObject<List<ProductViewModel>>(blob)?.Where(product => !product.IsDeleted)?.ToList() ?? new List<ProductViewModel>();
     }
-    public List<Product> GetAllWithDeleted()
+    public List<ProductViewModel> GetAllWithDeleted()
     {
         string blob = GetProductsBlob();
 
-        return JsonConvert.DeserializeObject<List<Product>>(blob) ?? new List<Product>();
+        return JsonConvert.DeserializeObject<List<ProductViewModel>>(blob) ?? new List<ProductViewModel>();
     }
-    public Product? GetById(Guid id) 
+    public ProductViewModel? GetById(Guid id) 
     {
         return GetAllWithDeleted().FirstOrDefault(product => product.Id == id);
     }
-    public bool Add(Product product)
+    public bool Add(ProductViewModel product)
     {
         bool answer = false;
 
-        List<Product> products = GetAll();
+        List<ProductViewModel> products = GetAll();
 
         if (product != null && !products.Any(productFromMemory => productFromMemory.Id == product.Id))
         {
@@ -40,10 +40,10 @@ public class ProductService : IProductService
 
         return answer;
     }
-    public void AddRange(params List<Product> products)
+    public void AddRange(params List<ProductViewModel> products)
     {
-        List<Product> memoryProducts = GetAll();
-        List<Product> productsToAdd = memoryProducts
+        List<ProductViewModel> memoryProducts = GetAll();
+        List<ProductViewModel> productsToAdd = memoryProducts
             .Union(
                 products.Where(product => product != null), 
                 new ProductIdEqualityComparer()
@@ -52,12 +52,12 @@ public class ProductService : IProductService
 
         WriteIntoMemory(productsToAdd);
     }
-    public bool Update(Product product) 
+    public bool Update(ProductViewModel product) 
     {
         if (product is null)
             return false;
 
-        List<Product> products = GetAll();
+        List<ProductViewModel> products = GetAll();
 
         bool wasFound = false;
         for (int i = 0; i < products.Count; i++) 
@@ -82,7 +82,7 @@ public class ProductService : IProductService
         if (File.Exists(_path))
             File.Delete(_path);
     }
-    private void WriteIntoMemory(List<Product>  products)
+    private void WriteIntoMemory(List<ProductViewModel>  products)
     {
         string blob = JsonConvert.SerializeObject(products);
 

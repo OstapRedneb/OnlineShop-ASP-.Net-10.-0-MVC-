@@ -2,9 +2,9 @@
 
 namespace OnlineShop.Models
 {
-    public record Favorite : IEnumerable<Product>
+    public record Favorite : IEnumerable<ProductViewModel>
     {
-        private readonly List<Product> _products;
+        private readonly List<ProductViewModel> _products;
 
         public Guid Id { get; set; }
         public int Count => _products.Count;
@@ -14,18 +14,18 @@ namespace OnlineShop.Models
         //ctor
         public Favorite() : this(Guid.NewGuid())
         { }
-        public Favorite(Guid id) : this(id, new List<Product>())
+        public Favorite(Guid id) : this(id, new List<ProductViewModel>())
         { }
-        public Favorite(Guid id, List<Product> products) 
+        public Favorite(Guid id, List<ProductViewModel> products) 
         {
             Id = id;
             _products = products;
         }
 
         //IEnumerable
-        public IEnumerator<Product> GetEnumerator() => _products.GetEnumerator();
+        public IEnumerator<ProductViewModel> GetEnumerator() => _products.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        public Product this[int index] 
+        public ProductViewModel this[int index] 
         {
             get => _products[index];
             set => _products[index] = value;
@@ -33,7 +33,7 @@ namespace OnlineShop.Models
 
 
         //Methods
-        public bool Add(Product product) 
+        public bool Add(ProductViewModel product) 
         {
             if (product is null || _products.Contains(product, new ProductIdEqualityComparer()))
                 return false;
@@ -41,7 +41,7 @@ namespace OnlineShop.Models
             _products.Add(product);
             return true;
         }
-        public bool Remove(Product product) 
+        public bool Remove(ProductViewModel product) 
         {
             if (product is null || !_products.Contains(product, new ProductIdEqualityComparer()))
                 return false;

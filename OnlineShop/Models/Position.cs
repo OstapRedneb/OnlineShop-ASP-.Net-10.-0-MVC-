@@ -3,7 +3,7 @@
     public record Position
     {
         public Guid Id { get; init; }
-        public Product Product { get; init; }
+        public ProductViewModel Product { get; init; }
         public ushort Quantity
         {
             get => field;
@@ -20,9 +20,9 @@
 
         public Position() 
         { }
-        public Position(Product product) : this(product, 1) 
+        public Position(ProductViewModel product) : this(product, 1) 
         { }
-        public Position(Product product, ushort quantity)
+        public Position(ProductViewModel product, ushort quantity)
         {
             Id = Guid.NewGuid();
             Product = product;
