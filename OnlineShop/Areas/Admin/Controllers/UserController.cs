@@ -171,7 +171,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         private void Register(User user) 
         {
-            Cart cart = new Cart();
+            CartViewModel cart = new CartViewModel();
             Favorite favorite = new Favorite();
             OrderList orderList = new OrderList();
             Comparator comparator = new Comparator();

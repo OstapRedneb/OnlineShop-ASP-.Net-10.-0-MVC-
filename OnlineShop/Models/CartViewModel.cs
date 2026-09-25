@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace OnlineShop.Models
 {
-    public record Cart : IEnumerable<Position>
+    public record CartViewModel : IEnumerable<PositionViewModel>
     {
-        private readonly List<Position> _positions = new List<Position>();
+        private readonly List<PositionViewModel> _positions = new List<PositionViewModel>();
 
         public Guid Id { get; init; }
         public decimal Price => _positions.Sum(position => position.Price);
@@ -16,28 +16,28 @@ namespace OnlineShop.Models
 
 
         //ctor
-        public Cart() : this(new List<Position>()) 
+        public CartViewModel() : this(new List<PositionViewModel>()) 
         { }
-        public Cart(List<Position> positions) : this(Guid.NewGuid(), positions)
+        public CartViewModel(List<PositionViewModel> positions) : this(Guid.NewGuid(), positions)
         { }
-        public Cart(Guid id, List<Position> positions) 
+        public CartViewModel(Guid id, List<PositionViewModel> positions) 
         {
             Id = id;
             _positions = positions;
         }
 
-        public Position this[int index]
+        public PositionViewModel this[int index]
         {
             get => _positions[index];
             set => _positions[index] = value;
         }
 
         //Методы интерфейса
-        public IEnumerator<Position> GetEnumerator() => _positions.GetEnumerator();
+        public IEnumerator<PositionViewModel> GetEnumerator() => _positions.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
 
-        public bool Add(Position position) 
+        public bool Add(PositionViewModel position) 
         {
             if (position is null)
                 return false;
@@ -68,10 +68,10 @@ namespace OnlineShop.Models
                 }
             }
 
-            this._positions.Add(new Position(product));
+            this._positions.Add(new PositionViewModel(product));
             return true;
         }
-        public bool Remove(Position position) 
+        public bool Remove(PositionViewModel position) 
         {
             if (position is null || !this.Contains(position)) 
                 return false;
@@ -84,7 +84,7 @@ namespace OnlineShop.Models
             if (product is null || this.All(position => position.Product.Id != product.Id))
                 return false;
 
-            Position position = this.FirstOrDefault(position => position.Product.Id == product.Id);
+            PositionViewModel position = this.FirstOrDefault(position => position.Product.Id == product.Id);
 
             _positions.Remove(position);
             return true;

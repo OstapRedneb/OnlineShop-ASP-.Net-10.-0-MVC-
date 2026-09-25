@@ -41,16 +41,16 @@ public record Order
     [StringLength(255)]
     public string? Comment { get; set; }
 
-    public List<Position> Positions { get; init; }
+    public List<PositionViewModel> Positions { get; init; }
     public decimal Price => Positions.Sum(position => position.Price);
     public int Count => Positions.Count;
     public int TotalCouunt => Positions.Sum(position => position.Quantity);
 
     public Guid UserId { get; set; }
 
-    public Order() : this(new List<Position>())
+    public Order() : this(new List<PositionViewModel>())
     { }
-    public Order(List<Position> positions)
+    public Order(List<PositionViewModel> positions)
     {
         CreatedAt = DateTime.Now;
         Status = OrderStatus.Created;

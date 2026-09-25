@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Models
 {
-    public record Position
+    public record PositionViewModel
     {
         public Guid Id { get; init; }
         public ProductViewModel Product { get; init; }
@@ -18,11 +18,11 @@
         public decimal Price => Product.Price * Quantity;
 
 
-        public Position() 
+        public PositionViewModel() 
         { }
-        public Position(ProductViewModel product) : this(product, 1) 
+        public PositionViewModel(ProductViewModel product) : this(product, 1) 
         { }
-        public Position(ProductViewModel product, ushort quantity)
+        public PositionViewModel(ProductViewModel product, ushort quantity)
         {
             Id = Guid.NewGuid();
             Product = product;

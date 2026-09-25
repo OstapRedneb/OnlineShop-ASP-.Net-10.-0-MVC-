@@ -5,11 +5,11 @@ namespace OnlineShop.Services.Interfaces
 {
     public interface ICartService
     {
-        public List<Cart> GetAll();
-        public Cart? GetById(Guid id);
-        public bool Add(Cart cart);
-        public void AddRange(params List<Cart> carts);
-        public bool Update(Cart cart);
+        public List<CartViewModel> GetAll();
+        public CartViewModel? GetById(Guid id);
+        public bool Add(CartViewModel cart);
+        public void AddRange(params List<CartViewModel> carts);
+        public bool Update(CartViewModel cart);
         public void Clear();
     }
 }

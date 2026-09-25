@@ -9,25 +9,25 @@ namespace OnlineShop.Services.JsonServices
         private const string _path = "carts.json";
 
 
-        public List<Cart> GetAll()
+        public List<CartViewModel> GetAll()
         {
             string blob = GetCartsBlob();
 
             return JsonConvert
                     .DeserializeObject<List<CartData>>(blob)
                     ?.OfType<CartData>()
-                    ?.Select(cartData => (Cart)cartData)
-                    ?.ToList() ?? new List<Cart>();
+                    ?.Select(cartData => (CartViewModel)cartData)
+                    ?.ToList() ?? new List<CartViewModel>();
         }
-        public Cart? GetById(Guid id) 
+        public CartViewModel? GetById(Guid id) 
         {
-            List<Cart> carts = GetAll();
+            List<CartViewModel> carts = GetAll();
 
             return carts.FirstOrDefault(cart => cart.Id == id);
         }
-        public bool Add(Cart cart) 
+        public bool Add(CartViewModel cart) 
         {
-            List<Cart> carts = GetAll();
+            List<CartViewModel> carts = GetAll();
 
             if (cart is null || carts.Any(cartFromMemory => cartFromMemory.Id == cart.Id))
                 return false;
@@ -37,16 +37,16 @@ namespace OnlineShop.Services.JsonServices
 
             return true;
         }
-        public void AddRange(params List<Cart> carts) 
+        public void AddRange(params List<CartViewModel> carts) 
         {
-            List<Cart> cartsFromMemory = GetAll();
+            List<CartViewModel> cartsFromMemory = GetAll();
 
-            List<Cart> newCarts = cartsFromMemory.Union(carts, new CartIdEqualityComparer()).ToList();
+            List<CartViewModel> newCarts = cartsFromMemory.Union(carts, new CartIdEqualityComparer()).ToList();
             WriteIntoMemory(newCarts);
         }
-        public bool Update(Cart cart) 
+        public bool Update(CartViewModel cart) 
         {
-            List<Cart> carts = GetAll();
+            List<CartViewModel> carts = GetAll();
 
             if (cart is null)
                 return false;
@@ -74,9 +74,9 @@ namespace OnlineShop.Services.JsonServices
             if (File.Exists(_path))
                 File.Delete(_path);
         }
-        private void WriteIntoMemory(List<Cart> carts)
+        private void WriteIntoMemory(List<CartViewModel> carts)
         {
-            string blob = JsonConvert.SerializeObject(carts.OfType<Cart>().Select(cart => (CartData)cart).ToList());
+            string blob = JsonConvert.SerializeObject(carts.OfType<CartViewModel>().Select(cart => (CartData)cart).ToList());
 
             using (StreamWriter writer = new StreamWriter(_path, false))
             {

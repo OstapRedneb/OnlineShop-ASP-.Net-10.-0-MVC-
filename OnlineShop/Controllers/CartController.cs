@@ -9,11 +9,11 @@ namespace OnlineShop.Controllers
     {
         public IActionResult Index()
         {
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
             {
-                cart = new Cart() { Id = Info.Info.CommonCartId };
+                cart = new CartViewModel() { Id = Info.Info.CommonCartId };
                 cartService.Add(cart);
             }
 
@@ -21,12 +21,12 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Add(Guid productId)
         {
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
             ProductViewModel? product = productService.GetById(productId);
 
             if (cart is null)
             {
-                cart = new Cart() { Id = Info.Info.CommonCartId };
+                cart = new CartViewModel() { Id = Info.Info.CommonCartId };
                 cartService.Add(cart);
             }
 
@@ -38,15 +38,15 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Update(Guid positionId, string change)
         {
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
             {
-                cart = new Cart() { Id = Info.Info.CommonCartId };
+                cart = new CartViewModel() { Id = Info.Info.CommonCartId };
                 cartService.Add(cart);
             }
 
-            Position? position = cart.FirstOrDefault(position => position.Id == positionId);
+            PositionViewModel? position = cart.FirstOrDefault(position => position.Id == positionId);
 
             if (position != null)
             {
@@ -66,11 +66,11 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Clear()
         {
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
             {
-                cart = new Cart() { Id = Info.Info.CommonCartId };
+                cart = new CartViewModel() { Id = Info.Info.CommonCartId };
                 cartService.Add(cart);
             }
 

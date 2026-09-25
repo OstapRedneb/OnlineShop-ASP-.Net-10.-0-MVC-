@@ -12,7 +12,7 @@ namespace OnlineShop.Controllers
             if (userService.GetById(Info.Info.CommonUserId) is null)
                 return RedirectToAction("Register", "Account");
 
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
                 return RedirectToAction("Index", "Cart");
@@ -26,7 +26,7 @@ namespace OnlineShop.Controllers
             if (userService.GetById(Info.Info.CommonUserId) is null)
                 return RedirectToAction("Register", "Account");
 
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (!ModelState.IsValid)
                 return View(order with { Positions = cart.ToList() });

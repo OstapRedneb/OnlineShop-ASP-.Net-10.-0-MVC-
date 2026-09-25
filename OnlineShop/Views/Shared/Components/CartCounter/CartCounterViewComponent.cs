@@ -8,7 +8,7 @@ namespace OnlineShop.Views.Shared.Components.CartCounter
     {
         public IViewComponentResult Invoke() 
         {
-            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
+            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
 
             int answer = cart is null ? 0 : cart.Sum(position => position.Quantity);
 

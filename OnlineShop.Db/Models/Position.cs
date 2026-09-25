@@ -4,7 +4,10 @@ using System.Text;
 
 namespace OnlineShop.Db.Models
 {
-    internal class Position
+    public class Position
     {
+        public Guid Id { get; set; }
+        public Product Product { get; set; }
+        public Cart Cart { get; set; }
     }
 }

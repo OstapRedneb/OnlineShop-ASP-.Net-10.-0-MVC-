@@ -56,7 +56,7 @@ namespace OnlineShop.Controllers
         }
         private void RegisterUser(string name, string password, string firstName, string lastName, string email, string phone)
         {
-            Cart cart = new Cart();
+            CartViewModel cart = new CartViewModel();
             Favorite favorite = new Favorite();
             OrderList orderList = new OrderList();
             Comparator comparator = new Comparator();
@@ -93,7 +93,7 @@ namespace OnlineShop.Controllers
         {
             User user = userService.GetAll().First(user => user.Login == name);
 
-            Cart cart = cartService.GetById(user.CartId) ?? new Cart() { UserId = user.Id };
+            CartViewModel cart = cartService.GetById(user.CartId) ?? new CartViewModel() { UserId = user.Id };
             Favorite favorite = favoriteService.GetById(user.FavoriteId) ?? new Favorite() { UserId = user.Id };
             OrderList orderList = orderListService.GetById(user.OrderListId) ?? new OrderList() { UserId = user.Id };
             Comparator comparator = comparatorService.GetById(user.ComparatorId) ?? new Comparator() { UserId = user.Id };
