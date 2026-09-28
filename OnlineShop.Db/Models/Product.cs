@@ -29,8 +29,7 @@ namespace OnlineShop.Db.Models
         [Column("is_deleted")]
         [Required]
         public bool IsDeleted { get; set; }
-
-        [Column("positions")]
+        
         [DeleteBehavior(DeleteBehavior.Cascade)]
         public List<Position> Positions { get; set; }
     }
