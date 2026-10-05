@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OnlineShop.Db.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace OnlineShop.Db.Data.DataAnnotations;
 
@@ -35,9 +36,13 @@ public class ProductDataAnnotation : IEntityTypeConfiguration<Product>
         entityTypeBuilder
             .Property("IsDeleted")
             .HasColumnName("is_deleted")
-            .IsRequired(true);
+            .IsRequired(true)
+            .HasDefaultValue(false);
 
-        entityTypeBuilder.OnDelete()
+        entityTypeBuilder
+            .HasMany(product => product.Positions)
+            .WithOne(pos => pos.Product)
+            .OnDelete(DeleteBehavior.Cascade);
 
         entityTypeBuilder.HasKey(product => product.Id);
     }
