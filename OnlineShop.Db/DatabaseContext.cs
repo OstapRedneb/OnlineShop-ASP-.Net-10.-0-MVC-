@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using OnlineShop.Db.Data.Configurations;
+using OnlineShop.Db.Data.DataAnnotations;
 using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,12 @@ namespace OnlineShop.Db
 
             string connectionString = config.GetConnectionString("PostgreSqlConnection");
             optionsBuilder.UseNpgsql(connectionString);
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ProductDataAnnotation());
+            modelBuilder.ApplyConfiguration(new PositionDataAnnotation());
+            modelBuilder.ApplyConfiguration(new CartDataAnnotation());
         }
     }
 }
