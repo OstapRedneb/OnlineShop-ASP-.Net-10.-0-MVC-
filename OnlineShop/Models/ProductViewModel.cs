@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Models;
 
@@ -39,5 +40,29 @@ public record ProductViewModel
         Name = name;
         Price = price;
         Description = description;
+    }
+
+    //Mapping
+    public static explicit operator Product(ProductViewModel productViewModel)
+    {
+        return new Product()
+        {
+            Id = productViewModel.Id,
+            Price = productViewModel.Price,
+            Description = productViewModel.Description, 
+            Name = productViewModel.Name, 
+            IsDeleted = productViewModel.IsDeleted
+        };
+    }
+    public static explicit operator ProductViewModel(Product product)
+    {
+        return new ProductViewModel()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            IsDeleted = product.IsDeleted
+        };
     }
 }

@@ -23,4 +23,8 @@
     <Folder Include="Views/Shared/Components/FavoriteCounter/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../OnlineShop.Db/OnlineShop.Db.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using OnlineShop.Db.Models;
 
 namespace OnlineShop.Models
 {
@@ -36,6 +37,23 @@ namespace OnlineShop.Models
         public IEnumerator<PositionViewModel> GetEnumerator() => _positions.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
+        //Mapping
+        public static explicit operator Cart(CartViewModel cartViewModel)
+        {
+            return new Cart() 
+            {
+                Id = cartViewModel.Id, 
+                UserId = cartViewModel.UserId,
+                Positions = cartViewModel.Select(pos => (Position)pos).ToList()
+            };
+        }
+        public static explicit operator CartViewModel(Cart cart)
+        {
+            return new CartViewModel(cart.Id, cart.Positions.Select(pos => (PositionViewModel)pos).ToList())
+            {
+                UserId = cart.UserId
+            };
+        }
 
         public bool Add(PositionViewModel position) 
         {
