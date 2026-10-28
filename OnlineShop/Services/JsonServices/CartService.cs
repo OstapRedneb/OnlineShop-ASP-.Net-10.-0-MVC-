@@ -4,7 +4,7 @@ using OnlineShop.Services.Interfaces;
 
 namespace OnlineShop.Services.JsonServices
 {
-    public class CartService : ICartService
+    public class CartService
     {
         private const string _path = "carts.json";
 

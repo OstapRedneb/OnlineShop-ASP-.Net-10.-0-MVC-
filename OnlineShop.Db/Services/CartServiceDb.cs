@@ -14,7 +14,7 @@ public class CartServiceDb : ICartService
     }
     public Cart? GetById(Guid id)
     {
-        return _database.Carts.FirstOrDefault(cart => cart.Id == id);
+        return _database.Carts.AsNoTracking().FirstOrDefault(cart => cart.Id == id);
     }
     public bool Add(Cart? cart)
     {
@@ -32,6 +32,7 @@ public class CartServiceDb : ICartService
     }
     public bool Update(Cart cart)
     {
+        _database.Carts.Update(cart);
         _database.SaveChanges();
         return true;
     }

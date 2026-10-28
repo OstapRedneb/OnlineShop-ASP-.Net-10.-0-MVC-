@@ -1,3 +1,5 @@
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Services;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
 using Serilog;
@@ -21,8 +23,8 @@ namespace OnlineShop
                         .Enrich.WithProperty("ApplicationName", "Cyber Shop")
                 );
 
-            builder.Services.AddTransient<IProductService, ProductService>();
-            builder.Services.AddTransient<ICartService, CartService>();
+            builder.Services.AddTransient<IProductService, ProductServiceDb>();
+            builder.Services.AddTransient<ICartService, CartServiceDb>();
             builder.Services.AddTransient<IFavoriteService,  FavoriteService>();
             builder.Services.AddTransient<IOrderListService, OrderListService>();
             builder.Services.AddTransient<IComparatorService, ComparatorService>();

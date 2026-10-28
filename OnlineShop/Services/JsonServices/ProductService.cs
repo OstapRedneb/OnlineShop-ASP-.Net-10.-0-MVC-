@@ -5,7 +5,7 @@ using OnlineShop.Services.Interfaces;
 
 namespace OnlineShop.Services.JsonServices;
 
-public class ProductService : IProductService
+public class ProductService
 {
     private const string _path = "products.json";
 

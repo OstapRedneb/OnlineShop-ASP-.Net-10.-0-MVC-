@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Models
@@ -37,6 +38,7 @@ namespace OnlineShop.Models
         public IEnumerator<PositionViewModel> GetEnumerator() => _positions.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
+
         //Mapping
         public static explicit operator Cart(CartViewModel cartViewModel)
         {
@@ -49,7 +51,7 @@ namespace OnlineShop.Models
         }
         public static explicit operator CartViewModel(Cart cart)
         {
-            return new CartViewModel(cart.Id, cart.Positions.Select(pos => (PositionViewModel)pos).ToList())
+            return new CartViewModel(cart.Id, cart.Positions?.Select(pos => (PositionViewModel)pos)?.ToList() ?? new List<PositionViewModel>())
             {
                 UserId = cart.UserId
             };
