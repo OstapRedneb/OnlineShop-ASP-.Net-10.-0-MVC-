@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using System.Xml.Linq;
@@ -56,7 +58,7 @@ namespace OnlineShop.Controllers
         }
         private void RegisterUser(string name, string password, string firstName, string lastName, string email, string phone)
         {
-            CartViewModel cart = new CartViewModel();
+            Cart cart = new Cart();
             Favorite favorite = new Favorite();
             OrderList orderList = new OrderList();
             Comparator comparator = new Comparator();
@@ -93,7 +95,7 @@ namespace OnlineShop.Controllers
         {
             User user = userService.GetAll().First(user => user.Login == name);
 
-            CartViewModel cart = cartService.GetById(user.CartId) ?? new CartViewModel() { UserId = user.Id };
+            Cart? cart = cartService.GetById(user.CartId);
             Favorite favorite = favoriteService.GetById(user.FavoriteId) ?? new Favorite() { UserId = user.Id };
             OrderList orderList = orderListService.GetById(user.OrderListId) ?? new OrderList() { UserId = user.Id };
             Comparator comparator = comparatorService.GetById(user.ComparatorId) ?? new Comparator() { UserId = user.Id };
@@ -109,7 +111,7 @@ namespace OnlineShop.Controllers
             Info.Info.CommonUserId = user.Id;
             Info.Info.CommonFavoriteId = favorite.Id;
             Info.Info.CommonComparatorId = comparator.Id;
-            Info.Info.CommonCartId = cart.Id;
+            Info.Info.CommonCartId = cart?.Id ?? Guid.NewGuid();
             Info.Info.CommonOrderListId = orderList.Id;
             Info.Info.CommonRoleId = role.Id;
 
