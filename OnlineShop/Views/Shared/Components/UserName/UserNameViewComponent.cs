@@ -11,7 +11,7 @@ namespace OnlineShop.Views.Shared.Components.UserName
         {
             User? user = userService.GetById(Info.Info.CommonUserId);
 
-            return View("UserName", user?.Login ?? "UNKNOW");
+            return View("UserName", user?.Login ?? "[UNKNOWN]");
         }
     }
 }
