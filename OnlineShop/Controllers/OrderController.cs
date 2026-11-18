@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using System.Runtime.InteropServices;
@@ -12,12 +14,12 @@ namespace OnlineShop.Controllers
             if (userService.GetById(Info.Info.CommonUserId) is null)
                 return RedirectToAction("Register", "Account");
 
-            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (cart is null)
                 return RedirectToAction("Index", "Cart");
 
-            return View(new Order(cart.ToList()));
+            return View(new Order(((CartViewModel)cart).ToList()));
         }
 
         [HttpPost]
@@ -26,10 +28,10 @@ namespace OnlineShop.Controllers
             if (userService.GetById(Info.Info.CommonUserId) is null)
                 return RedirectToAction("Register", "Account");
 
-            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
             if (!ModelState.IsValid)
-                return View(order with { Positions = cart.ToList() });
+                return View(order with { Positions = cart.Positions.Select(pos => (PositionViewModel)pos).ToList() });
 
             OrderList? orderList = orderListService.GetById(Info.Info.CommonOrderListId);
 
@@ -43,11 +45,11 @@ namespace OnlineShop.Controllers
                 orderList = newOrderList;
             }
 
-            order = order with { Positions= cart.ToList() };
+            order = order with { Positions= cart.Positions.Select(pos => (PositionViewModel)pos).ToList() };
             order.UserId = Info.Info.CommonUserId;
 
             //Clear
-            cart.Clear();
+            cart.Positions.Clear();
             cartService.Update(cart);
 
             orderList.Add(order);

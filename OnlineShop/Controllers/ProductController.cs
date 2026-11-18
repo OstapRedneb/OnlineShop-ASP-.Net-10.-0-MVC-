@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
@@ -9,12 +11,12 @@ namespace OnlineShop.Controllers
     {
         public IActionResult Index(Guid id)
         {
-            ProductViewModel? product = productService.GetById(id);
+            Product? product = productService.GetById(id);
 
             if (product is null)
                 return RedirectToAction("Index", "Home");
 
-            return View(product);
+            return View((ProductViewModel)product);
         }
     }
 }

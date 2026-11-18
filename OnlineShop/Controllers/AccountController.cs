@@ -85,7 +85,7 @@ namespace OnlineShop.Controllers
             Info.Info.CommonOrderListId = orderList.Id;
             Info.Info.CommonRoleId = role.Id;
 
-            cartService.Update(cart);
+            cartService.Add(cart);
             favoriteService.Update(favorite);
             comparatorService.Update(comparator);
             orderListService.Update(orderList);
@@ -115,7 +115,7 @@ namespace OnlineShop.Controllers
             Info.Info.CommonOrderListId = orderList.Id;
             Info.Info.CommonRoleId = role.Id;
 
-            cartService.Update(cart);
+            
             favoriteService.Update(favorite);
             comparatorService.Update(comparator);
             orderListService.Update(orderList);

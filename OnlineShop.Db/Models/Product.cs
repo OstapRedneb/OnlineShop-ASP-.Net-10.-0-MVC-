@@ -31,6 +31,6 @@ namespace OnlineShop.Db.Models
         public bool IsDeleted { get; set; }
         
         [DeleteBehavior(DeleteBehavior.Cascade)]
-        public List<Position> Positions { get; set; }
+        public List<Position> Positions { get; set; } = null!;
     }
 }

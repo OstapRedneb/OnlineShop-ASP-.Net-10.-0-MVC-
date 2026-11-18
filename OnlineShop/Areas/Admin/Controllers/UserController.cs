@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
@@ -171,7 +173,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         private void Register(User user) 
         {
-            CartViewModel cart = new CartViewModel();
+            Cart cart = new Cart();
             Favorite favorite = new Favorite();
             OrderList orderList = new OrderList();
             Comparator comparator = new Comparator();
@@ -186,7 +188,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             orderList.UserId = user.Id;
             comparator.UserId = user.Id;
 
-            cartService.Update(cart);
+            cartService.Add(cart);
             favoriteService.Update(favorite);
             comparatorService.Update(comparator);
             orderListService.Update(orderList);

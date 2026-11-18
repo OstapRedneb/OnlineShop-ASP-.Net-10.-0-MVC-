@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
@@ -11,14 +13,14 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Index(string searchString = "")
         {
-            List<ProductViewModel> products = productService.GetAll();
+            List<Product> products = productService.GetAll();
 
             if (!string.IsNullOrWhiteSpace(searchString)) 
             {
                 products = products.OrderByDescending(product => CountSearch(product.Name, searchString, 3)).ToList();
             }
 
-            return View(products);
+            return View(products.Select(product => (ProductViewModel)product));
         }
         public IActionResult Initial() 
         {
@@ -31,9 +33,9 @@ namespace OnlineShop.Controllers
             productService.Clear();
             productService.AddRange(
                 [
-                    new ProductViewModel("CyberEyes", 99_999.99m),
-                    new ProductViewModel("SynthSlider", 20_199.99m),
-                    new ProductViewModel("HyperTimer", 10_000m)
+                    new Product(){Name = "CyberEyes", Price = 99_999.99m},
+                    new Product(){Name = "SynthSlider", Price = 20_199.99m},
+                    new Product(){Name = "HyperTimer", Price = 10_000m}
                 ]);
 
             Role userRole = new Role();
@@ -96,7 +98,7 @@ namespace OnlineShop.Controllers
         private void CreateAdmin() 
         {
             User admin = new User("admin", "123456", "88005553535", "Dazdraperma", "Djugashvily", "admin@gmail.com");
-            CartViewModel cart = new CartViewModel() { UserId = admin.Id };
+            Cart cart = new Cart() { UserId = admin.Id };
             Favorite favorite = new Favorite() { UserId = admin.Id };
             OrderList orderList = new OrderList() { UserId = admin.Id };
             Comparator comparator = new Comparator() { UserId = admin.Id };

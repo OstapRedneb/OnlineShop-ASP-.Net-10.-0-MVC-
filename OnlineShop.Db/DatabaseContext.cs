@@ -26,7 +26,8 @@ namespace OnlineShop.Db
         {
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-            string connectionString = config.GetConnectionString("PostgreSqlConnection");
+            string? connectionString = config.GetConnectionString("PostgreSqlConnection") 
+                ?? throw new InvalidOperationException("БД-шечка не найдена, дружок");
             optionsBuilder.UseNpgsql(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

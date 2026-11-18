@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
@@ -23,7 +25,7 @@ namespace OnlineShop.Controllers
         public IActionResult Add(Guid productId)
         {
             Favorite? favorite = favoriteService.GetById(Info.Info.CommonFavoriteId);
-            ProductViewModel? product = productService.GetById(productId);
+            Product? product = productService.GetById(productId);
 
             if (favorite is null)
             {
@@ -31,7 +33,7 @@ namespace OnlineShop.Controllers
                 favoriteService.Add(favorite);
             }
 
-            if (favorite.Add(product))
+            if (favorite.Add((ProductViewModel)product))
                 favoriteService.Update(favorite);
 
             string referer = Request.Headers["Referer"].ToString();
@@ -41,7 +43,7 @@ namespace OnlineShop.Controllers
         public IActionResult Remove(Guid productId) 
         {
             Favorite? favorite = favoriteService.GetById(Info.Info.CommonFavoriteId);
-            ProductViewModel? product = productService.GetById(productId);
+            Product? product = productService.GetById(productId);
 
             if (favorite is null)
             {
@@ -49,7 +51,7 @@ namespace OnlineShop.Controllers
                 favoriteService.Add(favorite);
             }
 
-            if (favorite.Remove(product))
+            if (favorite.Remove((ProductViewModel)product))
                 favoriteService.Update(favorite);
 
             return RedirectToAction("Index");

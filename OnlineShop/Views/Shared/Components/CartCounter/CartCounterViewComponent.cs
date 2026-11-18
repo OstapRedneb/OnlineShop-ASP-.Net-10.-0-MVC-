@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 
@@ -8,9 +10,9 @@ namespace OnlineShop.Views.Shared.Components.CartCounter
     {
         public IViewComponentResult Invoke() 
         {
-            CartViewModel? cart = cartService.GetById(Info.Info.CommonCartId);
+            Cart? cart = cartService.GetById(Info.Info.CommonCartId);
 
-            int answer = cart is null ? 0 : cart.Sum(position => position.Quantity);
+            decimal answer = cart is null ? 0 : cart.Positions.Sum(position => position.Quantity);
 
             return View("CartCounter", answer);
         }

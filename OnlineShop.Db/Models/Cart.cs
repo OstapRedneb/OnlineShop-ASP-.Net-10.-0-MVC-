@@ -9,6 +9,6 @@ namespace OnlineShop.Db.Models
     {
         public Guid Id { get; set; }
         public Guid UserId;
-        public List<Position> Positions { get; set; }
+        public List<Position> Positions { get; set; } = null!;
     }
 }

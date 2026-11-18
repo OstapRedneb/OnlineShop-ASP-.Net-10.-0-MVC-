@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 
@@ -21,7 +23,7 @@ namespace OnlineShop.Controllers
         public IActionResult Add(Guid productId)
         {
             Comparator? comparator = comparatorService.GetById(Info.Info.CommonComparatorId);
-            ProductViewModel? product = productService.GetById(productId);
+            Product? product = productService.GetById(productId);
 
             if (comparator is null)
             {
@@ -29,7 +31,7 @@ namespace OnlineShop.Controllers
                 comparatorService.Add(comparator);
             }
 
-            if (comparator.Add(product))
+            if (comparator.Add((ProductViewModel)product))
                 comparatorService.Update(comparator);
 
             string referer = Request.Headers["Referer"].ToString();
@@ -39,7 +41,7 @@ namespace OnlineShop.Controllers
         public IActionResult Remove(Guid productId) 
         {
             Comparator? comparator = comparatorService.GetById(Info.Info.CommonComparatorId);
-            ProductViewModel? product = productService.GetById(productId);
+            Product? product = productService.GetById(productId);
 
             if (comparator is null)
             {
@@ -47,7 +49,7 @@ namespace OnlineShop.Controllers
                 comparatorService.Add(comparator);
             }
 
-            if (comparator.Remove(product))
+            if (comparator.Remove((ProductViewModel)product))
                 comparatorService.Update(comparator);
 
             return RedirectToAction("Index");

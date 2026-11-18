@@ -10,11 +10,20 @@ public class CartServiceDb : ICartService
     private DatabaseContext _database = new DatabaseContext();
     public List<Cart> GetAll()
     {
-        return _database.Carts.ToList();
+        return _database
+            .Carts
+            .AsNoTracking()
+            .Include(cart => cart.Positions)
+            .ThenInclude(position => position.Product).ToList();
     }
     public Cart? GetById(Guid id)
     {
-        return _database.Carts.AsNoTracking().FirstOrDefault(cart => cart.Id == id);
+        return _database
+            .Carts
+            .AsNoTracking()
+            .Include(cart => cart.Positions)
+            .ThenInclude(position => position.Product).ToList()
+            .FirstOrDefault(cart => cart.Id == id);
     }
     public bool Add(Cart? cart)
     {

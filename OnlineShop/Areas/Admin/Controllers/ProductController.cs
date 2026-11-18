@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Interfaces;
+using OnlineShop.Db.Models;
 using OnlineShop.Models;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.JsonServices;
@@ -13,9 +15,9 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.IsAdmin ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            List<ProductViewModel> products = productService.GetAll();
+            List<Product> products = productService.GetAll();
 
-            return View(products);
+            return View(products.Select(product => (ProductViewModel)product));
         }
         public IActionResult Create()
         {
@@ -33,7 +35,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(product);
 
-            productService.Update(product);
+            productService.Add((Product)product);
 
             return RedirectToAction("Index");
         }
@@ -42,7 +44,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanEditProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            ProductViewModel? product = productService.GetById(id);
+            Product? product = productService.GetById(id);
             return View(product);
         }
         [HttpPost]
@@ -54,7 +56,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(product);
 
-            productService.Update(product);
+            productService.Update((Product)product);
 
             return RedirectToAction("Index");
         }
@@ -64,7 +66,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!roleService.GetById(Info.Info.CommonRoleId)?.CanDeleteProducts ?? false)
                 return RedirectToAction("Index", "Home", new {area = ""});
 
-            ProductViewModel? product = productService.GetById(id);
+            Product? product = productService.GetById(id);
 
             if (product != null)
                 product.IsDeleted = true;

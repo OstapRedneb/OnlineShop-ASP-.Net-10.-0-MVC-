@@ -30,7 +30,7 @@ namespace OnlineShop.Controllers
                 cart = new Cart() { Id = Info.Info.CommonCartId };
             }
 
-            cart.Positions.Add(new Position() {Product = product});
+            cart.Positions.Add(new Position() {Product = product, Quantity = 1});
 
             cartService.Update(cart);
 

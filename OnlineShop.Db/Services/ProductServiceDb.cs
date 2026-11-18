@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Interfaces;
 using OnlineShop.Db.Models;
 
@@ -9,15 +10,26 @@ public class ProductServiceDb : IProductService
     private DatabaseContext _database = new DatabaseContext();
     public List<Product> GetAll()
     {
-        return _database.Products.Where(product => !product.IsDeleted).ToList();
+        return _database
+            .Products
+            .AsNoTracking()
+            .Include(p => p.Positions)
+            .Where(product => !product.IsDeleted)
+            .ToList();
     }
     public List<Product> GetAllWithDeleted()
     {
-        return _database.Products.ToList();
+        return _database
+            .Products
+            .AsNoTracking()
+            .Include(p => p.Positions)
+            .ToList();
     }
     public Product? GetById(Guid id)
     {
-        return _database.Products.FirstOrDefault(product => product.Id == id);
+        Product product = _database.Products.AsNoTracking().FirstOrDefault(product => product.Id == id);
+        _database.Entry(product).Collection(prod => prod.Positions).Load();
+        return product;
     }
     public bool Add(Product? product)
     {

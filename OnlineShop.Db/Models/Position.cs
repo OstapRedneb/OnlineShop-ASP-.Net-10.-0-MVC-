@@ -17,7 +17,7 @@ namespace OnlineShop.Db.Models
                 field = value;
             }
         }
-        public Product Product { get; set; }
-        public Cart Cart { get; set; }
+        public Product Product { get; set; } = null!;
+        public Cart Cart { get; set; } = null!;
     }
 }
