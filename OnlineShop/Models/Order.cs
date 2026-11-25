@@ -44,7 +44,7 @@ public record Order
     public List<PositionViewModel> Positions { get; init; }
     public decimal Price => Positions.Sum(position => position.Price);
     public int Count => Positions.Count;
-    public int TotalCouunt => Positions.Sum(position => position.Quantity);
+    public decimal TotalCouunt => Positions.Sum(position => position.Quantity);
 
     public Guid UserId { get; set; }
 

@@ -36,7 +36,7 @@ public class ProductServiceDb : IProductService
         if (product is null || _database.Products.Any(productInMemory => productInMemory.Id == product.Id))
             return false;
 
-        _database.Add(product);
+        _database.Products.Add(product);
         _database.SaveChanges();
 
         return true;

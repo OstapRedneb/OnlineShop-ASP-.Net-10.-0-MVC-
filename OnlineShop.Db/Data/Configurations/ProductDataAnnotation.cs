@@ -31,7 +31,7 @@ public class ProductDataAnnotation : IEntityTypeConfiguration<Product>
         entityTypeBuilder
             .Property("Description")
             .HasColumnName("description")
-            .IsRequired(true);
+            .IsRequired(false);
 
         entityTypeBuilder
             .Property("IsDeleted")

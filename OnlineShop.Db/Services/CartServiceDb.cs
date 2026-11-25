@@ -30,7 +30,7 @@ public class CartServiceDb : ICartService
         if (cart is null || _database.Carts.Any(cartInMemory => cartInMemory.Id == cart.Id))
             return false;
 
-        _database.Add(cart);
+        _database.Carts.Add(cart);
         _database.SaveChanges();
 
         return true;
